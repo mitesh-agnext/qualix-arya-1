@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<!-- Top View,  Row itemView of RecyclerView -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="4dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="6dp"
+    android:clickable="true">
+
+
+    <!--Swipe Option-->
+    <com.daimajia.swipe.SwipeLayout
+        xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        swipe:drag_edge="right"
+        swipe:leftEdgeSwipeOffset="5dp"
+        swipe:rightEdgeSwipeOffset="5dp">
+    <!--SWIPE OPTION-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:tag="Bottom3"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:id="@+id/lnEdit"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="27dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_edit_white_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnDelete"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#FF5534"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="27dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_delete_white_24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+<!-- Main layout-->
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+
+        <ImageView
+            android:id="@+id/ivMap"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_weight="15"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_farm"
+            android:tint="?colorPrimary"
+          />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="90"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Farm"
+                    android:textColor="?colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wheat Irrigation"
+                    android:textColor="?colorPrimary"
+                    android:layout_marginLeft="2dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area" />
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Field@123"
+                android:layout_marginLeft="2dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address" />
+            <TextView
+                android:id="@+id/tvCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Field@123"
+                android:layout_marginLeft="2dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <View
+            android:id="@+id/viIndicator"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="?colorPrimary"/>
+
+        <!--  <ImageView
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="14"
+                  android:src="@drawable/ic_call_black_24dp"
+                  android:tint="?attr/colorPrimary"
+                  android:padding="8dp"
+                  android:visibility="invisible"/>-->
+
+        <!--   <ImageView
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="14"
+                   android:src="@drawable/icon_map"
+                   android:padding="8dp"/>-->
+
+
+    </LinearLayout>
+    </com.daimajia.swipe.SwipeLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+

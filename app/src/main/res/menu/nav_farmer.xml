@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_quality_ana"
+        android:checked="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Quality Analysis" />
+    <item
+        android:id="@+id/action_farm"
+        android:icon="@drawable/ic_graph_black_24dp"
+        android:title="@string/farm_management" />
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/ic_graph_black_24dp"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_graph_black_24dp"
+        android:title="@string/logout" />
+</menu>

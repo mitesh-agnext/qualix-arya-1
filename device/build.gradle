@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jakewharton.butterknife'
+
+apply from: '../config.gradle'
+
+android {
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation project(':base')
+
+    annotationProcessor "org.parceler:parceler:${parcelerVer}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVer}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${daggerVer}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVer}"
+    annotationProcessor "com.airbnb.android:epoxy-processor:${epoxyVer}"
+}

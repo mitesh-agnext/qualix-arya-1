@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_battery">Battery</string>
+    <string name="batt_level_value">%1$d%%</string>
+
+    <string name="title_select_device">Select Device</string>
+
+</resources>

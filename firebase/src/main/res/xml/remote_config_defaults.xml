@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>alertTitle</key>
+        <value>Alert!</value>
+    </entry>
+    <entry>
+        <key>alertButton</key>
+        <value>OK</value>
+    </entry>
+    <entry>
+        <key>redirectUrl</key>
+        <value>https://play.google.com/store/apps/</value>
+    </entry>
+    <entry>
+        <key>alertMessage</key>
+        <value>Message</value>
+    </entry>
+    <entry>
+        <key>minVersionCode</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>forceShowAlert</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>targetUsers</key>
+        <value />
+    </entry>
+</defaultsMap>

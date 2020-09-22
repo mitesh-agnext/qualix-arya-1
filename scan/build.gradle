@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jakewharton.butterknife'
+
+apply from: '../config.gradle'
+
+dependencies {
+    implementation project(':base')
+    api project(':device')
+    api project(':printer')
+
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    annotationProcessor "org.parceler:parceler:${parcelerVer}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVer}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${daggerVer}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVer}"
+    annotationProcessor "com.airbnb.android:epoxy-processor:${epoxyVer}"
+
+    implementation "com.opencsv:opencsv:4.2"
+    api "com.github.krtkush:LinearTimer:v2.1.1"
+    implementation "eo.view:batterymeter:2.0.0"
+    implementation "com.airbnb.android:lottie:3.3.1"
+    implementation "com.github.jrvansuita:PickImage:2.5"
+    implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation "org.apache.commons:commons-math3:3.6.1"
+    implementation "com.github.tarek360:instacapture:2.0.1"
+    implementation "com.skyfishjy.ripplebackground:library:1.0.1"
+}

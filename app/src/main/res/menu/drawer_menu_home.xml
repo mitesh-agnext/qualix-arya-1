@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/title_dashboard"
+        android:title="Dashboard">
+        <menu>
+            <item
+                android:id="@+id/nav_menu_home"
+                android:checked="true"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="@string/title_home" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/title_scan"
+        android:title="@string/title_select_scan">
+        <menu>
+            <item
+                android:id="@+id/nav_scan_history"
+                android:icon="@drawable/ic_fa_history_solid"
+                android:title="@string/scan_history"
+                android:visible="false"
+                tools:visible="true" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/title_inventory"
+        android:title="@string/device_management">
+        <menu>
+            <item
+                android:id="@+id/nav_add_devices"
+                android:icon="@drawable/ic_fa_dolly_flatbed_solid"
+                android:title="Inventory"
+                android:visible="false"
+                tools:visible="true" />
+
+            <item
+                android:id="@+id/nav_device_provisioning"
+                android:icon="@drawable/ic_fa_laptop_house_solid"
+                android:title="Provisioning"
+                android:visible="false"
+                tools:visible="true" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_user_list"
+        android:icon="@drawable/ic_fa_user_cog_solid"
+        android:title="@string/user_management"
+        android:visible="false"
+        tools:visible="true" />
+
+    <item
+        android:id="@+id/nav_customer_list"
+        android:icon="@drawable/ic_customer_black_24dp"
+        android:title="@string/customer_management"
+        android:visible="false"
+        tools:visible="true" />
+
+    <item
+        android:id="@+id/title_store"
+        android:title="Store Management">
+        <menu>
+            <item
+                android:id="@+id/nav_add_region"
+                android:icon="@drawable/ic_fa_location_arrow_solid"
+                android:title="Region"
+                android:visible="false"
+                tools:visible="true" />
+
+            <item
+                android:id="@+id/nav_add_site"
+                android:icon="@drawable/ic_fa_building_regular"
+                android:title="Site"
+                android:visible="false"
+                tools:visible="true" />
+
+            <item
+                android:id="@+id/nav_add_center"
+                android:icon="@drawable/ic_fa_tools_solid"
+                android:title="Installation center"
+                android:visible="false"
+                tools:visible="true" />
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/title_settings"
+        android:title="@string/title_settings">
+        <menu>
+
+            <item
+                android:id="@+id/nav_menu_permission"
+                android:icon="@drawable/ic_fa_user_shield_solid"
+                android:title="@string/title_permission" />
+
+            <item
+                android:id="@+id/nav_menu_change_pwd"
+                android:icon="@drawable/ic_security_black_24dp"
+                android:title="@string/title_change_pwd" />
+
+            <item
+                android:id="@+id/nav_menu_night"
+                android:icon="@drawable/ic_night_black_24dp"
+                android:title="Night mode"
+                app:actionViewClass="androidx.appcompat.widget.SwitchCompat" />
+
+            <item
+                android:id="@+id/nav_menu_settings"
+                android:icon="@drawable/ic_setting_24dp"
+                android:title="@string/title_settings" />
+
+            <item
+                android:id="@+id/nav_menu_logout"
+                android:icon="@drawable/ic_exit_black_24dp"
+                android:title="@string/title_logout" />
+        </menu>
+    </item>
+</menu>

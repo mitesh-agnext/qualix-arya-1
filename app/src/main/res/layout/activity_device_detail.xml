@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.custom.app.ui.devices.deviceList.DeviceDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <include layout="@layout/custom_toolbar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/device_serialNumber"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvSerialNumber_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:textColor="?colorAccent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deviceType"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvDeviceType_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:textColor="?colorAccent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/deviceSubType_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/device_subType"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvDeviceSubType_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/deviceGroup_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/device_group"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvDeviceGroup_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deviceSensorProfile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_profile"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvSensorProfile_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hw_revision"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvHwRevision_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fw_revision"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvFwRevision_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_of_life"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvStartOfLife_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/end_of_life"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvEndOfLife_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/startOfService_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_service"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvStartOfService_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/endOfService_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/end_service"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvEndOfService_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fhkchkc"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

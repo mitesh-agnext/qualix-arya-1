@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="deviceType">Device type*</string>
+    <string name="add_device">Add device</string>
+    <string name="update_device">Update device</string>
+    <string name="device_group">Device group</string>
+    <string name="device_subType">Device sub type</string>
+    <string name="device_serialNumber">Serial number*</string>
+    <string name="hw_revision">H/W Revision</string>
+    <string name="fw_revision">F/W Revision</string>
+    <string name="start_of_life">Start of life*</string>
+    <string name="end_of_life">End of life*</string>
+    <string name="vendor">Vendor*</string>
+    <string name="customer">Customer*</string>
+    <string name="start_service">Start services*</string>
+    <string name="end_service">End services*</string>
+
+    <string name="installation_center">Installation center</string>
+    <string name="device_management">Inventory Management</string>
+    <string name="sensor_profile">Sensor profile</string>
+    <string name="device_provisioning">Device provisioning</string>
+
+    <string name="installation_centers_type">Installation center type*</string>
+    <string name="users">User*</string>
+    <string name="create_installation_centers">Create installation center</string>
+    <string name="update_installation_centers">Update installation center</string>
+
+    <string name="coldstore_name">Coldstore name</string>
+    <string name="coldstore_deviceId">Coldstore device id</string>
+    <string name="create_coldstore">Create coldstore</string>
+    <string name="coldstores">Coldstores</string>
+    <string name="update_coldstore">Update coldstore</string>
+
+    <string name="profile_Type">Select profile type</string>
+    <string name="select_Profile">Select profile</string>
+    <string name="select_Site">Select site</string>
+    <string name="select_Site_type">Select site type</string>
+    <string name="select_Commodity">Select commodity</string>
+    <string name="select_customer">Select customer</string>
+    <string name="select_user">Select user</string>
+
+    <string name="Installation_centerName">Installation center</string>
+    <string name="created_on">Created on</string>
+
+    <string name="select_region">Select region</string>
+    <string name="create_site">Create site</string>
+    <string name="update_site">Update site</string>
+    <string name="site_name">Site name</string>
+
+    <string name="region_name">Region name</string>
+    <string name="region_name_mand">Region name *</string>
+    <string name="create_region">Create region</string>
+    <string name="update_region">Update region</string>
+
+    <string name="create_profile">Create profile</string>
+    <string name="profile">Profile</string>
+
+    <string name="profile_type">Profile type</string>
+    <string name="create_profile_type">Create profile type</string>
+    <string name="profile_name">Profile name</string>
+    <string name="max_temp">Max Temp</string>
+    <string name="min_temp">Min Temp</string>
+    <string name="update_profile">Update profile</string>
+    <string name="update_profile_type">Update profile type</string>
+    <string name="profile_type_name">Profile type name</string>
+    <string name="update_food_type">Update food type</string>
+    <string name="food_type_name">Food type name</string>
+    <string name="create_food_type">Create food type</string>
+    <string name="food">Food</string>
+    <string name="note">Note</string>
+
+    <string name="rule_config_name">Rule config name</string>
+    <string name="create_rule_config">Create rule config</string>
+    <string name="update_rule_config">Update rule config</string>
+
+    <string name="you_uploaded_a_wrong_image_please_upload_the_correct_image">You uploaded a wrong image. Please upload the correct image</string>
+    <string name="your_package_has_expired_please_visit_Dashboard_and_purchase_the_package">Your package has expired, please visit dashboard and purchase the package</string>
+    <string name="gallery_access_is_required">Gallery access is required.</string>
+    <string name="you_need_to_give_some_mandatory_permissions">You need to give some mandatory permissions</string>
+    <string name="select_picture">Select picture</string>
+    <string name="upload_image">Upload image</string>
+    <string name="add_tea_images">Add tea images</string>
+    <string name="please_upload_image">Please upload image</string>
+    <string name="please_upload_next_image">Please upload next image</string>
+    <string name="next_image">Next image</string>
+    <string name="package_expired">Package expired, please contact your admin</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="close">CLOSE</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_image_count">Please enter the image count</string>
+    <string name="flc_percentage">FLC percentage</string>
+    <string name="one_bud">One bud :</string>
+    <string name="one_leaf">One leaf :</string>
+    <string name="two_leaves">Two leaf :</string>
+    <string name="three_leaves">Three leaf :</string>
+    <string name="two_leaves_bud">Two leaf bud  :</string>
+    <string name="three_leaves_bud">Three leaf bud  :</string>
+    <string name="one_banjhi">One banjhi  :</string>
+    <string name="two_leaves_banjhi">Two leaf banjhi  :</string>
+    <string name="three_leaves_banjhi">Three leaf banjhi  :</string>
+    <string name="zero_days">0 days</string>
+    <string name="zero_days_left">0 days left</string>
+    <string name="total_flc">Total FLC :</string>
+    <string name="total_flc_is_">Total FLC is : </string>
+    <string name="one_leaf_bud">One leaf bud  : </string>
+    <string name="two_leaf_bud">Two leaf bud  : </string>
+    <string name="three_leaf_bud">Three leaf bud  : </string>
+    <string name="one_leaf_banjhi">One leaf banjhi  : </string>
+    <string name="two_leaf_banjhi">Two leaf banjhi  : </string>
+    <string name="no_data">No data</string>
+    <string name="clear_data">Clear data</string>
+    <string name="show_flc">Show FLC</string>
+    <string name="flc_result">FLC result :</string>
+    <string name="fine_shoot">Quality score</string>
+    <string name="flc">FLC</string>
+
+    <string name="commodity_name">Commodity name</string>
+    <string name="season_name">Season name</string>
+    <string name="season_equation">Season equation</string>
+    <string name="create_season">Create season</string>
+    <string name="update_season">Update season</string>
+    <string name="date_from">From</string>
+    <string name="date_to">To</string>
+    <string name="analytics">Analytics</string>
+    <string name="no_record_found">No record found</string>
+    <string name="deviations">Deviations</string>
+    <string name="range">Range</string>
+
+    <string name="device_detail">Device details</string>
+
+    <string name="deviation_profile">Deviation profile</string>
+
+    <string name="select_Analytics">Select analytics</string>
+
+    <string-array name="array_key">
+        <item>BL</item>
+        <item>Temp</item>
+    </string-array>
+
+    <string-array name="array_main_operator">
+        <item>AND</item>
+        <item>OR</item>
+    </string-array>
+
+    <string-array name="array_start_bracket">
+        <item>(</item>
+        <item>((</item>
+        <item>(((</item>
+    </string-array>
+
+    <string-array name="array_end_bracket">
+        <item>)</item>
+        <item>))</item>
+        <item>)))</item>
+    </string-array>
+
+    <string-array name="array_operator">
+        <item>"&lt;"</item>
+        <item>"&lt; = "</item>
+        <item>"&gt;"</item>
+        <item>"&gt; = "</item>
+        <item>" = "</item>
+
+    </string-array>
+
+</resources>

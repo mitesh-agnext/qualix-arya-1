@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical"
+    tools:background="@color/light_grey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_rect_solid_round_white"
+        android:clipToPadding="false">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_permission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/btn_permission"
+            android:textAllCaps="false"
+            tools:visibility="visible" />
+
+        <com.skyfishjy.library.RippleBackground
+            android:id="@+id/ripple_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:rb_color="@color/green"
+            app:rb_duration="4000"
+            app:rb_radius="52dp"
+            app:rb_rippleAmount="2"
+            app:rb_scale="6"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/centerImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_connect" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingTop="50dp"
+                android:text="@string/connect_device_msg"
+                android:textColor="@color/black" />
+
+        </com.skyfishjy.library.RippleBackground>
+
+    </RelativeLayout>
+
+</FrameLayout>

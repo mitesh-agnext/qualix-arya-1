@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/flcHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_sub_title"
+            android:textColor="@color/black"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvflcPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:textSize="20dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp" />
+
+    </LinearLayout>
+            
+        <TextView
+            android:id="@+id/tvx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:paddingLeft="8dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvOneLeafBud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:paddingLeft="8dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvOneLeafBunjhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+            <TextView
+            android:id="@+id/tvTwoLeafBud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:paddingLeft="8dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvThreeLeafBud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:paddingLeft="8dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/tvCoarseCount_flc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvOneBudCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:paddingLeft="8dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvOneLeafCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvTwoLeafCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tvThreeLeafCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvOneBanjhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/tvTwoLeafBunjhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvThreeLeafBunjhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+            <include
+                android:id="@+id/showFLC"
+                android:visibility="gone"
+                layout="@layout/progress_view"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+    <TextView
+        android:id="@+id/add_flc_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:visibility="visible"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:padding="6dp"
+        android:textSize="@dimen/txt_sub_title"
+        android:clickable="true"
+        android:background="@color/yellow"
+        android:textColor="@color/white"
+        android:layout_weight="1.4"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <TableRow android:padding="5dp">
+            <TextView
+                android:id="@+id/paymentFarmerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Name"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/paymentCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Company"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/paymentCommodity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Commodity"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/paymentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Date"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/paymentAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Amount"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10dp"/>
+        </TableRow>
+
+    </TableLayout>
+</androidx.cardview.widget.CardView>

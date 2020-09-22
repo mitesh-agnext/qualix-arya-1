@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/listLayout_site">
+
+    <include layout="@layout/custom_toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titleCustomers_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="12dp"
+            android:text="@string/customer"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <FrameLayout
+            android:id="@+id/spLayoutCustomer_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:paddingLeft="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleCustomers_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <Spinner
+                android:id="@+id/spCustomers_site"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="false"
+
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/titleRegion_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="12dp"
+            android:text="@string/select_region"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spLayoutCustomer_site"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <FrameLayout
+            android:id="@+id/spLayoutRegion_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:paddingLeft="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleRegion_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <Spinner
+                android:id="@+id/spRegion_site"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="false"
+
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvCountry_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="12dp"
+            android:text="@string/country"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spLayoutRegion_site"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <FrameLayout
+            android:id="@+id/spLayoutCountry_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:paddingLeft="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountry_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <Spinner
+                android:id="@+id/spCountry_site"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="false"
+
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/titleState_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="12dp"
+            android:text="@string/state"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spLayoutCountry_site"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <FrameLayout
+            android:id="@+id/spLayoutState_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:paddingLeft="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleState_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <Spinner
+                android:id="@+id/spState_site"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="false"
+
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/titleCity_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="12dp"
+            android:text="@string/city"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spLayoutState_site"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <FrameLayout
+            android:id="@+id/spLayoutCity_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:paddingLeft="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleCity_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <Spinner
+                android:id="@+id/spCity_site"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="false"
+
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey" />
+        </FrameLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tit_SiteName_site"
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:hintTextColor="?colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spLayoutCity_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_SiteName_site"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:gravity="center_vertical"
+                android:hint="@string/site_name"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/average_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/titleUser_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="12dp"
+            android:text="@string/select_user"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tit_SiteName_site"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <FrameLayout
+            android:id="@+id/spLayoutUser_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:paddingLeft="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleUser_site"
+            app:layout_constraintWidth_percent="0.82">
+
+            <Spinner
+                android:id="@+id/spUser_site"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="false"
+
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btCreateSite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/create_site"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/green"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spLayoutUser_site"
+            app:layout_constraintWidth_percent="0.82" />
+
+        <ProgressBar
+            android:id="@+id/progressAddDevices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

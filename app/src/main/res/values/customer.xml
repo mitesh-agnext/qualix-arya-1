@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="add_customer">Add customer</string>
+    <string name="customer_name">Customer name *</string>
+    <string name="official_email">Official email</string>
+    <string name="contact_number">Contact number</string>
+    <string name="gst">GST *</string>
+    <string name="pan">PAN *</string>
+    <string name="address_line1">Address (Line 1) *</string>
+    <string name="country">Country *</string>
+    <string name="state">State *</string>
+    <string name="city">City *</string>
+    <string name="pin_code">PIN code *</string>
+    <string name="bank_detail">Bank detail</string>
+    <string name="bank_name">Bank name</string>
+    <string name="bank_branch">Bank branch</string>
+    <string name="bank_account_number">Bank account number</string>
+    <string name="address">Address</string>
+    <string name="customer_management">Customer management</string>
+    <string name="search_here">Search here…</string>
+    <string name="update_customer">Update customer</string>
+    <string name="user_name">User name</string>
+    <string name="role">Role</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">Email</string>
+    <string name="user_type">User type</string>
+    <string name="user_management">User management</string>
+    <string name="update_user">Update user</string>
+    <string name="user_update_successfully">User update successfully</string>
+    <string name="bank_ifsc">Bank IFSC</string>
+    <string name="token_expire">Token expire</string>
+    <string name="add_user">Add user</string>
+    <string name="add_all_parameter">Add all parameter</string>
+    <string name="now_add_user_detail">Now add user detail</string>
+    <string name="all_customer">All customers</string>
+    <string name="updated_successfully">Updated successfully</string>
+    <string name="select_partner">Select partner</string>
+    <string name="is_partner">Is partner</string>
+    <string name="select_commodity">Select commodity</string>
+    <string name="error">Error</string>
+    <string name="select_device">Select device</string>
+    <string name="sensenext">SenseNext</string>
+
+    <string-array name="array_roles">
+        <item>Manger</item>
+        <item>Supervisor</item>
+    </string-array>
+
+    <string-array name="array_user_type">
+        <item>Admin</item>
+        <item>Finance</item>
+    </string-array>
+
+    <string-array name="array_escalation">
+        <item>Select escalation</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
+    </string-array>
+
+    <string-array name="array_battery">
+        <item>Select battery</item>
+        <item>0-25</item>
+        <item>26-50</item>
+        <item>51-100</item>
+    </string-array>
+
+    <string-array name="array_crop">
+        <item>Select crop</item>
+        <item>Wheat</item>
+        <item>Rice</item>
+    </string-array>
+
+    <string-array name="array_crop_variety">
+        <item>Select variety</item>
+        <item>Variety 1</item>
+        <item>Variety 2</item>
+    </string-array>
+</resources>

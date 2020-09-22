@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scan">Scan</string>
+    <string name="farm_management">Farm Management</string>
+    <string name="farm_code">Farm Code</string>
+    <string name="farm_name">Farm name</string>
+    <string name="area">Area</string>
+    <string name="add_boundaries">Add Boundaries</string>
+    <string name="add_farm">Add Farm</string>
+    <string name="location">Location</string>
+    <string name="section_name">Section Name</string>
+    <string name="section_code">Section Code</string>
+    <string name="add_garden">Add Garden</string>
+    <string name="add_division">Add Division</string>
+    <string name="garden_name">Garden name</string>
+    <string name="division_name">Division Name</string>
+    <string name="scan_history">Scan History</string>
+    <string name="payment_history">Payment History</string>
+    <string name="payment">Payment</string>
+    <string name="commodity">Commodity</string>
+</resources>

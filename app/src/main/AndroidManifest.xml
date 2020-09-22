@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.custom.app">
+
+    <application
+        android:name=".CustomApp"
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/title_app"
+        android:largeHeap="true"
+        android:theme="@style/CustomAppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:name, android:allowBackup, android:label, android:theme">
+        <activity android:name=".ui.newapp.MainActivity"></activity>
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.custom.app"
+                    android:pathPattern="/"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.permission.PermissionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.farmer.detail.FarmerDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.scan.select.SelectScanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".ui.user.list.UserListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.user.edit.EditUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.user.add.AddUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.user.detail.UserDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.customer.list.CustomerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.customer.edit.EditCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.customer.add.AddCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.device.list.DeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.device.add.AddDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.device.update.UpdateDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.device.assign.DeviceProvisionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.devices.deviceList.DeviceDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.payment.detail.PaymentDetailActivity" />
+        <activity android:name=".ui.payment.list.PaymentHistoryActivity" />
+        <activity android:name=".ui.scan.list.detail.ScanDetailActivity" />
+        <activity android:name=".ui.qualityAnalysis.QualityAnalysisActivity" />
+        <activity android:name=".ui.qualityAnalysis.QualityDetailActivity" />
+        <activity android:name=".ui.scan.list.history.ScanHistoryActivity" />
+        <activity android:name=".ui.customer.detail.CustomerDetailActivity" />
+        <activity
+            android:name=".ui.section.detail.SectionDetailActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.section.update.UpdateSectionActivity" />
+        <activity android:name=".ui.section.add.AddSectionActivity" />
+        <activity android:name=".ui.section.list.SectionListActivity" />
+        <activity
+            android:name=".ui.createData.instlCenter.centerList.InstallationCenterListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.instlCenter.createInstallationCenter.CreateIntlCenters"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.instlCenter.updateCenter.UpdateIntlCenters"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.region.list.RegionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.region.create.RegionCreate"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.region.update.RegionUpdate"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.region.site.list.SiteListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.region.site.create.CreateSite"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.region.site.update.UpdateSite"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.farm.farmList.FieldListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.farm.addFarm.AddFarmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.farm.farmDetail.FarmDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.farm.updateFarm.UpdateFarmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.createData.analytics.analyticsScreen.AnalysisScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.setting.SettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <service
+            android:name=".oauth.AccountAuthenticatorService"
+            android:exported="false"
+            android:process=":auth">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/maps_api_key" />
+
+        <service android:name=".fcm.FetchFcmTokenService" />
+        <service
+            android:name=".fcm.FcmMessageReceiverService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

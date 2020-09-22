@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="garden">Garden</string>
+    <string name="division">Division</string>
+    <string name="section">Section</string>
+    <string name="section_management">Section management</string>
+    <string name="update_section">Update section</string>
+
+    <string-array name="array_dummy">
+        <item>No Data</item>
+    </string-array>
+</resources>

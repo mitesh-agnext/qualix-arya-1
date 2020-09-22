@@ -1,0 +1,46 @@
+buildscript {
+    ext.kotlinVer = '1.3.72'
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.fabric.io/public" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+    dependencies {
+        classpath "io.fabric.tools:gradle:1.28.0"
+        classpath "com.android.tools.build:gradle:4.0.0"
+        classpath "com.google.gms:google-services:4.3.3"
+        classpath "com.jakewharton:butterknife-gradle-plugin:10.2.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVer}"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+def getProperty(String filename, String propName) {
+    def propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[propName] != null) {
+            return props[propName]
+        } else {
+            print("No such property " + propName + " in file " + filename)
+        }
+    } else {
+        print(filename + " does not exist!")
+    }
+}

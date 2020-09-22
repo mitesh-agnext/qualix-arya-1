@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="10dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="5dp">
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipeLayout_site"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        swipe:drag_edge="right"
+        swipe:leftEdgeSwipeOffset="5dp"
+        swipe:rightEdgeSwipeOffset="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:tag="Bottom3"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:id="@+id/lnEdit_site"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivEdit_site"
+                    android:layout_width="27dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_edit_white_24dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnDelete_site"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#FF5534"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivDelete_site"
+                    android:layout_width="27dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_delete_white_24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mainLayout_site"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/titleSiteName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40"
+                    android:text="@string/site_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvSiteName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="24dp"
+                    android:layout_weight="60"
+                    android:gravity="left"
+                    android:text="gacg"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="?colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/titleSitePlace"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40"
+                    android:text="@string/location"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvSitePlace"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_weight="60"
+                    android:gravity="left"
+                    android:text="fadacfadc"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/average_grey" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/titleSiteCreatedOn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40"
+                    android:text="@string/created_on"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvSiteCreatedOn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_weight="60"
+                    android:gravity="left"
+                    android:text="dgasyjdgsajd "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/average_grey" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.daimajia.swipe.SwipeLayout>
+</androidx.cardview.widget.CardView>

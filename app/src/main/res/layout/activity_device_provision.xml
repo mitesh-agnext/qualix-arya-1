@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/deviceProvisioning_layout">
+
+    <include layout="@layout/custom_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvDeviceType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/deviceType"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutDeviceType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeviceType"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/spDeviceType_provisioning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvDeviceGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/device_group"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutDeviceType"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutDeviceGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeviceGroup"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/spDeviceGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvDeviceSubType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/device_subType"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutDeviceGroup"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutDeviceSubType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeviceSubType"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/spDeviceSubType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titleSerialNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/device_serialNumber"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutDeviceSubType"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/tit_SerialNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleSerialNumber"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/et_serialNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black" />
+
+            </FrameLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tit_HwRevision"
+                style="@style/Widget.Design.TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:hintTextColor="?colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_SerialNumber"
+                app:layout_constraintWidth_percent="0.82">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_HwRevision_provisioning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_circular_stoke"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hw_revision"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/average_grey" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tit_FwRevision"
+                style="@style/Widget.Design.TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:hintTextColor="?colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_HwRevision"
+                app:layout_constraintWidth_percent="0.82">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_FwRevisionProvisioning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_circular_stoke"
+                    android:gravity="center_vertical"
+                    android:hint="@string/fw_revision"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/average_grey" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/titleCustomer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/customer"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_FwRevision"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/sp_Customer_Layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleCustomer"
+                app:layout_constraintWidth_percent="0.82">
+
+                <Spinner
+                    android:id="@+id/sp_Customer"
+                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvInstallationCenter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/installation_center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sp_Customer_Layout"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutInstallationCenters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvInstallationCenter"
+                app:layout_constraintWidth_percent="0.82">
+
+                <Spinner
+                    android:id="@+id/spInstallationCenters"
+                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvDeviationProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/deviation_profile"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutInstallationCenters"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutDeviationProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeviationProfile"
+                app:layout_constraintWidth_percent="0.82">
+
+                <Spinner
+                    android:id="@+id/spDeviationProfiles"
+                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvColdstores"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/coldstores"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutDeviationProfile"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutColdstores"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvColdstores"
+                app:layout_constraintWidth_percent="0.82">
+
+                <Spinner
+                    android:id="@+id/spColdstores"
+                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvUsers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/users"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutColdstores"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/spLayoutUsers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUsers"
+                app:layout_constraintWidth_percent="0.82">
+
+                <Spinner
+                    android:id="@+id/spUsers"
+                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawSelectorOnTop="false"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/average_grey" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titleStartOfService"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/start_service"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spLayoutUsers"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/tit_StartService"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleStartOfService"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/et_StartServices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titleEndOfService"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/end_service"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_StartService"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/tit_EndService"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleEndOfService"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/et_EndServices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titleStart_of_Life"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/start_of_life"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_EndService"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/tit_StartLife"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleStart_of_Life"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/et_StartLife"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titleEnd_of_Life"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="12dp"
+                android:text="@string/end_of_life"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/average_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_StartLife"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <FrameLayout
+                android:id="@+id/tit_EndLife"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circular_stoke"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleEnd_of_Life"
+                app:layout_constraintWidth_percent="0.82">
+
+                <TextView
+                    android:id="@+id/et_EndLife"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black" />
+
+            </FrameLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btdeviceProvisioning"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/device_provisioning"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/green"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tit_EndLife"
+                app:layout_constraintWidth_percent="0.82" />
+
+            <ProgressBar
+                android:id="@+id/progressProvisioningDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

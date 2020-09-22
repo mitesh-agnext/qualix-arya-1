@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="8dp">
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipeLayout_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        swipe:drag_edge="right">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:tag="Bottom3">
+
+            <LinearLayout
+                android:id="@+id/lnEdit_region"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivEdit_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_edit_white_24dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnDelete_region"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#FF5534"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivDelete_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_delete_white_24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mainLayout_region"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/tvRegionName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:gravity="left"
+                    android:text="gacg"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="?colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/titleRegionCreatedOn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40"
+                    android:text="@string/created_on"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvRegionCreatedOn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_weight="60"
+                    android:gravity="left"
+                    android:text="dgasyjdgsajd "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/average_grey" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.daimajia.swipe.SwipeLayout>
+</androidx.cardview.widget.CardView>

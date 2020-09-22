@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jakewharton.butterknife'
+
+apply from: '../config.gradle'
+
+dependencies {
+    implementation project(':core')
+
+    annotationProcessor "org.parceler:parceler:${parcelerVer}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVer}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${daggerVer}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVer}"
+    annotationProcessor "com.airbnb.android:epoxy-processor:${epoxyVer}"
+
+    api "com.google.firebase:firebase-core:17.0.0"
+    api "com.google.firebase:firebase-config:18.0.0"
+    api "com.google.firebase:firebase-messaging:${firebaseVer}"
+    implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
+}

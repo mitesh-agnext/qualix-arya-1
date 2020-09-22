@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="default_notification_channel_name">Updates</string>
+
+    <string name="fcm_not_supported_msg">This device is not supported for receiving fcm push notifications</string>
+
+</resources>

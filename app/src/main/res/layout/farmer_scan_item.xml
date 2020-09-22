@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp">
+
+    <LinearLayout
+        android:id="@+id/cdItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvTittle1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="Scan score"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey" />
+
+            <TextView
+                android:id="@+id/tvValue1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="?colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvTittle2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="Commodity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey" />
+
+            <TextView
+                android:id="@+id/tvValue2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvTittle6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="Device Type"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey" />
+
+            <TextView
+                android:id="@+id/tvValue6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvTittle3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="Date time"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey" />
+
+            <TextView
+                android:id="@+id/tvValue3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvTittle4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="Batch Id"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey" />
+
+            <TextView
+                android:id="@+id/tvValue4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnScan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvTittle5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="Scan Id"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey" />
+
+            <TextView
+                android:id="@+id/tvValue5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="60"
+                android:gravity="left"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/average_grey"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

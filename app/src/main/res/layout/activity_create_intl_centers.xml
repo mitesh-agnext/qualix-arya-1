@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/listLayout_center">
+
+<include layout="@layout/custom_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tit_InstallationName"
+        style="@style/Widget.Design.TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:hintTextColor="?colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.82">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_intallationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:gravity="center_vertical"
+            android:hint="@string/Installation_centerName"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black"
+            android:textColorHint="@color/average_grey" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvInstallationType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="12dp"
+        android:text="@string/installation_centers_type"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/average_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tit_InstallationName"
+        app:layout_constraintWidth_percent="0.82" />
+
+    <FrameLayout
+        android:id="@+id/spLayoutInstallationType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circular_stoke"
+        android:paddingLeft="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstallationType"
+        app:layout_constraintWidth_percent="0.82">
+
+        <Spinner
+            android:id="@+id/spInstallationCentersType"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/titleRegion_createCenter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="12dp"
+        android:text="@string/select_region"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/average_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spLayoutInstallationType"
+        app:layout_constraintWidth_percent="0.82" />
+
+    <FrameLayout
+        android:id="@+id/spLayoutRegion_createCenter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circular_stoke"
+        android:paddingLeft="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleRegion_createCenter"
+        app:layout_constraintWidth_percent="0.82">
+
+        <Spinner
+            android:id="@+id/spRegion_center"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/titleSite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="12dp"
+        android:text="@string/select_Site"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/average_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spLayoutRegion_createCenter"
+        app:layout_constraintWidth_percent="0.82" />
+
+    <FrameLayout
+        android:id="@+id/spLayoutSite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circular_stoke"
+        android:paddingLeft="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleSite"
+        app:layout_constraintWidth_percent="0.82">
+
+        <Spinner
+            android:id="@+id/spSite_center"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/titleCustomers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="12dp"
+        android:text="@string/customer"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/average_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spLayoutSite"
+        app:layout_constraintWidth_percent="0.82" />
+
+    <FrameLayout
+        android:id="@+id/spLayoutCustomer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circular_stoke"
+        android:paddingLeft="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleCustomers"
+        app:layout_constraintWidth_percent="0.82">
+
+        <Spinner
+            android:id="@+id/spCustomers_createCenter"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/titleUsers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="12dp"
+        android:text="@string/users"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/average_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spLayoutCustomer"
+        app:layout_constraintWidth_percent="0.82" />
+
+    <FrameLayout
+        android:id="@+id/spLayoutUsers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circular_stoke"
+        android:paddingLeft="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleUsers"
+        app:layout_constraintWidth_percent="0.82">
+
+        <Spinner
+            android:id="@+id/spUsers_createCenter"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/average_grey" />
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tit_note_center"
+        style="@style/Widget.Design.TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:hintTextColor="?colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spLayoutUsers"
+
+        app:layout_constraintWidth_percent="0.82">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_note_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_stoke"
+            android:gravity="center_vertical"
+            android:hint="@string/note"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black"
+            android:textColorHint="@color/average_grey" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btCreateInstallationCenter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/create_installation_centers"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/green"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tit_note_center"
+        app:layout_constraintWidth_percent="0.82" />
+
+    <ProgressBar
+        android:id="@+id/progressAddDevices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

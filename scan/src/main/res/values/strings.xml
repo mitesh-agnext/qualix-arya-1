@@ -1,0 +1,59 @@
+<resources>
+
+    <string name="title_scan">Scan</string>
+    <string name="title_assay">Assay</string>
+    <string name="title_clear">Clear</string>
+    <string name="title_history">History</string>
+    <string name="title_print">Print</string>
+
+    <string name="title_physical_scan">Physical Scan</string>
+    <string name="title_chemical_scan">Chemical Scan</string>
+
+    <string name="scanning_msg">Scanning…</string>
+    <string name="title_select_reference">Select Reference</string>
+
+    <string name="btn_analyse">Analyse</string>
+    <string name="btn_scan_again">Scan Again</string>
+    <string name="btn_review_img">Review Image</string>
+    <string name="btn_upload_scan">Upload Scan</string>
+    <string name="btn_share_results">Share Results</string>
+    <string name="not_connected_title">Not connected</string>
+
+    <string name="warm_device_title_msg">Warming up the device</string>
+    <string name="warm_device_desc_msg">Please don\'t move the device as it\'s currently preparing for scanning</string>
+
+    <string name="fix_device_title_msg">Do not move the device</string>
+    <string name="fix_device_desc_msg">Please don\'t move the device as it\'s currently scanning the sample</string>
+
+    <string name="move_device_title_msg">You can now move the device</string>
+    <string name="move_device_desc_msg">Please move the device to a different angle on the sample for better results</string>
+
+    <string name="empty_parameters_msg">Please fill at least one parameter!</string>
+    <string name="remove_result_msg">Are you sure you want to remove the scan results?</string>
+    <string name="not_connected_msg">Please ensure Bluetooth is powered on your Android device and your SpecX device.</string>
+    <string name="connect_again_msg">Unable to connect to the SpecX device, please try again!</string>
+
+    <string name="empty_result_msg">Device malfunction, no result returned!</string>
+    <string name="empty_search_msg">Whoops! We couldn\'t find any relevant results!</string>
+
+    <string name="connecting_msg">Connecting…</string>
+    <string name="connect_device_msg">Click here to connect to device</string>
+
+    <string name="select_img_msg">Please select an image!</string>
+
+    <string name="activation_key_desc">Enter the activation key to unlock the device</string>
+    <string name="hint_activation_key">XX-XX-XX-XX-XX-XX-XX-XX-XX-XX-XX-XX</string>
+
+    <string name="batch_copied_msg">Batch ID copied to clipboard!</string>
+
+    <plurals name="results_found_msg">
+        <item quantity="one">%d result found!</item>
+        <item quantity="other">%d results found!</item>
+    </plurals>
+
+    <string-array name="share_types" translatable="false">
+        <item>As Image</item>
+        <item>As CSV/Text</item>
+    </string-array>
+
+</resources>
