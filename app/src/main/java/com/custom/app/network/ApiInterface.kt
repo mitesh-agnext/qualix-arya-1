@@ -149,7 +149,7 @@ interface ApiInterface {
     @GET("/api/device/sensor-profile")
     fun getSensorProfile(@Header("authorization") authorization: String): Call<ArrayList<SensorProfileRes>>
 
-    @GET("/api/commercials/location?p=0&l=1000")
+    @GET("/api/location?p=0&l=1000")
     fun getInstallationCenters(@Header("authorization") authorization: String,
                                @Query("search_keyword") keyword: String,
                                @Query("customer_id") customer_id: String,
@@ -388,9 +388,9 @@ interface ApiInterface {
 
     @GET("/api/analytics/quantity/collections")
     fun getCollectionsByCenter(@Header("authorization") authorization: String, @Query("customer_id") customer_id: String,
-                               @Query("commodity_id") commodity_id: String, @Query("inst_center_id") collection_center_id: String,
-                               @Query("date_to") date_to: String, @Query("date_from") date_from: String,
-                               @Query("region_id") region_id: String): Call<ArrayList<CollectionByCenterRes>>
+                               @Query("commodity_id") commodity_id: String, @Query("device_serial_no") serialNumber: String,
+                               @Query("inst_center_id") collection_center_id: String, @Query("date_to") date_to: String,
+                               @Query("date_from") date_from: String, @Query("region_id") region_id: String): Call<ArrayList<CollectionByCenterRes>>
 
     @GET("/api/analytics/collections-time")
     fun getCollectionOverTime(@Header("authorization") authorization: String, @Query("customer_id") customer_id: String,
@@ -400,9 +400,9 @@ interface ApiInterface {
 
     @GET("/api/analytics/quantity")
     fun getQuantity(@Header("authorization") authorization: String, @Query("customer_id") customer_id: String,
-                    @Query("commodity_id") commodity_id: String, @Query("inst_center_id") collection_center_id: String,
-                    @Query("date_to") date_to: String, @Query("date_from") date_from: String,
-                    @Query("region_id") region_id: String): Call<QuantityRes>
+                    @Query("commodity_id") commodity_id: String, @Query("device_serial_no") serialNumber: String,
+                    @Query("inst_center_id") collection_center_id: String, @Query("date_to") date_to: String,
+                    @Query("date_from") date_from: String, @Query("region_id") region_id: String): Call<QuantityRes>
 
     @GET("/api/analytics/center-region")
     fun getCollectionCenterRegion(@Header("authorization") authorization: String, @Query("customer_id") customer_id: String,
@@ -429,13 +429,13 @@ interface ApiInterface {
     fun getQualityRange(@Header("authorization") authorization: String, @Query("commodity_id") commodity_id: String,
                         @Query("cc_id") cc_id: String): Call<QualityRangeRes>
 
-    @GET("/api/analytics/farmers/list")
+    @GET("/api/analytics/client/list")
     fun getFarmerList(@Header("authorization") authorization: String, @Query("customer_id") customer_id: String,
                       @Query("commodity_id") commodity_id: String, @Query("inst_center_id") collection_center_id: String,
                       @Query("date_to") date_to: String, @Query("date_from") date_from: String,
                       @Query("region_id") region_id: String): Call<ArrayList<NumberOfFarmerRes>>
 
-    @GET("/api/analytics/farmers")
+    @GET("/api/analytics/clients")
     fun getFarmerData(@Header("authorization") authorization: String, @Query("customer_id") customer_id: String,
                       @Query("commodity_id") commodity_id: String, @Query("inst_center_id") collection_center_id: String,
                       @Query("date_to") date_to: String, @Query("date_from") date_from: String,
@@ -481,8 +481,7 @@ interface ApiInterface {
     fun getSubscribedDevices(@Header("authorization") authorization: String): Call<SubscribedDeviceRes>
 
     @GET("/api/scan/detail")
-    fun getScanDetail(@Header("authorization") authorization: String,
-                      @Query("scan_id") scan_id: String): Call<ScanDetailRes>
+    fun getScanDetail(@Header("authorization") authorization: String, @Query("scan_id") scan_id: String): Call<ScanDetailRes>
 
     //Farmer
 
@@ -517,7 +516,7 @@ interface ApiInterface {
     @GET("/api/scan/filter/farmers")
     fun getScans(
             @Header("authorization") authorization: String,
-            @Query("p") p: String, @Query("l") l: String,@Query("farmer_id") farmerId :String,
+            @Query("p") p: String, @Query("l") l: String, @Query("farmer_id") farmerId: String,
             @Query("dateFrom") dateFrom: String, @Query("dateTo") dateTo: String
     ): Call<ScanHistoryResT>
 
@@ -525,8 +524,11 @@ interface ApiInterface {
     fun getAvgScanData(@Header("authorization") authorization: String): Call<ResAvgScanData>
 
     @GET("/api/plot")
-    fun getPlots(@Query("farmer_id") farmerId :String):Call<ArrayList<FarmRes>>
+    fun getPlots(@Query("farmer_id") farmerId: String): Call<ArrayList<FarmRes>>
 
     @POST("/api/plot")
     fun addPlot(@Body data: HashMap<String, Any>): Call<ResAddFarm>
+
+    @PUT("/api/scan/approve")
+    fun approveReject(@Header("authorization") authorization: String, @Body file: JsonObject): Call<ResponseBody>
 }

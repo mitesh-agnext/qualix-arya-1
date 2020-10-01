@@ -7,8 +7,11 @@ import com.custom.app.data.model.count.user.TotalUserRes
 import com.custom.app.network.ApiClient
 import com.custom.app.network.ApiInterface
 import com.custom.app.network.RestService
+import com.custom.app.util.Constants
+import com.google.gson.JsonObject
 import com.user.app.data.UserManager
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,10 +82,47 @@ class HomeInteractor(val userManager: UserManager, val restService: RestService)
         }
     }
 
+    fun approveReject(scanId: Int, status: Int, listener: approval) {
+        val options = JsonObject()
+        options.addProperty("approval", status)
+        options.addProperty("scan_id", scanId)
+
+        approveRejectPost(listener, options)
+    }
+
+    private fun approveRejectPost(listener: approval, options: JsonObject) {
+
+        val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
+        val call = apiService.approveReject("Bearer ${userManager.token}", options)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+                listener.approvalFailure(t!!.message.toString())
+            }
+
+            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    listener.approvalSuccess(response.body()!!)
+                } else {
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    if (response.code() == 401) {
+                        listener.approvalFailure(jObjError.getString("error-message"))
+                    } else {
+                        listener.approvalFailure(jObjError.getString("error-message"))
+                    }
+                }
+            }
+        })
+    }
+
     interface DeviceCallback {
 
         fun allDevicesApiSuccess(body: SubscribedDeviceRes)
         fun allDevicesApiError(msg: String)
 
+    }
+    interface approval {
+        fun approvalSuccess(body: ResponseBody)
+        fun approvalFailure(string: String)
     }
 }

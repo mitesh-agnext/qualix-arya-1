@@ -10,7 +10,7 @@ import io.reactivex.Single;
 
 public interface QualityInteractor {
 
-    Single<QualityRes> quality(String commodityId, String analysis, String from,
+    Single<List<QualityRes>> quality(String commodityId, String analysis, String from,
                                String to, String... filter);
 
     Single<List<QualityOverTimeRes>> qualityOverTime(String commodityId, String analysis,

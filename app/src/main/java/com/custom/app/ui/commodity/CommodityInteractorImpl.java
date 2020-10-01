@@ -48,7 +48,7 @@ public class CommodityInteractorImpl implements CommodityInteractor {
         Map<String, String> query = new HashMap<>();
         if (filter.length > 0) {
             query.put("commodityCategoryId", filter[0]);
-            query.put("customer_id", "91");
+            query.put("client_id", userManager.getCustomerId());
         }
 
         return restService.commodities(query)
@@ -63,7 +63,7 @@ public class CommodityInteractorImpl implements CommodityInteractor {
     public Single<List<AnalyticItem>> analyses(String commodityId) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
 
         return restService.analyses(query)
                 .map(CommodityParser::analysis);

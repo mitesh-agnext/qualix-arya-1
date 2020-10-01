@@ -96,7 +96,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spLayoutInstallationType"
-        app:layout_constraintWidth_percent="0.82" />
+        app:layout_constraintWidth_percent="0.82"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/spLayoutRegion_createCenter"
@@ -107,7 +108,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleRegion_createCenter"
-        app:layout_constraintWidth_percent="0.82">
+        app:layout_constraintWidth_percent="0.82"
+        android:visibility="gone">
 
         <Spinner
             android:id="@+id/spRegion_center"
@@ -133,7 +135,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spLayoutRegion_createCenter"
-        app:layout_constraintWidth_percent="0.82" />
+        app:layout_constraintWidth_percent="0.82"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/spLayoutSite"
@@ -144,7 +147,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleSite"
-        app:layout_constraintWidth_percent="0.82">
+        app:layout_constraintWidth_percent="0.82"
+        android:visibility="gone">
 
         <Spinner
             android:id="@+id/spSite_center"
@@ -169,7 +173,7 @@
         android:textColor="@color/average_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spLayoutSite"
+        app:layout_constraintTop_toBottomOf="@+id/spLayoutInstallationType"
         app:layout_constraintWidth_percent="0.82" />
 
     <FrameLayout

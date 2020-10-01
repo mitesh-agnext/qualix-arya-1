@@ -11,7 +11,7 @@ import java.util.List;
 class QualityParser {
 
     @NonNull
-    static QualityRes parse(QualityRes body) throws NullPointerException {
+    static List<QualityRes> parse(List<QualityRes> body) throws NullPointerException {
         if (body != null) {
             return body;
         } else {

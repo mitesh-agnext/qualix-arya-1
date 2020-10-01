@@ -73,8 +73,15 @@ class InstallationCenterListActivity : BaseActivity(), View.OnClickListener, Cen
 
         if (userManager.customerType.equals("SERVICE_PROVIDER")) {
             customerLayout.visibility = View.VISIBLE
+            fbAdd.visibility = View.VISIBLE
             viewModel.onGetCustomerList()
-        } else {
+        } else if(userManager.customerType.equals("CLIENT")) {
+            customerLayout.visibility = View.GONE
+            fbAdd.visibility = View.GONE
+            selectedCustomerId = userManager.customerId.toInt()
+            viewModel.onGetCenterList(newTextQuery!!, selectedCustomerId!!)
+        }
+        else {
             customerLayout.visibility = View.GONE
             selectedCustomerId = userManager.customerId.toInt()
             viewModel.onGetCenterList(newTextQuery!!, selectedCustomerId!!)

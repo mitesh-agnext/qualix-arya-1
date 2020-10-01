@@ -20,6 +20,9 @@ object RegionFailure : ScanHistoryState()
 object ScanListSuccess: ScanHistoryState()
 object ScanListFailure: ScanHistoryState()
 
+object ApprovalSuccess : ScanHistoryState()
+object ApprovalFailure : ScanHistoryState()
+
 object DeviceTypeSuccess : ScanHistoryState()
 object DeviceTypeFailure : ScanHistoryState()
 object Token : ScanHistoryState()

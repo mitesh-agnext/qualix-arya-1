@@ -11,6 +11,7 @@ public class DeviceTypeItem {
     }
 
     String device_type_name;
+    String device_serial_no;
     String total_quantity;
     String quantity_unit;
     String difference;
@@ -19,6 +20,10 @@ public class DeviceTypeItem {
 
     public String getDeviceTypeName() {
         return device_type_name;
+    }
+
+    public String getDeviceSerialNo() {
+        return device_serial_no;
     }
 
     public String getTotalQuantity() {

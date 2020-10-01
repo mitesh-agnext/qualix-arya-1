@@ -62,6 +62,7 @@ import com.custom.app.ui.quality.di.QualityModule;
 import com.custom.app.ui.sample.SampleFragment;
 import com.custom.app.ui.sample.di.SampleModule;
 import com.custom.app.ui.scan.di.ScanModule;
+import com.custom.app.ui.scan.list.detail.ScanDetailActivity;
 import com.custom.app.ui.scan.list.history.ScanHistoryActivity;
 import com.custom.app.ui.scan.list.scanFrg.ScanHistoryFragment;
 import com.custom.app.ui.scan.select.SelectScanActivity;
@@ -87,6 +88,7 @@ import dagger.Subcomponent;
         PaymentModule.class, SNDeviceModule.class, SampleModule.class, DeviceModule.class,
         ColdstoreModule.class, AnalyticsModule.class, SiteRegionModule.class,
         InstallationCenterModule.class})
+
 public interface HomeComponent {
 
     void inject(HomeActivity activity);
@@ -190,6 +192,8 @@ public interface HomeComponent {
     void inject(SupplierFragment fragment);
 
     void inject(ScanHistoryActivity activity);
+
+    void inject(ScanDetailActivity activity);
 
     void inject(PaymentHistoryActivity activity);
 

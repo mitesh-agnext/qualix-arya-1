@@ -48,10 +48,12 @@ import butterknife.Unbinder;
 
 import static com.custom.app.util.Constants.KEY_CATEGORY_ID;
 import static com.custom.app.util.Constants.KEY_CENTER_ID;
+import static com.custom.app.util.Constants.KEY_DEVICE_SERIAL_NO;
 import static com.custom.app.util.Constants.KEY_DEVICE_TYPE;
 import static com.custom.app.util.Constants.KEY_END_DATE;
 import static com.custom.app.util.Constants.KEY_QUANTITY_DETAIL;
 import static com.custom.app.util.Constants.KEY_START_DATE;
+import static com.custom.app.util.Constants.KEY_TOTAL_QUANTITY;
 
 public class BusinessFragment extends BaseFragment implements BusinessView {
 
@@ -96,8 +98,10 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
     @BindView(R.id.rv_rate)
     EmptyRecyclerView rvRate;
 
-    public static BusinessFragment newInstance(QuantityDetailRes detail, String categoryId,
-                                               String startDate, String endDate, String... filter) {
+    String quantity = "";
+
+    public static BusinessFragment newInstance(QuantityDetailRes detail, String categoryId, String startDate, String endDate, String... filter) {
+
         BusinessFragment fragment = new BusinessFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_QUANTITY_DETAIL, Parcels.wrap(detail));
@@ -108,6 +112,8 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
         if (filter.length > 1) {
             args.putString(KEY_CENTER_ID, filter[0]);
             args.putString(KEY_DEVICE_TYPE, filter[1]);
+            args.putString(KEY_DEVICE_SERIAL_NO, filter[2]);
+            args.putString(KEY_TOTAL_QUANTITY, filter[3]);
         }
 
         fragment.setArguments(args);
@@ -142,15 +148,21 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
             String endDate = getArguments().getString(KEY_END_DATE);
             String centerId = getArguments().getString(KEY_CENTER_ID);
             String deviceType = getArguments().getString(KEY_DEVICE_TYPE);
-
+            String deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
+            if (centerId != null) {
+                quantity = getArguments().getString(KEY_TOTAL_QUANTITY);
+            }
+            else {
+                quantity = detail.getTotalQuantity().toString();
+            }
             if (detail != null) {
                 showCollection(detail);
             }
 
             if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
-                presenter.fetchScanCount(categoryId, startDate, endDate, centerId, deviceType);
-                presenter.fetchVarianceAvg(categoryId, startDate, endDate, centerId, deviceType);
-                presenter.fetchAcceptedAvg(categoryId, startDate, endDate, centerId, deviceType);
+                presenter.fetchScanCount(categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo);
+                presenter.fetchVarianceAvg(categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo);
+                presenter.fetchAcceptedAvg(categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo);
             } else {
                 presenter.fetchScanCount(categoryId, startDate, endDate);
                 presenter.fetchVarianceAvg(categoryId, startDate, endDate);
@@ -166,10 +178,11 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
 
     @Override
     public void showCollection(QuantityDetailRes detail) {
+
         tvCenters.setText(new SpannyText()
                 .append("Collections")
                 .append("\n")
-                .append(detail.getTotalQuantity(), new RelativeSizeSpan(1.4f),
+                .append(quantity, new RelativeSizeSpan(1.4f),
                         new ForegroundColorSpan(ContextCompat.getColor(context(), R.color.black)))
                 .append("\n")
                 .append(detail.getQuantityUnit(), new ForegroundColorSpan(ContextCompat.getColor(context(), R.color.blue))));

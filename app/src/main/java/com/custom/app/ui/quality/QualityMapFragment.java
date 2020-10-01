@@ -53,6 +53,7 @@ import butterknife.Unbinder;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.custom.app.util.Constants.KEY_CATEGORY_ID;
 import static com.custom.app.util.Constants.KEY_CENTER_ID;
+import static com.custom.app.util.Constants.KEY_DEVICE_SERIAL_NO;
 import static com.custom.app.util.Constants.KEY_DEVICE_TYPE;
 import static com.custom.app.util.Constants.KEY_END_DATE;
 import static com.custom.app.util.Constants.KEY_START_DATE;
@@ -119,6 +120,7 @@ public class QualityMapFragment extends BaseFragment implements QualityMapView, 
         if (filter.length > 1) {
             args.putString(KEY_CENTER_ID, filter[0]);
             args.putString(KEY_DEVICE_TYPE, filter[1]);
+            args.putString(KEY_DEVICE_SERIAL_NO, filter[2]);
         }
 
         fragment.setArguments(args);
@@ -152,6 +154,7 @@ public class QualityMapFragment extends BaseFragment implements QualityMapView, 
             endDate = getArguments().getString(KEY_END_DATE);
             String centerId = getArguments().getString(KEY_CENTER_ID);
             String deviceType = getArguments().getString(KEY_DEVICE_TYPE);
+            String deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
         }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);

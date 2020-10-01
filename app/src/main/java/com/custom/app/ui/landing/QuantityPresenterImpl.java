@@ -52,7 +52,8 @@ public class QuantityPresenterImpl extends QuantityPresenter {
                     }
                 }, error -> {
                     hideProgressBar();
-                    showMessage(error.getMessage());
+                    showMessage("No record found");
+//                    showMessage(error.getMessage());
                 });
     }
 }

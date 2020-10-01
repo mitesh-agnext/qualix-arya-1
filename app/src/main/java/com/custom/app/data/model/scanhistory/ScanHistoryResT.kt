@@ -35,7 +35,8 @@ class ScanData{
     var dateDone: String? = null
     @SerializedName("analysis_results")
     var analysisResults: ArrayList<AnalysisResults>? = null
-
+    @SerializedName("approval")
+    var approval: Int? = null
 }
 
 class AnalysisResults {

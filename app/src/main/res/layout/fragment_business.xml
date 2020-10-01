@@ -41,7 +41,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.35"
-                    tools:text="Collections\n184153.00\nTonns" />
+                    tools:text="Collections\n184153.00\nTons" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart_centers"

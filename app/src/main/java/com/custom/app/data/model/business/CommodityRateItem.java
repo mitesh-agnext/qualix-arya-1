@@ -10,10 +10,10 @@ public class CommodityRateItem {
 
     String commodity_name;
     String unit;
-    int total;
-    int variance;
-    int scan_count;
-    int acceptance;
+    String total;
+    String variance;
+    String scan_count;
+    String acceptance;
 
     public String getCommodityName() {
         return commodity_name;
@@ -23,19 +23,19 @@ public class CommodityRateItem {
         return unit;
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public int getVariance() {
+    public String getVariance() {
         return variance;
     }
 
-    public int getScanCount() {
+    public String getScanCount() {
         return scan_count;
     }
 
-    public int getAcceptance() {
+    public String getAcceptance() {
         return acceptance;
     }
 }

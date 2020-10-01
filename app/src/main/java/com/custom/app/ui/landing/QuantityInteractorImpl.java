@@ -30,7 +30,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
 
     @Override
     public Single<List<CategoryDetailItem>> categories() {
-        return restService.categories()
+        return restService.categories(userManager.getCustomerId())
                 .map(QuantityParser::category);
     }
 
@@ -38,7 +38,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     public Single<QuantityRes> quantity(String commodityId, String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -51,7 +51,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
                                                                   String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -64,7 +64,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
                                                                   String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -72,27 +72,27 @@ public class QuantityInteractorImpl implements QuantityInteractor {
                 .map(QuantityParser::time);
     }
 
-    @Override
-    public Single<List<CollectionCenterRegionRes>> collectionRegion(String commodityId, String regionId,
-                                                                    String centerId, String from,
-                                                                    String to, String... filter) {
-        Map<String, String> query = new HashMap<>();
-        query.put("commodity_id", commodityId);
-        query.put("region_id", regionId);
-        query.put("inst_center_id", centerId);
-        query.put("customer_id", "91");
-        query.put("date_from", from);
-        query.put("date_to", to);
-
-        return restService.collectionRegion(query)
-                .map(QuantityParser::region);
-    }
+//    @Override
+//    public Single<List<CollectionCenterRegionRes>> collectionRegion(String commodityId, String regionId,
+//                                                                    String centerId, String from,
+//                                                                    String to, String... filter) {
+//        Map<String, String> query = new HashMap<>();
+//        query.put("commodity_id", commodityId);
+//        query.put("region_id", regionId);
+//        query.put("inst_center_id", centerId);
+//        query.put("customer_id", userManager.getCustomerId());
+//        query.put("date_from", from);
+//        query.put("date_to", to);
+//
+//        return restService.collectionRegion(query)
+//                .map(QuantityParser::region);
+//    }
 
     @Override
     public Single<CollectionWeeklyMonthlyRes> collectionWeekly(String commodityId, String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -104,7 +104,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     public Single<QuantityDetailRes> qualityDetail(String categoryId, String from, String to) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_category_id", categoryId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -116,7 +116,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     public Single<AcceptedAvgRes> scanCount(String categoryId, String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_category_id", categoryId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -133,7 +133,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     public Single<AcceptedAvgRes> varianceAvg(String categoryId, String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_category_id", categoryId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -150,7 +150,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     public Single<AcceptedAvgRes> acceptedAvg(String categoryId, String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_category_id", categoryId);
-        query.put("customer_id", "91");
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 
@@ -167,8 +167,8 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     public Single<List<SupplierItem>> suppliers(String commodityId, String regionId, String from, String to) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
-        query.put("region_id", regionId);
-        query.put("customer_id", "91");
+//        query.put("region_id", regionId);
+        query.put("client_id", userManager.getCustomerId());
         query.put("date_from", from);
         query.put("date_to", to);
 

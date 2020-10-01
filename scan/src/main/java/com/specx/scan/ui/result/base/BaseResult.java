@@ -246,6 +246,17 @@ public abstract class BaseResult extends BaseActivity implements ResultView, Sel
 
     @OnClick(R2.id.btn_done)
     public void done() {
+        Intent intent = null;
+        Bundle bundle = new Bundle();
+        bundle.putString("FLOW", "NAV_SPLASH");
+        try {
+            intent = new Intent(this, Class.forName("com.custom.app.ui.home.HomeActivity"));
+            intent.putExtras(bundle);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         finish();
     }
 

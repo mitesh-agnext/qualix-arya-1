@@ -6,9 +6,10 @@ class CollectionOverTimeRes {
 
     @SerializedName("total_collection")
     var weight: Double? = null
-    @SerializedName("date_done")
-    var date_done: Long? = null
     @SerializedName("scan_date")
     var scan_date: String? = null
+
+    @SerializedName("date_done")
+    var date_done: Long? = null
 
 }

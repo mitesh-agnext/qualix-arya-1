@@ -30,8 +30,8 @@ class InstallationCenterInteractor(val userManager: UserManager) {
                 options.addProperty("commercial_location_type_id", installation_CenterTypeId)
                 options.addProperty("customer_id", customerId)
                 options.addProperty("notes", note)
-                options.addProperty("site_id", site_id)
-                options.addProperty("region_id", region_id)
+//                options.addProperty("site_id", site_id)
+//                options.addProperty("region_id", region_id)
                 options.addProperty("user_id", userId)
 
                 createInstallationCenter(listener, options)

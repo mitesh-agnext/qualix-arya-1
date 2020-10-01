@@ -55,6 +55,7 @@ class Quantity() : DemoBaseFragment(), OnChartValueSelectedListener {
     private var selectedCommodityId: String = ""
     private var selectedRegionId: String = ""
     private var selectedCenterId: String = ""
+    private var deviceSerialNumber: String = ""
 
     private var dateFrom: Long = 0
     private var dateTo: Long = 0
@@ -231,7 +232,7 @@ class Quantity() : DemoBaseFragment(), OnChartValueSelectedListener {
         }
         selectedRegionId = AnalysisScreen.selectedRegionId
 
-        viewModel.onGetQuantity(selectedCustomerId, selectedCommodityId, selectedCenterId, toDate, fromDate, selectedRegionId)
+        viewModel.onGetQuantity(selectedCustomerId, selectedCommodityId, deviceSerialNumber, selectedCenterId, toDate, fromDate, selectedRegionId)
 
         typeFilterData(MONTH_DATA)
 
@@ -350,7 +351,7 @@ class Quantity() : DemoBaseFragment(), OnChartValueSelectedListener {
         pieView!!.setEntryLabelColor(Color.WHITE)
         pieView!!.setEntryLabelTextSize(12f)
 
-        viewModel.onGetCollection(selectedCustomerId, selectedCommodityId, selectedCenterId, toDate, fromDate, selectedRegionId)
+        viewModel.onGetCollection(selectedCustomerId, selectedCommodityId, deviceSerialNumber, selectedCenterId, toDate, fromDate, selectedRegionId)
     }
 
     private fun setPieData(quantityCollection: ArrayList<CollectionByCenterRes>) {
@@ -419,7 +420,7 @@ class Quantity() : DemoBaseFragment(), OnChartValueSelectedListener {
         combinedChart!!.setOnChartValueSelectedListener(this)
         combinedChart!!.setScaleEnabled(true)
 
-        viewModel.onGetCollectionCenterRegion(selectedCustomerId, selectedCommodityId, selectedCenterId, toDate, fromDate, selectedRegionId)
+//        viewModel.onGetCollectionCenterRegion(selectedCustomerId, selectedCommodityId, selectedCenterId, toDate, fromDate, selectedRegionId)
     }
 
     private fun generateCombineGraph(collectionRegionList: ArrayList<CollectionCenterRegionRes>) {

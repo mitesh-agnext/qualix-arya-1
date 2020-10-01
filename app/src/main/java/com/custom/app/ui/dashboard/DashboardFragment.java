@@ -30,10 +30,12 @@ import static com.custom.app.util.Constants.BUSINESS_FRAGMENT;
 import static com.custom.app.util.Constants.COLLECTION_FRAGMENT;
 import static com.custom.app.util.Constants.KEY_CATEGORY_ID;
 import static com.custom.app.util.Constants.KEY_CENTER_ID;
+import static com.custom.app.util.Constants.KEY_DEVICE_SERIAL_NO;
 import static com.custom.app.util.Constants.KEY_DEVICE_TYPE;
 import static com.custom.app.util.Constants.KEY_END_DATE;
 import static com.custom.app.util.Constants.KEY_QUANTITY_DETAIL;
 import static com.custom.app.util.Constants.KEY_START_DATE;
+import static com.custom.app.util.Constants.KEY_TOTAL_QUANTITY;
 import static com.custom.app.util.Constants.QUALITY_MAP_FRAGMENT;
 import static com.custom.app.util.Constants.SUPPLIER_FRAGMENT;
 
@@ -42,13 +44,13 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
     private Unbinder unbinder;
 
     private QuantityDetailRes detail;
-    private String categoryId, startDate, endDate, centerId, deviceType;
+    private String categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo, quantity;
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
 
-    public static DashboardFragment newInstance(QuantityDetailRes detail, String categoryId,
-                                                String startDate, String endDate, String... filter) {
+    public static DashboardFragment newInstance(QuantityDetailRes detail, String categoryId, String startDate, String endDate, String... filter) {
+
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_QUANTITY_DETAIL, Parcels.wrap(detail));
@@ -59,6 +61,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
         if (filter.length > 1) {
             args.putString(KEY_CENTER_ID, filter[0]);
             args.putString(KEY_DEVICE_TYPE, filter[1]);
+            args.putString(KEY_DEVICE_SERIAL_NO, filter[2]);
+            args.putString(KEY_TOTAL_QUANTITY, filter[3]);
+
         }
 
         fragment.setArguments(args);
@@ -86,9 +91,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
             categoryId = getArguments().getString(KEY_CATEGORY_ID);
             startDate = getArguments().getString(KEY_START_DATE);
             endDate = getArguments().getString(KEY_END_DATE);
-            endDate = getArguments().getString(KEY_END_DATE);
             centerId = getArguments().getString(KEY_CENTER_ID);
             deviceType = getArguments().getString(KEY_DEVICE_TYPE);
+            deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
+            quantity = getArguments().getString(KEY_TOTAL_QUANTITY);
 
             showBusinessScreen();
         }
@@ -123,7 +129,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
     private void showBusinessScreen() {
         if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
             replaceFragment(R.id.layout_child, BusinessFragment
-                    .newInstance(detail, categoryId, startDate, endDate, centerId, deviceType), BUSINESS_FRAGMENT);
+                    .newInstance(detail, categoryId, startDate, endDate, centerId, deviceType,deviceSerialNo, quantity), BUSINESS_FRAGMENT);
         } else {
             replaceFragment(R.id.layout_child, BusinessFragment
                     .newInstance(detail, categoryId, startDate, endDate), BUSINESS_FRAGMENT);
@@ -133,7 +139,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
     private void showCollectionScreen() {
         if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
             replaceFragment(R.id.layout_child, CollectionFragment
-                    .newInstance(categoryId, startDate, endDate, centerId, deviceType), COLLECTION_FRAGMENT);
+                    .newInstance(categoryId, startDate, endDate, centerId, deviceType,deviceSerialNo), COLLECTION_FRAGMENT);
         } else {
             replaceFragment(R.id.layout_child, CollectionFragment
                     .newInstance(categoryId, startDate, endDate), COLLECTION_FRAGMENT);
@@ -143,7 +149,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
     private void showQualityMapScreen() {
         if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
             replaceFragment(R.id.layout_child, QualityMapFragment
-                    .newInstance(categoryId, startDate, endDate, centerId, deviceType), QUALITY_MAP_FRAGMENT);
+                    .newInstance(categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo), QUALITY_MAP_FRAGMENT);
         } else {
             replaceFragment(R.id.layout_child, QualityMapFragment
                     .newInstance(categoryId, startDate, endDate), QUALITY_MAP_FRAGMENT);
@@ -153,7 +159,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
     private void showSupplierScreen() {
         if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
             replaceFragment(R.id.layout_child, SupplierFragment
-                    .newInstance(categoryId, startDate, endDate, centerId, deviceType), SUPPLIER_FRAGMENT);
+                    .newInstance(categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo), SUPPLIER_FRAGMENT);
         } else {
             replaceFragment(R.id.layout_child, SupplierFragment
                     .newInstance(categoryId, startDate, endDate), SUPPLIER_FRAGMENT);

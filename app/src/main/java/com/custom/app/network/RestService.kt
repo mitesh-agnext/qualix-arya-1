@@ -57,14 +57,14 @@ interface RestService {
     @GET("/api/commodity")
     fun commodities(@QueryMap query: Map<String, String>): Single<List<CommodityItem>>
 
-    @GET("/api/commodity/analytics")
+    @GET("api/analytics/scan-analytics")
     fun analyses(@QueryMap query: Map<String, String>): Single<List<AnalyticItem>>
 
     @GET("/api/commodity/varieties")
     fun varieties(@Query("commodityId") commodityId: String): Single<List<VarietyItem>>
 
     @GET("/api/commodity/categories")
-    fun categories(): Single<List<CategoryDetailItem>>
+    fun categories(@Query("customer_id") customer_id: String): Single<List<CategoryDetailItem>>
 
     @GET("/api/analytics/quantity-details")
     fun quantityDetail(@QueryMap query: Map<String, String>): Single<QuantityDetailRes>
@@ -79,7 +79,7 @@ interface RestService {
     fun acceptedAvg(@QueryMap query: Map<String, String>): Single<AcceptedAvgRes>
 
     @GET("/api/scan/filter")
-    fun quality(@QueryMap query: Map<String, String>): Single<QualityRes>
+    fun quality(@QueryMap query: Map<String, String>): Single<List<QualityRes>>
 
     @GET("/api/scan/filter/quality/overtime")
     fun qualityOverTime(@QueryMap query: Map<String, String>): Single<List<QualityOverTimeRes>>
@@ -93,8 +93,8 @@ interface RestService {
     @GET("/api/analytics/collections-time")
     fun collectionOverTime(@QueryMap query: Map<String, String>): Single<List<CollectionOverTimeRes>>
 
-    @GET("/api/analytics/center-region")
-    fun collectionRegion(@QueryMap query: Map<String, String>): Single<List<CollectionCenterRegionRes>>
+//    @GET("/api/analytics/center-region")
+//    fun collectionRegion(@QueryMap query: Map<String, String>): Single<List<CollectionCenterRegionRes>>
 
     @GET("/api/analytics/increment-decrement")
     fun collectionWeekly(@QueryMap query: Map<String, String>): Single<CollectionWeeklyMonthlyRes>
@@ -102,7 +102,7 @@ interface RestService {
     @GET("/api/scan/filter/quality-map")
     fun qualityMap(@QueryMap query: Map<String, String>): Single<List<QualityMapItem>>
 
-    @GET("/api/analytics/farmers/list")
+    @GET("/api/analytics/client/list")
     fun suppliers(@QueryMap query: Map<String, String>): Single<ArrayList<SupplierItem>>
 
     @GET("/api/device/widget")

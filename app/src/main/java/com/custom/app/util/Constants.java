@@ -8,13 +8,19 @@ public class Constants {
     public static final String KEY_SCANS = "scans";
     public static final String KEY_SCAN_ID = "scanId";
 
+    public static final String KEY_CUSTOMER_TYPE = "customerType";
+    public static final String KEY_SCAN_STATUS = "scanStatus";
+
     public static final String KEY_QUANTITY_DETAIL = "quantityDetail";
+    public static final String KEY_CENTER_DETAIL = "centerDetail";
     public static final String KEY_CATEGORY_ID = "categoryId";
     public static final String KEY_REGION_ID = "regionId";
     public static final String KEY_START_DATE = "startDate";
     public static final String KEY_END_DATE = "endDate";
     public static final String KEY_CENTER_ID = "centerId";
     public static final String KEY_DEVICE_TYPE = "deviceType";
+    public static final String KEY_DEVICE_SERIAL_NO = "deviceSerialNo";
+    public static final String KEY_TOTAL_QUANTITY = "totalQuantity";
 
     public static final String EMPTY_FRAGMENT = "EmptyFragment";
     public static final String HOME_FRAGMENT = "HomeFragment";
@@ -72,6 +78,6 @@ public class Constants {
     public static final String NAV_SCAN_HISTORY_ACTIVITY = "NAV_SCAN_HISTORY_ACTIVITY";
 
     public static int secId = 0;
-    public static String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc3Npc3RAdW5pbGV2ZXIuY29tIiwic2NvcGVzIjpbIlJPTEVfUkVGUkVTSF9UT0tFTiIsIlJPTEVfQURNSU4iXSwiY29tcGFueUlkIjo5LCJyb2xlSWQiOjIsInVzZXJJZCI6MTUyLCJpc3MiOiJodHRwczovL2FnbmV4dC5pbiIsImlhdCI6MTU5NTU4NzU4OCwiZXhwIjoxNTk1NTkxMTg4fQ.z2dhGEBhrBVkBuVYI8aNzmi73RjlxtXURj885jEWf4RIIy3iCukQWjBNPvqF2biZRcx_L5a4RGBd7G1a6dblfA";
+    public static String TOKEN = "";
 
 }

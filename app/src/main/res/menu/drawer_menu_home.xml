@@ -66,19 +66,19 @@
         android:id="@+id/title_store"
         android:title="Store Management">
         <menu>
-            <item
-                android:id="@+id/nav_add_region"
-                android:icon="@drawable/ic_fa_location_arrow_solid"
-                android:title="Region"
-                android:visible="false"
-                tools:visible="true" />
+<!--            <item-->
+<!--                android:id="@+id/nav_add_region"-->
+<!--                android:icon="@drawable/ic_fa_location_arrow_solid"-->
+<!--                android:title="Region"-->
+<!--                android:visible="false"-->
+<!--                tools:visible="false" />-->
 
-            <item
-                android:id="@+id/nav_add_site"
-                android:icon="@drawable/ic_fa_building_regular"
-                android:title="Site"
-                android:visible="false"
-                tools:visible="true" />
+<!--            <item-->
+<!--                android:id="@+id/nav_add_site"-->
+<!--                android:icon="@drawable/ic_fa_building_regular"-->
+<!--                android:title="Site"-->
+<!--                android:visible="false"-->
+<!--                tools:visible="false" />-->
 
             <item
                 android:id="@+id/nav_add_center"
@@ -105,11 +105,11 @@
                 android:icon="@drawable/ic_security_black_24dp"
                 android:title="@string/title_change_pwd" />
 
-            <item
-                android:id="@+id/nav_menu_night"
-                android:icon="@drawable/ic_night_black_24dp"
-                android:title="Night mode"
-                app:actionViewClass="androidx.appcompat.widget.SwitchCompat" />
+<!--            <item-->
+<!--                android:id="@+id/nav_menu_night"-->
+<!--                android:icon="@drawable/ic_night_black_24dp"-->
+<!--                android:title="Night mode"-->
+<!--                app:actionViewClass="androidx.appcompat.widget.SwitchCompat" />-->
 
             <item
                 android:id="@+id/nav_menu_settings"

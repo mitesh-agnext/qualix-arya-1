@@ -60,10 +60,8 @@ class SampleFragment : BaseFragment(), SampleView {
     private var varieties: List<VarietyItem>? = null
     private val timestamp = Util.getDatetime()
     private val sample = SampleItem("1", 1.0)
-
     private var scanDetail: ScanDetailRes? = null
     private lateinit var viewModel: DataFragmentViewModel
-
     private var _binding: FragmentSampleBinding? = null
     private val binding get() = _binding!!
 

@@ -9,6 +9,6 @@ class QualityRes {
     @SerializedName("min_quality")
     var min_quality: String? = null
     @SerializedName("max_quality")
-    var max_quality: Int? = null
+    var max_quality: Double? = null
 
 }

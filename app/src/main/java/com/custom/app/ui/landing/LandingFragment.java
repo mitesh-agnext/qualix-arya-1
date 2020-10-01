@@ -29,6 +29,7 @@ import com.custom.app.data.model.quantity.CenterDetailItem;
 import com.custom.app.data.model.quantity.DeviceTypeItem;
 import com.custom.app.data.model.quantity.QuantityDetailRes;
 import com.custom.app.ui.dashboard.DashboardFragment;
+import com.custom.app.util.Utils;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -38,8 +39,12 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
 import org.threeten.bp.ZoneOffset;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -56,7 +61,6 @@ public class LandingFragment extends BaseFragment implements LandingView {
 
     private Unbinder unbinder;
     private LandingController controller;
-
     private QuantityDetailRes detail;
     private String categoryId, startDate, endDate;
     private MaterialDatePicker<Pair<Long, Long>> datePicker;
@@ -132,10 +136,8 @@ public class LandingFragment extends BaseFragment implements LandingView {
         builder.setCalendarConstraints(constraints.build());
         datePicker = builder.build();
         datePicker.addOnPositiveButtonClickListener(selection -> {
-            LocalDateTime from = LocalDate.ofEpochDay(TimeUnit.MILLISECONDS.toDays(selection.first))
-                    .atTime(LocalTime.MIDNIGHT);
-            LocalDateTime to = LocalDate.ofEpochDay(TimeUnit.MILLISECONDS.toDays(selection.second))
-                    .atTime(LocalTime.MAX);
+            LocalDateTime from = LocalDate.ofEpochDay(TimeUnit.MILLISECONDS.toDays(selection.first)).atTime(LocalTime.MIDNIGHT);
+            LocalDateTime to = LocalDate.ofEpochDay(TimeUnit.MILLISECONDS.toDays(selection.second)).atTime(LocalTime.MAX);
 
             startDate = String.valueOf(from.toInstant(ZoneOffset.ofHoursMinutes(5, 30)).toEpochMilli());
             endDate = String.valueOf(to.toInstant(ZoneOffset.ofHoursMinutes(5, 30)).toEpochMilli());
@@ -152,7 +154,14 @@ public class LandingFragment extends BaseFragment implements LandingView {
             if (!TextUtils.isEmpty(startDate) && !TextUtils.isEmpty(endDate)) {
                 presenter.fetchQuantityDetail(categoryId, startDate, endDate);
             } else {
-                showMessage("Please select date range");
+                Date c = Calendar.getInstance().getTime();
+
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                String formattedDate = df.format(c);
+                endDate = ""+c.getTime();
+                startDate = ""+Utils.Companion.getDaysAgo(7).getTime();
+                presenter.fetchQuantityDetail(categoryId, startDate, endDate);
+//                showMessage("Please select date range");
             }
         } else {
             showMessage("Please select commodity category");
@@ -192,9 +201,10 @@ public class LandingFragment extends BaseFragment implements LandingView {
         if (devices != null && !devices.isEmpty()) {
             String centerId = center.getInstCenterId();
             String deviceType = devices.get(0).getDeviceTypeName();
+            String deviceSerialNo = devices.get(0).getDeviceSerialNo();
 
             replaceFragment(R.id.layout_content, DashboardFragment
-                    .newInstance(detail, categoryId, startDate, endDate, centerId, deviceType), DASHBOARD_FRAGMENT);
+                    .newInstance(detail, categoryId, startDate, endDate, centerId, deviceType, deviceSerialNo, center.getTotalQuantity()), DASHBOARD_FRAGMENT);
         }
     }
 

@@ -6,17 +6,17 @@
     <application
         android:name=".CustomApp"
         android:allowBackup="false"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/arya_logo"
         android:label="@string/title_app"
         android:largeHeap="true"
         android:theme="@style/CustomAppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:name, android:allowBackup, android:label, android:theme">
-        <activity android:name=".ui.newapp.MainActivity"></activity>
+<!--        <activity android:name=".ui.splash.SplashScreen"/>-->
+        <activity android:name=".ui.newapp.MainActivity" />
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.splash.SplashScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

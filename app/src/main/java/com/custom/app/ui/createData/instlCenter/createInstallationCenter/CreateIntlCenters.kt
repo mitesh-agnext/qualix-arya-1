@@ -212,7 +212,7 @@ class CreateIntlCenters : BaseActivity() {
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
-                        selectedSiteId = siteList[position].site_id!!
+//                        selectedSiteId = siteList[position].site_id!!
 
                     }
 
@@ -231,7 +231,7 @@ class CreateIntlCenters : BaseActivity() {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
                         selectedCustomerId = customerList[position].customer_id!!.toInt()
-                        viewModel.onGetRegion(selectedCustomerId)
+//                        viewModel.onGetRegion(selectedCustomerId)
                         viewModel.onGetUser(selectedCustomerId)
 
                     }
@@ -265,8 +265,8 @@ class CreateIntlCenters : BaseActivity() {
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
-                        selectedRegionId = regionList[position].region_id!!.toInt()
-                        viewModel.onGetSite("", selectedRegionId)
+//                        selectedRegionId = regionList[position].region_id!!.toInt()
+//                        viewModel.onGetSite("", selectedRegionId)
 
                     }
 

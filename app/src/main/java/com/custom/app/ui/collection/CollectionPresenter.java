@@ -20,8 +20,8 @@ public abstract class CollectionPresenter extends BasePresenter<CollectionView> 
 
     abstract void fetchCollectionOverTime(String commodityId, String from, String to, String... filter);
 
-    abstract void fetchCollectionRegion(String commodityId, String regionId, String centerId,
-                                        String from, String to, String... filter);
+//    abstract void fetchCollectionRegion(String commodityId, String regionId, String centerId,
+//                                        String from, String to, String... filter);
 
     abstract void fetchCollectionWeekly(String commodityId, String from, String to, String... filter);
 

@@ -26,7 +26,6 @@ import com.google.zxing.WriterException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class Utils {
     companion object {
         fun fetchPrimaryColor(activity: Activity): Int {
@@ -54,6 +53,13 @@ class Utils {
             val itemLong = (timestamp / 1000)
             val d = Date(itemLong * 1000L)
             return SimpleDateFormat("dd-MMM HH:mm").format(d)
+        }
+
+        fun getDaysAgo(daysAgo: Int): Date {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+
+            return calendar.time
         }
 
         fun setSpinnerAdapter(context: Context, items: ArrayList<String>, spinner: Spinner) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_app">QualixApp</string>
+    <string name="title_app">Arya-Qualix</string>
     <string name="desc_app">Artificial intelligence based food quality solutions</string>
 
     <string name="title_login">Login</string>
@@ -87,7 +87,7 @@
     <string name="nav_drawer_close">Close</string>
 
     <string-array name="array_units">
-        <item>tonne</item>
+        <item>tons</item>
         <item>kg</item>
         <item>mg</item>
         <item>l</item>

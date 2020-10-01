@@ -21,7 +21,7 @@ interface CollectionView extends BaseView {
 
     void showAnalyses(List<AnalyticItem> analyses);
 
-    void showQuality(QualityRes quality);
+    void showQuality(List<QualityRes> quality);
 
     void showQuantity(QuantityRes quantity);
 
@@ -33,6 +33,6 @@ interface CollectionView extends BaseView {
 
     void showCollectionOverTime(List<CollectionOverTimeRes> collections);
 
-    void showCollectionRegion(List<CollectionCenterRegionRes> collections);
+//    void showCollectionRegion(List<CollectionCenterRegionRes> collections);
 
 }

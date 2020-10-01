@@ -11,17 +11,13 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.ListPopupWindow
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentManager.OnBackStackChangedListener
@@ -39,8 +35,6 @@ import com.custom.app.R
 import com.custom.app.databinding.ActivityHomeBinding
 import com.custom.app.ui.base.ScreenState
 import com.custom.app.ui.createData.instlCenter.centerList.InstallationCenterListActivity
-import com.custom.app.ui.createData.region.list.RegionListActivity
-import com.custom.app.ui.createData.region.site.list.SiteListActivity
 import com.custom.app.ui.customer.list.CustomerListActivity
 import com.custom.app.ui.device.list.DeviceListActivity
 import com.custom.app.ui.farmer.detail.FarmerDetailActivity
@@ -89,48 +83,41 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
 
     @Inject
     lateinit var homeInteractor: HomeInteractor
-
     lateinit var binding: ActivityHomeBinding
-
     private var selectedMenuItem: MenuItem? = null
     private var drawerToggle: ActionBarDrawerToggle? = null
-
     private var serviceIntent: Intent? = null
     private val disconnectReceiver: BroadcastReceiver = DisconnectReceiver()
     private val disconnectFilter = IntentFilter(NIRScanSDK.ACTION_GATT_DISCONNECTED)
-
     private var scanId: String? = null
     private var device: DeviceItem? = null
     private var devices = ArrayList<DeviceItem>()
     private lateinit var viewModel: HomeViewModel
-
+    var notificationdeviceId: Int? = null
+    var notificationdeviceName: String? = null
     var toolbarTitle: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as CustomApp).homeComponent.inject(this)
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.includeAppbar.includeToolbar.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportFragmentManager.addOnBackStackChangedListener(this)
-
         viewModel = ViewModelProvider(this, HomeDevicesViewModelFactory(homeInteractor))[HomeViewModel::class.java]
         viewModel.homeState.observe(::getLifecycle, ::updateUI)
-
-        val switchNight = binding.navView.menu.findItem(R.id.nav_menu_night).actionView as SwitchCompat
-        switchNight.isChecked = userManager.isNightMode
-        switchNight.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
-            if (!isChecked) {
-                userManager.isNightMode = false
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            } else {
-                userManager.isNightMode = true
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
+//        val switchNight = binding.navView.menu.findItem(R.id.nav_menu_night).actionView as SwitchCompat
+//        switchNight.isChecked = userManager.isNightMode
+//        switchNight.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
+//            if (!isChecked) {
+//                userManager.isNightMode = false
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            } else {
+//                userManager.isNightMode = true
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//            }
+//        }
         drawerToggle = object : ActionBarDrawerToggle(this, binding.drawerLayout,
                 binding.includeAppbar.includeToolbar.toolbar,
                 R.string.nav_drawer_open, R.string.nav_drawer_close) {
@@ -148,9 +135,10 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                         R.id.nav_user_list -> ActivityUtil.startActivity(this@HomeActivity, UserListActivity::class.java, false)
                         R.id.nav_menu_change_pwd -> fragmentTransition(ChangePasswordFragment.newInstance(), CHANGE_PWD_FRAGMENT)
                         R.id.nav_add_center -> ActivityUtil.startActivity(this@HomeActivity, InstallationCenterListActivity::class.java, false)
+/*
                         R.id.nav_add_region -> ActivityUtil.startActivity(this@HomeActivity, RegionListActivity::class.java, false)
                         R.id.nav_add_site -> ActivityUtil.startActivity(this@HomeActivity, SiteListActivity::class.java, false)
-/*
+
                         R.id.nav_cold_store -> ActivityUtil.startActivity(this@HomeActivity, SNDeviceListActivity::class.java, false)
                         R.id.nav_add_coldstore -> ActivityUtil.startActivity(this@HomeActivity, ColdstoreListActivity::class.java, false)
                         R.id.nav_farm_management -> ActivityUtil.startActivity(this@HomeActivity, SectionListActivity::class.java, false)
@@ -171,11 +159,11 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                             intent2.putExtra("activityStatus", 1)
                             ActivityUtil.startActivity(this@HomeActivity, intent2, false)
                         }
-                        R.id.nav_menu_night -> if (switchNight.isChecked) {
-                            switchNight.isChecked = false
-                        } else {
-                            switchNight.isChecked = true
-                        }
+//                        R.id.nav_menu_night -> if (switchNight.isChecked) {
+//                            switchNight.isChecked = false
+//                        } else {
+//                            switchNight.isChecked = true
+//                        }
                         R.id.nav_menu_settings -> ActivityUtil.startActivity(this@HomeActivity, SettingActivity::class.java, false)
                         R.id.nav_menu_logout -> LogoutDialog.newInstance().show(supportFragmentManager, LOGOUT_DIALOG)
                     }
@@ -188,9 +176,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
         drawerToggle!!.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         binding.navView.itemIconTintList = null
-
         binding.includeFab.fabGhost.setOnClickListener { view -> showGhostMenu(view) }
-
         binding.includeAppbar.includeToolbar.toolbar.setOnLongClickListener {
             if (BuildConfig.DEBUG) {
                 if (binding.includeFab.fabGhost.visibility == View.VISIBLE) {
@@ -201,7 +187,6 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
             }
             false
         }
-
         binding.includeAppbar.includeToolbar.toolbar.setNavigationOnClickListener { v: View? ->
             val currentFragment = supportFragmentManager.findFragmentById(R.id.layout_main)
             if (currentFragment is HomeFragment
@@ -212,7 +197,6 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 onBackPressed()
             }
         }
-
         toolbarTitle = binding.includeAppbar.includeToolbar.toolbar.findViewById(R.id.title)
         toolbarTitle!!.setOnClickListener {
             if (devices.size > 0 && devices.size != 1) {
@@ -235,33 +219,26 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 tvEmail.text = user.email
             }
         }
-
         if (!TextUtils.isEmpty(userManager.permissions)) {
             val permissions = Gson().fromJson<List<String>>(userManager.permissions,
                     object : TypeToken<List<String?>?>() {}.type)
             if (permissions != null && !permissions.isEmpty()) {
                 val drawerMenu = binding.navView.menu
-
                 val dashboard = drawerMenu.findItem(R.id.title_dashboard)
                 dashboard.title = SpannyText(dashboard.title, StyleSpan(BOLD),
                         ForegroundColorSpan(ContextCompat.getColor(this, R.color.medium_grey)))
-
                 val scan = drawerMenu.findItem(R.id.title_scan)
                 scan.title = SpannyText(scan.title, StyleSpan(BOLD),
                         ForegroundColorSpan(ContextCompat.getColor(this, R.color.medium_grey)))
-
                 val inventory = drawerMenu.findItem(R.id.title_inventory)
                 inventory.title = SpannyText(inventory.title, StyleSpan(BOLD),
                         ForegroundColorSpan(ContextCompat.getColor(this, R.color.medium_grey)))
-
                 val store = drawerMenu.findItem(R.id.title_store)
                 store.title = SpannyText(store.title, StyleSpan(BOLD),
                         ForegroundColorSpan(ContextCompat.getColor(this, R.color.medium_grey)))
-
                 val settings = drawerMenu.findItem(R.id.title_settings)
                 settings.title = SpannyText(settings.title, StyleSpan(BOLD),
                         ForegroundColorSpan(ContextCompat.getColor(this, R.color.medium_grey)))
-
                 if (permissions.contains(Permissions.GET_USER)) {
                     drawerMenu.findItem(R.id.nav_user_list).isVisible = true
                 } else {
@@ -287,16 +264,16 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 } else {
                     drawerMenu.findItem(R.id.nav_add_center).isVisible = false
                 }
-                if (permissions.contains(Permissions.CREATE_REGION)) {
-                    drawerMenu.findItem(R.id.nav_add_region).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_add_region).isVisible = false
-                }
-                if (permissions.contains(Permissions.CREATE_SITE)) {
-                    drawerMenu.findItem(R.id.nav_add_site).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_add_site).isVisible = false
-                }
+//                if (permissions.contains(Permissions.CREATE_REGION)) {
+//                    drawerMenu.findItem(R.id.nav_add_region).isVisible = true
+//                } else {
+//                    drawerMenu.findItem(R.id.nav_add_region).isVisible = false
+//                }
+//                if (permissions.contains(Permissions.CREATE_SITE)) {
+//                    drawerMenu.findItem(R.id.nav_add_site).isVisible = true
+//                } else {
+//                    drawerMenu.findItem(R.id.nav_add_site).isVisible = false
+//                }
                 if (permissions.contains(Permissions.VIEW_SCAN_HISTORY)) {
                     drawerMenu.findItem(R.id.nav_scan_history).isVisible = true
                 } else {
@@ -304,12 +281,13 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 }
             }
         }
-
         if (savedInstanceState == null) {
             if (userManager.customerType == "OPERATOR") {
                 viewModel.onGetDevices()
             } else {
-                showHomeScreen(device?.device_id, device?.device_name)
+                if (intent.extras != null) {
+                    navigateScreen(intent.extras)
+                }
             }
             userManager.clearSavedDevice()
             serviceIntent = Intent(this, NanoBleService::class.java)
@@ -362,7 +340,6 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
 
     override fun onBackStackChanged() {
         invalidateOptionsMenu()
-
         val currentFragment = supportFragmentManager.findFragmentById(R.id.layout_main)
         if (currentFragment is HomeFragment
                 || currentFragment is LandingFragment
@@ -374,7 +351,6 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
 
     private fun processState(renderState: HomeDeviceState) {
         binding.progressBar.visibility = View.GONE
-
         when (renderState) {
             HomeDeviceState.SubscribeDeviceSuccess -> {
                 devices = viewModel.homeList.value!!.devices!!
@@ -386,12 +362,18 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                     }
                     navigateScreen(intent.extras)
                 } else {
-                    fragmentTransition(EmptyFragment.newInstance("No device allocated"), EMPTY_FRAGMENT)
+                    fragmentTransition(EmptyFragment.newInstance("No device alloted. Please contact admin."), EMPTY_FRAGMENT)
 //                    AlertUtil.showSnackBar(binding.layoutMain, viewModel.errorMessage)
                 }
             }
             HomeDeviceState.SubscribeDeviceFailure -> {
                 AlertUtil.showSnackBar(binding.progressBar, viewModel.errorMessage)
+            }
+            HomeDeviceState.ApprovalSuccess -> {
+                showHomeScreen(notificationdeviceId, notificationdeviceName)
+            }
+            HomeDeviceState.ApprovalFailure -> {
+                showHomeScreen(notificationdeviceId, notificationdeviceName)
             }
         }
     }
@@ -409,7 +391,6 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 skip.isVisible = false
             }
         }
-
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -434,10 +415,9 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 fragmentTransition(SelectScanFragment
                         .newInstance(scanId, deviceId!!, deviceName), SELECT_SCAN_FRAGMENT)
             } else {
-                fragmentTransition(ScanHistoryFragment
-                        .newInstance(deviceId!!, deviceName!!), SCAN_HISTORY_FRAGMENT)
+                fragmentTransition(ScanHistoryFragment.newInstance(deviceId!!, deviceName!!, userManager.customerType), SCAN_HISTORY_FRAGMENT)
             }
-        } else if (userManager.customerType == "CUSTOMER") {
+        } else if (userManager.customerType == "CUSTOMER" || userManager.customerType == "CLIENT") {
             fragmentTransition(LandingFragment.newInstance(), LANDING_FRAGMENT)
         } else if (userManager.customerType == "SERVICE_PROVIDER") {
             fragmentTransition(HomeFragment.newInstance(), HOME_FRAGMENT)
@@ -495,13 +475,40 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 NAV_SPLASH, NAV_LOGIN -> {
                     showHomeScreen(device?.device_id, device?.device_name)
                 }
-                NAV_NOTIFICATION, NAV_SCAN_HISTORY_ACTIVITY -> {
+//                NAV_NOTIFICATION, NAV_SCAN_HISTORY_ACTIVITY -> {
+//                    scanId = bundle.getString(KEY_SCAN_ID)
+//                    val deviceId = bundle.getString(KEY_DEVICE_ID)!!.toInt()
+//                    val deviceName = bundle.getString(KEY_DEVICE_NAME)
+//
+//                    showHomeScreen(deviceId, deviceName)
+//
+//                    fragmentTransition(SelectScanFragment
+//                            .newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
+//                }
+                NAV_NOTIFICATION -> {
                     scanId = bundle.getString(KEY_SCAN_ID)
                     val deviceId = bundle.getString(KEY_DEVICE_ID)!!.toInt()
                     val deviceName = bundle.getString(KEY_DEVICE_NAME)
+                    val scanStatus = bundle.getString(KEY_SCAN_STATUS)
 
+                    if (userManager.customerType == "OPERATOR") {
+                        showHomeScreen(deviceId, deviceName)
+                        fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
+                    } else if (userManager.customerType == "CUSTOMER") {
+                        if (scanStatus == "0") {
+                            showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+                        }
+                    } else if (userManager.customerType == "CLIENT") {
+                        if (scanStatus == "0") {
+                            showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+                        }
+                    }
+                }
+                NAV_SCAN_HISTORY_ACTIVITY -> {
+                    scanId = bundle.getString(KEY_SCAN_ID)
+                    val deviceId = bundle.getString(KEY_DEVICE_ID)!!.toInt()
+                    val deviceName = bundle.getString(KEY_DEVICE_NAME)
                     showHomeScreen(deviceId, deviceName)
-
                     fragmentTransition(SelectScanFragment
                             .newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
                 }
@@ -557,4 +564,28 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
         (application as CustomApp).releaseHomeComponent()
     }
 
+    private fun showCustomDialog(scanId: Int, deviceId: Int, deviceName: String, scanStatus: String) {
+        val viewGroup: ViewGroup = findViewById(android.R.id.content)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.approve_rejectdialog, viewGroup, false)
+        notificationdeviceId = deviceId
+        notificationdeviceName = deviceName
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        val alertDialog: AlertDialog = builder.create()
+        val tvApprove = dialogView.findViewById<TextView>(R.id.btn_yes)
+        val tvReject = dialogView.findViewById<TextView>(R.id.btn_no)
+        val tvScanStatus = dialogView.findViewById<TextView>(R.id.tvScanStatus)
+        val tvScanId = dialogView.findViewById<TextView>(R.id.tvScanId)
+        tvScanId.text = scanId.toString()
+        tvScanStatus.text = "Pending"
+        tvApprove.setOnClickListener {
+            viewModel.setApproval(scanId, 1)
+            alertDialog.dismiss()
+        }
+        tvReject.setOnClickListener {
+            viewModel.setApproval(scanId, 2)
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
+    }
 }

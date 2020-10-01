@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.custom.app.ui.base.ScreenState
+import okhttp3.ResponseBody
 
-class HomeViewModel(val homeInteractor: HomeInteractor) : ViewModel(), HomeInteractor.DeviceCallback {
+class HomeViewModel(val homeInteractor: HomeInteractor) : ViewModel(), HomeInteractor.DeviceCallback, HomeInteractor.approval {
 
     private val _homeState: MutableLiveData<ScreenState<HomeDeviceState>> = MutableLiveData()
     val homeState: LiveData<ScreenState<HomeDeviceState>>
@@ -23,6 +24,10 @@ class HomeViewModel(val homeInteractor: HomeInteractor) : ViewModel(), HomeInter
         homeInteractor.allSubscribedDevices(this)
     }
 
+    fun setApproval(scanId: Int, status: Int) {
+        homeInteractor.approveReject(scanId, status, this)
+    }
+
     override fun allDevicesApiSuccess(body: SubscribedDeviceRes) {
         _homeList.value = body
         _homeState.value = ScreenState.Render(HomeDeviceState.SubscribeDeviceSuccess)
@@ -31,6 +36,15 @@ class HomeViewModel(val homeInteractor: HomeInteractor) : ViewModel(), HomeInter
     override fun allDevicesApiError(msg: String) {
         errorMessage = msg
         _homeState.value = ScreenState.Render(HomeDeviceState.SubscribeDeviceFailure)
+    }
+
+    override fun approvalSuccess(body: ResponseBody) {
+        _homeState.value = ScreenState.Render(HomeDeviceState.ApprovalSuccess)
+    }
+
+    override fun approvalFailure(msg: String) {
+        errorMessage = msg
+        _homeState.value = ScreenState.Render(HomeDeviceState.ApprovalFailure)
     }
 }
 

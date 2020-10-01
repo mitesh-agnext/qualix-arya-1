@@ -33,6 +33,7 @@ import butterknife.Unbinder;
 
 import static com.custom.app.util.Constants.KEY_CATEGORY_ID;
 import static com.custom.app.util.Constants.KEY_CENTER_ID;
+import static com.custom.app.util.Constants.KEY_DEVICE_SERIAL_NO;
 import static com.custom.app.util.Constants.KEY_DEVICE_TYPE;
 import static com.custom.app.util.Constants.KEY_END_DATE;
 import static com.custom.app.util.Constants.KEY_REGION_ID;
@@ -78,6 +79,7 @@ public class SupplierFragment extends BaseFragment implements SupplierView {
         if (filter.length > 1) {
             args.putString(KEY_CENTER_ID, filter[0]);
             args.putString(KEY_DEVICE_TYPE, filter[1]);
+            args.putString(KEY_DEVICE_SERIAL_NO, filter[2]);
         }
 
         fragment.setArguments(args);
@@ -112,6 +114,7 @@ public class SupplierFragment extends BaseFragment implements SupplierView {
             endDate = getArguments().getString(KEY_END_DATE);
             String centerId = getArguments().getString(KEY_CENTER_ID);
             String deviceType = getArguments().getString(KEY_DEVICE_TYPE);
+            String deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
 
             presenter.fetchCommodity(categoryId);
         }

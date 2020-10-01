@@ -20,7 +20,7 @@ class DataFragmentViewModel(val sampleInteractor: SampleInteractor) : ViewModel(
 
     fun fetchLocations() {
         sampleStateLiveData.value = Loading
-        sampleInteractor.fetchLocation(this)
+//        sampleInteractor.fetchLocation(this)
     }
 
     override fun onLocationSuccess(locations: List<LocationItem>) {

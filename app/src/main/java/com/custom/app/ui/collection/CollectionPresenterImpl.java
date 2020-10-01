@@ -163,25 +163,25 @@ public class CollectionPresenterImpl extends CollectionPresenter {
                 });
     }
 
-    @Override
-    void fetchCollectionRegion(String commodityId, String regionId, String centerId,
-                               String from, String to, String... filter) {
-        showProgressBar();
-
-        disposable = quantityInteractor.collectionRegion(commodityId, regionId, centerId, from, to, filter)
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(collections -> {
-                    hideProgressBar();
-
-                    if (isViewAttached()) {
-                        view.showCollectionRegion(collections);
-                    }
-                }, error -> {
-                    hideProgressBar();
-                    showMessage(error.getMessage());
-                });
-    }
+//    @Override
+//    void fetchCollectionRegion(String commodityId, String regionId, String centerId,
+//                               String from, String to, String... filter) {
+//        showProgressBar();
+//
+//        disposable = quantityInteractor.collectionRegion(commodityId, regionId, centerId, from, to, filter)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .unsubscribeOn(Schedulers.io())
+//                .subscribe(collections -> {
+//                    hideProgressBar();
+//
+//                    if (isViewAttached()) {
+//                        view.showCollectionRegion(collections);
+//                    }
+//                }, error -> {
+//                    hideProgressBar();
+//                    showMessage(error.getMessage());
+//                });
+//    }
 
     @Override
     void fetchCollectionWeekly(String commodityId, String from, String to, String... filter) {

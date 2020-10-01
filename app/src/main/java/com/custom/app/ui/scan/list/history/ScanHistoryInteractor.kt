@@ -8,7 +8,10 @@ import com.custom.app.ui.createData.flcScan.season.create.CommodityRes
 import com.custom.app.ui.createData.region.site.create.RegionRes
 import com.custom.app.ui.device.add.DeviceTypeRes
 import com.custom.app.ui.device.assign.InstallationCenterRes
+import com.custom.app.util.Constants
+import com.google.gson.JsonObject
 import com.user.app.data.UserManager
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -91,10 +94,8 @@ class ScanHistoryInteractor(val userManager: UserManager, val apiService: ApiInt
     }
 
     fun getInstallationCenters(mCallback: ScanHistoryListener, customer_id: Int) {
-
         val apiService = ApiClient.getDcmClient().create(ApiInterface::class.java)
         val call = apiService.getInstallationCenters("Bearer ${userManager.token}", "", "", "")
-
         call.enqueue(object : Callback<ArrayList<InstallationCenterRes>> {
             override fun onResponse(call: Call<ArrayList<InstallationCenterRes>>,
                                     response: Response<ArrayList<InstallationCenterRes>>) {
@@ -123,7 +124,6 @@ class ScanHistoryInteractor(val userManager: UserManager, val apiService: ApiInt
                 mCallback.installationCentersFailure("Error")
             }
         })
-
     }
 
     fun getRegions(customerId: Int, mCallback: ScanHistoryListener) {
@@ -201,23 +201,51 @@ class ScanHistoryInteractor(val userManager: UserManager, val apiService: ApiInt
             Timber.e(e)
         }
     }
+
+    fun approveReject(scanId: Int, status: Int, listener: ScanHistoryListener) {
+        val options = JsonObject()
+        options.addProperty("approval", status)
+        options.addProperty("scan_id", scanId)
+        approveRejectPost(listener, options)
+    }
+
+    private fun approveRejectPost(listener: ScanHistoryListener, options: JsonObject) {
+        val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
+        val call = apiService.approveReject(Constants.TOKEN, options)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+                listener.approvalFailure(t!!.message.toString())
+            }
+
+            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    listener.approvalSuccess(response.body()!!)
+                } else {
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    if (response.code() == 401) {
+                        listener.tokenExpire()
+                    } else {
+                        listener.approvalFailure(jObjError.getString("error-message"))
+                    }
+                }
+            }
+        })
+    }
+
 }
 
 interface ScanHistoryListener {
     fun scanHistorySuccess(body: ArrayList<ScanData>?)
     fun scanHistoryFailure(massage: String)
-
     fun commoditySuccess(body: ArrayList<CommodityRes>)
     fun commodityFailure(msg: String)
-
     fun installationCentersSuccess(body: ArrayList<InstallationCenterRes>)
     fun installationCentersFailure(string: String)
-
     fun regionSuccess(body: ArrayList<RegionRes>)
     fun regionFailure(string: String)
-
+    fun approvalSuccess(body: ResponseBody)
+    fun approvalFailure(string: String)
     fun deviceTypeSuccess(body: ArrayList<DeviceTypeRes>)
     fun deviceTypeFailure(string: String)
-
     fun tokenExpire()
 }

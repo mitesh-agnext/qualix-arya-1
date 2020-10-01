@@ -23,13 +23,14 @@ public class QualityInteractorImpl implements QualityInteractor {
     }
 
     @Override
-    public Single<QualityRes> quality(String commodityId, String analysis, String from,
+    public Single<List<QualityRes>> quality(String commodityId, String analysis, String from,
                                       String to, String... filter) {
         Map<String, String> query = new HashMap<>();
+        query.put("client_id", userManager.getCustomerId());
         query.put("commodity_id", commodityId);
         query.put("analysis_name", analysis);
-        query.put("date_f", from);
-        query.put("date_t", to);
+        query.put("date_from", from);
+        query.put("date_to", to);
 
         return restService.quality(query)
                 .map(QualityParser::parse);
@@ -39,10 +40,11 @@ public class QualityInteractorImpl implements QualityInteractor {
     public Single<List<QualityOverTimeRes>> qualityOverTime(String commodityId, String analysis,
                                                             String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
+        query.put("client_id", userManager.getCustomerId());
         query.put("commodity_id", commodityId);
         query.put("analysis_name", analysis);
-        query.put("date_f", from);
-        query.put("date_t", to);
+        query.put("date_from", from);
+        query.put("date_to", to);
 
         return restService.qualityOverTime(query)
                 .map(QualityParser::time);
@@ -52,10 +54,11 @@ public class QualityInteractorImpl implements QualityInteractor {
     public Single<List<QualityMapItem>> qualityMap(String commodityId, String analysis,
                                                    String from, String to) {
         Map<String, String> query = new HashMap<>();
+        query.put("client_id", userManager.getCustomerId());
         query.put("commodity_id", commodityId);
         query.put("analysis_name", analysis);
-        query.put("date_f", from);
-        query.put("date_t", to);
+        query.put("date_from", from);
+        query.put("date_to", to);
 
         return restService.qualityMap(query)
                 .map(QualityParser::map);

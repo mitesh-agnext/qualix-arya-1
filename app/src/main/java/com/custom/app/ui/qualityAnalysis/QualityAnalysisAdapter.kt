@@ -9,11 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.app.R
 import com.custom.app.data.model.scanhistory.ScanData
-import com.custom.app.data.model.scanhistory.ScanHistoryResT
 import com.custom.app.ui.scan.list.history.ListCallBack
-import com.custom.app.ui.scan.list.history.ScanHistoryAdapter
 import com.custom.app.util.Utils
-import kotlinx.android.synthetic.main.item_payment_history.view.*
 import java.util.ArrayList
 
 class QualityAnalysisAdapter(val context: Context, val scanListRes: ArrayList<ScanData>,

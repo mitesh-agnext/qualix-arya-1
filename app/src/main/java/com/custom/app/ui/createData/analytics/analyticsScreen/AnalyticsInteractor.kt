@@ -155,7 +155,7 @@ class AnalyticsInteractor(val userManager: UserManager) {
                         response: Response<ArrayList<InstallationCenterRes>>) {
                     when (response.code()) {
                         200 -> {
-                            if (response.body()!!.size>0) {
+                            if (response.body()!!.size > 0) {
                                 val dummyData = InstallationCenterRes()
                                 dummyData.inst_center_name = "All"
                                 dummyData.installation_center_id = 0
@@ -584,10 +584,10 @@ class AnalyticsInteractor(val userManager: UserManager) {
         }
     }
 
-    fun allQuantity(listener: QuantityInteractorCallback, customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
+    fun allQuantity(listener: QuantityInteractorCallback, customerId: String, commodityId: String, serialNumber: String, ccId: String, date_to: String, date_from: String, regionId: String) {
         try {
             val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
-            val call = apiService.getQuantity("Bearer ${userManager.token}", customerId, commodityId, ccId, date_to, date_from, regionId)
+            val call = apiService.getQuantity("Bearer ${userManager.token}", customerId, serialNumber, commodityId, ccId, date_to, date_from, regionId)
             call.enqueue(object : Callback<QuantityRes> {
                 override fun onResponse(
                         call: Call<QuantityRes>,
@@ -620,10 +620,10 @@ class AnalyticsInteractor(val userManager: UserManager) {
         }
     }
 
-    fun collectionByCenter(listener: QuantityInteractorCallback, customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
+    fun collectionByCenter(listener: QuantityInteractorCallback, customerId: String, commodityId: String, serialNumber: String, ccId: String, date_to: String, date_from: String, regionId: String) {
         try {
             val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
-            val call = apiService.getCollectionsByCenter("Bearer ${userManager.token}", customerId, commodityId, ccId, date_to, date_from, regionId)
+            val call = apiService.getCollectionsByCenter("Bearer ${userManager.token}", customerId, commodityId, serialNumber, ccId, date_to, date_from, regionId)
             call.enqueue(object : Callback<ArrayList<CollectionByCenterRes>> {
                 override fun onResponse(
                         call: Call<ArrayList<CollectionByCenterRes>>, response: Response<ArrayList<CollectionByCenterRes>>) {

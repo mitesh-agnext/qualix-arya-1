@@ -218,7 +218,10 @@ public class LoginActivity extends BaseActivity implements LoginView, OtpDialog.
                     userManager.setCustomerType("CUSTOMER");
                 } else if (user.getRoles().contains("operator")) {
                     userManager.setCustomerType("OPERATOR");
+                } else if (user.getRoles().contains("sub_client")) {
+                    userManager.setCustomerType("CLIENT");
                 }
+
             }
             userManager.setPermissions(new Gson().toJson(response.getPermissions()));
 

@@ -264,7 +264,6 @@ class AddDeviceActivity : BaseActivity() {
                     val fmt = SimpleDateFormat("dd-MM-yyyy")
                     val month = monthOfYear + 1
                     val date = fmt.parse("$dayOfMonth-$month-$year")
-
                     val fmtOut = SimpleDateFormat("dd-MM-yyyy")
 
                     when (textView.id) {

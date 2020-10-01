@@ -12,12 +12,14 @@ import com.custom.app.ui.customer.list.CustomerListListener
 import com.custom.app.ui.customer.list.CustomerRes
 import com.custom.app.ui.device.add.DeviceTypeRes
 import com.custom.app.ui.device.assign.InstallationCenterRes
+import okhttp3.ResponseBody
 
 class ScanHistoryVM(val scanHistoryInteractor: ScanHistoryInteractor, val customerInteractor: CustomerInteractor) : ViewModel(), ScanHistoryListener, CustomerListListener {
 
     val _scanHistoryState: MutableLiveData<ScanHistoryState> = MutableLiveData()
     val scanHistoryState: LiveData<ScanHistoryState>
         get() = _scanHistoryState
+
     val scanList = ArrayList<ScanData>()
     val customerList = ArrayList<CustomerRes>()
     val commodityList = ArrayList<CommodityRes>()
@@ -54,6 +56,11 @@ class ScanHistoryVM(val scanHistoryInteractor: ScanHistoryInteractor, val custom
         scanHistoryInteractor.getScanHistoryIn(option, this)
     }
 
+    fun setApproval(scanId: Int, status: Int) {
+        _scanHistoryState.value = Loading
+        scanHistoryInteractor.approveReject(scanId, status, this)
+    }
+
     override fun scanHistorySuccess(body: ArrayList<ScanData>?) {
         scanList.clear()
         scanList.addAll(body!!)
@@ -61,9 +68,9 @@ class ScanHistoryVM(val scanHistoryInteractor: ScanHistoryInteractor, val custom
         _scanHistoryState.value = List(body)
     }
 
-    override fun scanHistoryFailure(massage: String) {
+    override fun scanHistoryFailure(message: String) {
         _scanHistoryState.value = ScanListFailure
-        _scanHistoryState.value = Error(massage)
+        _scanHistoryState.value = Error(message)
     }
 
     override fun commoditySuccess(body: ArrayList<CommodityRes>) {
@@ -100,6 +107,16 @@ class ScanHistoryVM(val scanHistoryInteractor: ScanHistoryInteractor, val custom
 
     override fun regionFailure(string: String) {
         _scanHistoryState.value = RegionFailure
+    }
+
+    override fun approvalSuccess(body: ResponseBody) {
+        _scanHistoryState.value = ApprovalSuccess
+    }
+
+    override fun approvalFailure(message: String) {
+        _scanHistoryState.value = Error(message)
+        _scanHistoryState.value = ApprovalFailure
+
     }
 
     override fun deviceTypeSuccess(body: ArrayList<DeviceTypeRes>) {

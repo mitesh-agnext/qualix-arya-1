@@ -69,6 +69,7 @@ import butterknife.Unbinder;
 
 import static com.custom.app.util.Constants.KEY_CATEGORY_ID;
 import static com.custom.app.util.Constants.KEY_CENTER_ID;
+import static com.custom.app.util.Constants.KEY_DEVICE_SERIAL_NO;
 import static com.custom.app.util.Constants.KEY_DEVICE_TYPE;
 import static com.custom.app.util.Constants.KEY_END_DATE;
 import static com.custom.app.util.Constants.KEY_REGION_ID;
@@ -80,7 +81,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     private Random random = new Random();
     private List<CommodityItem> commodities = new ArrayList<>();
     private List<AnalyticItem> analyses = new ArrayList<>();
-    private String categoryId, commodityId, analysisName, startDate, endDate, centerId, deviceType;
+    private String categoryId, commodityId, analysisName, startDate, endDate, centerId, deviceType, deviceSerialNo;
 
     @Inject
     CollectionPresenter presenter;
@@ -97,16 +98,16 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
 
         if (!TextUtils.isEmpty(commodityId) && !TextUtils.isEmpty(startDate) && !TextUtils.isEmpty(endDate)) {
             if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
-                presenter.fetchQuantity(commodityId, startDate, endDate, centerId, deviceType);
-                presenter.fetchCollectionByCenter(commodityId, startDate, endDate, centerId, deviceType);
-                presenter.fetchCollectionOverTime(commodityId, startDate, endDate, centerId, deviceType);
-                presenter.fetchCollectionRegion(commodityId, "25", "13", startDate, endDate, centerId, deviceType);
-                presenter.fetchCollectionWeekly(commodityId, startDate, endDate, centerId, deviceType);
+                presenter.fetchQuantity(commodityId, startDate, endDate, centerId, deviceType, deviceSerialNo);
+                presenter.fetchCollectionByCenter(commodityId, startDate, endDate, centerId, deviceType, deviceSerialNo);
+                presenter.fetchCollectionOverTime(commodityId, startDate, endDate, centerId, deviceType, deviceSerialNo);
+//                presenter.fetchCollectionRegion(commodityId, "25", centerId, startDate, endDate, centerId, deviceType, deviceSerialNo);
+                presenter.fetchCollectionWeekly(commodityId, startDate, endDate, centerId, deviceType, deviceSerialNo);
             } else {
                 presenter.fetchQuantity(commodityId, startDate, endDate);
                 presenter.fetchCollectionByCenter(commodityId, startDate, endDate);
                 presenter.fetchCollectionOverTime(commodityId, startDate, endDate);
-                presenter.fetchCollectionRegion(commodityId, "25", "13", startDate, endDate);
+//                presenter.fetchCollectionRegion(commodityId, "25", centerId, startDate, endDate);
                 presenter.fetchCollectionWeekly(commodityId, startDate, endDate);
             }
         }
@@ -153,8 +154,8 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     @BindView(R.id.chart_time)
     LineChart chartTime;
 
-    @BindView(R.id.chart_region)
-    LineChart chartRegion;
+//    @BindView(R.id.chart_region)
+//    LineChart chartRegion;
 
     @BindView(R.id.chip_group)
     ChipGroup group;
@@ -179,6 +180,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
         if (filter.length > 1) {
             args.putString(KEY_CENTER_ID, filter[0]);
             args.putString(KEY_DEVICE_TYPE, filter[1]);
+            args.putString(KEY_DEVICE_SERIAL_NO, filter[2]);
         }
 
         fragment.setArguments(args);
@@ -213,7 +215,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
             endDate = getArguments().getString(KEY_END_DATE);
             centerId = getArguments().getString(KEY_CENTER_ID);
             deviceType = getArguments().getString(KEY_DEVICE_TYPE);
-
+            deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
             presenter.fetchCommodity(categoryId);
         }
     }
@@ -259,23 +261,23 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     }
 
     @Override
-    public void showQuality(QualityRes quality) {
+    public void showQuality(List<QualityRes> quality) {
         tvHigh.setText(new SpannyText()
-                .append(String.format("%s%%", quality.getMax_quality()),
+                .append(String.format("%s%%", quality.get(0).getMax_quality()),
                         new RelativeSizeSpan(1.3f),
                         new ForegroundColorSpan(ContextCompat.getColor(context(), R.color.black)))
                 .append("\n")
                 .append("Highest Quality"));
 
         tvLow.setText(new SpannyText()
-                .append(String.format("%s%%", quality.getMin_quality()),
+                .append(String.format("%s%%", quality.get(0).getMin_quality()),
                         new RelativeSizeSpan(1.3f),
                         new ForegroundColorSpan(ContextCompat.getColor(context(), R.color.black)))
                 .append("\n")
                 .append("Lowest Quality"));
 
         tvAvg.setText(new SpannyText()
-                .append(String.format("%s%%", quality.getAvg_quality()),
+                .append(String.format("%s%%", quality.get(0).getAvg_quality()),
                         new RelativeSizeSpan(1.3f),
                         new ForegroundColorSpan(ContextCompat.getColor(context(), R.color.black)))
                 .append("\n")
@@ -332,7 +334,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
 
             String startDate = String.valueOf(dateTime.toInstant(ZoneOffset.ofHoursMinutes(5, 30)).toEpochMilli());
             if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
-                presenter.fetchCollectionWeekly(commodityId, startDate, endDate, centerId, deviceType);
+                presenter.fetchCollectionWeekly(commodityId, startDate, endDate, centerId, deviceType,deviceSerialNo);
             } else {
                 presenter.fetchCollectionWeekly(commodityId, startDate, endDate);
             }
@@ -369,7 +371,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     public void showQualityOverTime(List<QualityOverTimeRes> qualities) {
         List<GraphItem> chartData = new ArrayList<>();
         for (QualityOverTimeRes item : qualities) {
-            if (item.getQuality_avg() != null) {
+            if (item.getQuality_avg() != null && item.getScan_date() != null) {
                 chartData.add(new GraphItem(item.getScan_date(), item.getQuality_avg().toString()));
             }
         }
@@ -431,7 +433,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     public void showCollectionOverTime(List<CollectionOverTimeRes> collections) {
         List<GraphItem> chartData = new ArrayList<>();
         for (CollectionOverTimeRes item : collections) {
-            if (item.getWeight() != null) {
+            if (item.getWeight() != null && item.getScan_date() != null) {
                 chartData.add(new GraphItem(item.getScan_date(), item.getWeight().toString()));
             }
         }
@@ -439,21 +441,21 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
         setLineChartData(chartTime, R.color.orange, true, chartData);
     }
 
-    @Override
-    public void showCollectionRegion(List<CollectionCenterRegionRes> collections) {
-        List<GraphItem> chartData = new ArrayList<>();
-        List<GraphItem> chartData1 = new ArrayList<>();
-        for (CollectionCenterRegionRes item : collections) {
-            if (item.getCenter_collection() != null) {
-                chartData.add(new GraphItem(item.getScan_date(), item.getCenter_collection().toString()));
-            }
-            if (item.getRegion_collection() != null) {
-                chartData1.add(new GraphItem(item.getScan_date(), item.getRegion_collection().toString()));
-            }
-        }
-
-        setLineChartData(chartRegion, R.color.green, true, chartData, chartData1);
-    }
+//    @Override
+//    public void showCollectionRegion(List<CollectionCenterRegionRes> collections) {
+//        List<GraphItem> chartData = new ArrayList<>();
+//        List<GraphItem> chartData1 = new ArrayList<>();
+//        for (CollectionCenterRegionRes item : collections) {
+//            if (item.getCenter_collection() != null) {
+//                chartData.add(new GraphItem(item.getScan_date(), item.getCenter_collection().toString()));
+//            }
+//            if (item.getRegion_collection() != null) {
+//                chartData1.add(new GraphItem(item.getScan_date(), item.getRegion_collection().toString()));
+//            }
+//        }
+//
+//        setLineChartData(chartRegion, R.color.green, true, chartData, chartData1);
+//    }
 
     private void setLineChartData(LineChart chart, @ColorRes int colorId, boolean showAxis,
                                   List<GraphItem> chartData, List<GraphItem>... chartData1) {
@@ -462,12 +464,15 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
         ArrayList<Entry> entries1 = new ArrayList<>();
 
         for (GraphItem item : chartData) {
-            entries.add(new Entry(getDateEpoch(item.getTitle()), Float.parseFloat(item.getCount())));
+            if (item != null) {
+                entries.add(new Entry(getDateEpoch(item.getTitle()), Float.parseFloat(item.getCount())));
+            }
         }
 
         if (chartData1.length != 0) {
             for (GraphItem item : chartData1[0]) {
-                entries1.add(new Entry(getDateEpoch(item.getTitle()), Float.parseFloat(item.getCount())));
+
+                    entries1.add(new Entry(getDateEpoch(item.getTitle()), Float.parseFloat(item.getCount())));
             }
         }
 
@@ -532,7 +537,6 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
         });
 
         chart.setTouchEnabled(false);
-
         chart.setData(data);
         chart.animateX(1500);
         chart.invalidate();

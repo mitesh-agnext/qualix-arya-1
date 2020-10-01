@@ -36,14 +36,14 @@ class QuantityViewModel(val QuantityInteractor: AnalyticsInteractor) : ViewModel
 
     var errorMessage: String = "Error"
 
-    fun onGetQuantity(customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
+    fun onGetQuantity(customerId: String, commodityId: String, serialNumber: String, ccId: String, date_to: String, date_from: String, regionId: String) {
         _QuantityState.value = ScreenState.Loading
-        QuantityInteractor.allQuantity(this, customerId, commodityId, ccId, date_to, date_from, regionId)
+        QuantityInteractor.allQuantity(this, customerId, commodityId, serialNumber, ccId, date_to, date_from, regionId)
     }
 
-    fun onGetCollection(customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
+    fun onGetCollection(customerId: String, commodityId: String, serialNumber: String, ccId: String, date_to: String, date_from: String, regionId: String) {
         _QuantityState.value = ScreenState.Loading
-        QuantityInteractor.collectionByCenter(this, customerId, commodityId, ccId, date_to, date_from, regionId)
+        QuantityInteractor.collectionByCenter(this, customerId, commodityId, serialNumber, ccId, date_to, date_from, regionId)
     }
 
     fun onGetCollectionOverTime(customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
@@ -51,10 +51,10 @@ class QuantityViewModel(val QuantityInteractor: AnalyticsInteractor) : ViewModel
         QuantityInteractor.collectionOverTime(this, customerId, commodityId, ccId, date_to, date_from, regionId)
     }
 
-    fun onGetCollectionCenterRegion(customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
-        _QuantityState.value = ScreenState.Loading
-        QuantityInteractor.collectionByCenterRegion(this, customerId, commodityId, ccId, date_to, date_from, regionId)
-    }
+//    fun onGetCollectionCenterRegion(customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
+//        _QuantityState.value = ScreenState.Loading
+//        QuantityInteractor.collectionByCenterRegion(this, customerId, commodityId, ccId, date_to, date_from, regionId)
+//    }
 
     fun onGetCollectionWeeklyMonthly(customerId: String, commodityId: String, ccId: String, date_to: String, date_from: String, regionId: String) {
         _QuantityState.value = ScreenState.Loading

@@ -17,7 +17,7 @@ import androidx.core.app.TaskStackBuilder;
 import com.custom.app.CustomApp;
 import com.custom.app.R;
 import com.custom.app.ui.home.HomeActivity;
-import com.custom.app.ui.splash.SplashActivity;
+import com.custom.app.ui.splash.SplashScreen;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.user.app.data.UserManager;
@@ -28,6 +28,7 @@ import timber.log.Timber;
 
 import static com.custom.app.util.Constants.FLOW;
 import static com.custom.app.util.Constants.KEY_SCAN_ID;
+import static com.custom.app.util.Constants.KEY_SCAN_STATUS;
 import static com.custom.app.util.Constants.NAV_NOTIFICATION;
 import static com.specx.device.util.Constants.KEY_DEVICE_ID;
 import static com.specx.device.util.Constants.KEY_DEVICE_NAME;
@@ -70,6 +71,7 @@ public class FcmMessageReceiverService extends FirebaseMessagingService {
         String scanId = remoteMessage.getData().get("scan_id");
         String deviceId = remoteMessage.getData().get("type_id");
         String deviceName = remoteMessage.getData().get("type_name");
+        String scanStatus = remoteMessage.getData().get("scan_status_id");
 
         Intent intent;
         PendingIntent pendingIntent;
@@ -81,13 +83,14 @@ public class FcmMessageReceiverService extends FirebaseMessagingService {
             bundle.putString(KEY_SCAN_ID, scanId);
             bundle.putString(KEY_DEVICE_ID, deviceId);
             bundle.putString(KEY_DEVICE_NAME, deviceName);
+            bundle.putString(KEY_SCAN_STATUS, scanStatus);
             intent.putExtras(bundle);
 
             pendingIntent = TaskStackBuilder.create(this)
                     .addNextIntentWithParentStack(intent)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
-            intent = new Intent(this, SplashActivity.class);
+            intent = new Intent(this, SplashScreen.class);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         }
 

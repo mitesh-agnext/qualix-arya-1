@@ -10,12 +10,12 @@ public class QuantityDetailRes {
     public QuantityDetailRes() {
     }
 
-    String total_quantity;
+    Double total_quantity;
     String quantity_unit;
     List<CenterDetailItem> inst_center_details;
     CollectionAvgRes collection;
 
-    public String getTotalQuantity() {
+    public Double getTotalQuantity() {
         return total_quantity;
     }
 

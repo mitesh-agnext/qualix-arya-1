@@ -20,18 +20,15 @@ public interface QuantityInteractor {
 
     Single<QuantityRes> quantity(String commodityId, String from, String to, String... filter);
 
-    Single<List<CollectionByCenterRes>> collectionByCenter(String commodityId, String from,
-                                                           String to, String... filter);
+    Single<List<CollectionByCenterRes>> collectionByCenter(String commodityId, String from, String to, String... filter);
 
-    Single<List<CollectionOverTimeRes>> collectionOverTime(String commodityId, String from,
-                                                           String to, String... filter);
+    Single<List<CollectionOverTimeRes>> collectionOverTime(String commodityId, String from, String to, String... filter);
 
-    Single<List<CollectionCenterRegionRes>> collectionRegion(String commodityId, String regionId,
-                                                             String centerId, String from,
-                                                             String to, String... filter);
+//    Single<List<CollectionCenterRegionRes>> collectionRegion(String commodityId, String regionId,
+//                                                             String centerId, String from,
+//                                                             String to, String... filter);
 
-    Single<CollectionWeeklyMonthlyRes> collectionWeekly(String commodityId, String from,
-                                                        String to, String... filter);
+    Single<CollectionWeeklyMonthlyRes> collectionWeekly(String commodityId, String from, String to, String... filter);
 
     Single<QuantityDetailRes> qualityDetail(String categoryId, String from, String to);
 

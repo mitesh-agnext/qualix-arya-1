@@ -12,6 +12,7 @@ import com.custom.app.ui.commodity.CommodityPresenter;
 import com.custom.app.ui.commodity.CommodityPresenterImpl;
 import com.custom.app.ui.sample.SamplePresenter;
 import com.custom.app.ui.sample.SamplePresenterImpl;
+import com.custom.app.ui.scan.list.detail.ScanDetailInteractor;
 import com.custom.app.ui.scan.list.history.ScanHistoryInteractor;
 import com.squareup.sqlbrite3.BriteDatabase;
 import com.user.app.data.UserManager;
@@ -23,8 +24,7 @@ import dagger.Provides;
 public class ScanModule {
 
     @Provides
-    CommodityInteractor provideCommodityInteractor(RestService restService, UserManager userManager,
-                                                   BriteDatabase database) {
+    CommodityInteractor provideCommodityInteractor(RestService restService, UserManager userManager, BriteDatabase database) {
         return new CommodityInteractorImpl(restService, userManager, database);
     }
 
@@ -53,5 +53,10 @@ public class ScanModule {
     @Provides
     ScanHistoryInteractor provideScanHistoryInteractor(UserManager userManager, ApiInterface apiService) {
         return new ScanHistoryInteractor(userManager, apiService);
+    }
+
+    @Provides
+    ScanDetailInteractor provideScanDetailInteractor(UserManager userManager, ApiInterface apiService) {
+        return new ScanDetailInteractor(userManager, apiService);
     }
 }

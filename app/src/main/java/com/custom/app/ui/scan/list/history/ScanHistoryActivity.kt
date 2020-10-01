@@ -18,7 +18,6 @@ import com.core.app.util.AlertUtil
 import com.custom.app.CustomApp
 import com.custom.app.R
 import com.custom.app.data.model.scanhistory.ScanData
-import com.custom.app.data.model.scanhistory.ScanHistoryResT
 import com.custom.app.ui.customer.list.CustomerInteractor
 import com.custom.app.ui.scan.list.detail.ScanDetailActivity
 import com.custom.app.util.Constants
@@ -43,7 +42,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-
 class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     @Inject
@@ -51,8 +49,6 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
 
     @Inject
     lateinit var customerInteractor: CustomerInteractor
-
-    var expandIndicator: Boolean = true
 
     private lateinit var viewModel: ScanHistoryVM
     private val customerName = ArrayList<String>()
@@ -75,6 +71,12 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
     private var insCenterPos = 0
     private var regionPos = 0
     private var deviceTypePos = 0
+    var linearLayoutManager: LinearLayoutManager? = null
+    private val PAGE_START = 0
+    private var isLoading = false
+    private var isLastPage = false
+    private val TOTAL_PAGES = 3
+    private var currentPage: Int = PAGE_START
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as CustomApp).homeComponent.inject(this)
@@ -86,22 +88,22 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
     fun initView() {
         toolbar.title = getString(R.string.scan_history)
         setSupportActionBar(toolbar)
-
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
-
         fbFilter.setOnClickListener(this)
         viewModel = ViewModelProvider(this, ScanHistoryViewModelFactory(interactor, customerInteractor))[ScanHistoryVM::class.java]
         viewModel.scanHistoryState.observe(::getLifecycle, ::setViewState)
-
 //        if (userManager.customerType == "SERVICE_PROVIDER") {
 //            viewModel.getCustomerList()
 //        } else {
 //            data["customer_id"] = userManager.customerId
 //            viewModel.getScanHistory(data)
 //        }
-        setProgress(true)
-        viewModel.getScanHistory(data)
+//        setProgress(true)
+//        viewModel.getScanHistory(data)
+
+        linearLayoutManager = LinearLayoutManager(this)
+        rvScanHistory.setLayoutManager(linearLayoutManager)
     }
 
     private fun setViewState(state: ScanHistoryState) {
@@ -110,7 +112,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 setProgress(true)
             }
             CustomerList -> {
-                progress.visibility = View.GONE
+                setProgress(false)
                 customerName.clear()
                 if (viewModel.customerList.size > 0) {
                     for (i in 0 until viewModel.customerList.size) {
@@ -127,9 +129,8 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 if (state.scanHistory.size > 0) {
                     tvNoData.visibility = View.GONE
                     rvScanHistory.visibility = View.VISIBLE
-                    val scanHistoryAdapter = ScanHistoryAdapter(this, state.scanHistory, this)
+                    val scanHistoryAdapter = ScanHistoryAdapter(this, state.scanHistory, this, userManager.customerType)
                     rvScanHistory.adapter = scanHistoryAdapter
-                    rvScanHistory.layoutManager = LinearLayoutManager(this)
                 } else {
                     tvNoData.visibility = View.VISIBLE
                     rvScanHistory.visibility = View.GONE
@@ -141,9 +142,8 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 tvNoData.visibility = View.VISIBLE
                 rvScanHistory.visibility = View.GONE
             }
-
             is CommodityList -> {
-                progress.visibility = View.GONE
+                setProgress(false)
                 commodityName.clear()
                 if (viewModel.commodityList.size > 0) {
                     commodityName.add(getString(R.string.select_commodity))
@@ -157,9 +157,8 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
             }
             is CommodityError -> {
             }
-
             is InstallationCentersSuccess -> {
-                progress.visibility = View.GONE
+                setProgress(false)
                 instCenterName.clear()
                 if (viewModel.installationCenterList.size > 0) {
                     instCenterName.add("Select Installation")
@@ -172,7 +171,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 Utils.setSpinnerAdapter(this, instCenterName, spInsCenter)
             }
             is RegionSuccess -> {
-                progress.visibility = View.GONE
+                setProgress(false)
                 regionName.clear()
                 if (viewModel.regionList.size > 0) {
                     regionName.add(getString(R.string.select_region))
@@ -185,7 +184,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 Utils.setSpinnerAdapter(this, regionName, spRegion)
             }
             is DeviceTypeSuccess -> {
-                progress.visibility = View.GONE
+                setProgress(false)
                 deviceTypeName.clear()
                 if (viewModel.deviceTypeList.size > 0) {
                     deviceTypeName.add(getString(R.string.select_device))
@@ -203,8 +202,22 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 userManager.clearData()
                 Utils.tokenExpire(this)
             }
+            is ApprovalSuccess -> {
+                setProgress(false)
+                onResume()
+            }
+            is ApprovalFailure -> {
+                setProgress(false)
+                onResume()
+            }
         }
-        setProgress(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setProgress(true)
+        viewModel.getScanHistory(data)
     }
 
     private fun setProgress(isLoading: Boolean) {
@@ -221,6 +234,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
         val type = object : TypeToken<ScanData>() {}.type
         val json = gson.toJson(viewModel.scanList[pos], type)
         intent.putExtra("selectObject", json)
+//        intent.putExtra("customerType", userManager.customerType)
         ActivityUtil.startActivity(this, intent, false)
     }
 
@@ -234,8 +248,17 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
         finish()
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
+    override fun onRejectClick(pos: Int) {
+        setProgress(true)
+        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
+    }
 
+    override fun onApproveClick(pos: Int) {
+        setProgress(true)
+        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 1)
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
     override fun onItemSelected(spinner: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
@@ -285,7 +308,6 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
 
     override fun onClick(view: View?) {
         when (view) {
-
             fbFilter -> {
                 filterDialog()
             }
@@ -315,7 +337,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
 
     private fun filterDialog() {
         //Api hit for filter data
-        allFilterApis(userManager.customerId.toInt())
+        allFilterApis(91)
         //Create Filter Dialog
         val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
@@ -329,7 +351,6 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
         spDeviceType = dialogView.findViewById(R.id.spDeviceType)
         tvApply = dialogView.findViewById(R.id.tvApply)
         tvCancel = dialogView.findViewById(R.id.tvCancel)
-
         spCommodity.onItemSelectedListener = this
         spInsCenter.onItemSelectedListener = this
         spRegion.onItemSelectedListener = this
@@ -338,11 +359,9 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
         tvEndDate.setOnClickListener(this)
         tvApply.setOnClickListener(this)
         tvCancel.setOnClickListener(this)
-
         alertDialog = dialogBuilder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
-
         val handler = Handler()
         handler.postDelayed({
             setFilterData()
@@ -393,5 +412,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
 
 interface ListCallBack {
     fun onItemClick(pos: Int)
-    fun editItem(pos :Int)
+    fun editItem(pos: Int)
+    fun onRejectClick(pos: Int)
+    fun onApproveClick(pos: Int)
 }

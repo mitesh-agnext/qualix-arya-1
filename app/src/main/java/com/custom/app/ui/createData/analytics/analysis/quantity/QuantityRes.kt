@@ -11,9 +11,9 @@ class QuantityRes {
     @SerializedName("min_quantity")
     var min_quantity: String? = null
     @SerializedName("max_quantity")
-    var max_quantity: Int? = null
+    var max_quantity: Double? = null
     @SerializedName("total_quantity")
-    var total_quantity: Int? = null
+    var total_quantity: Double? = null
 
 
 }

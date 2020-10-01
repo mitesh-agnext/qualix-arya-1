@@ -180,8 +180,14 @@ class QualityAnalysisActivity : BaseActivity(), View.OnClickListener,
     override fun editItem(pos: Int) {
     }
 
+     override fun onRejectClick(pos: Int) {
+     }
 
-    //2 onClick Listener
+     override fun onApproveClick(pos: Int) {
+     }
+
+
+     //2 onClick Listener
     override fun onClick(view: View?) {
         when (view) {
             ivQrImage -> Utils.imageDialog(this, generateQR("123456", this))

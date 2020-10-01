@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_change"
         app:layout_constraintStart_toStartOf="@+id/tv_change"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="67 Tonnes" />
+        tools:text="67 Tons" />
 
     <TextView
         android:id="@+id/tv_change"

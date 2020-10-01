@@ -27,7 +27,7 @@ import com.custom.app.ui.home.HomeActivity
 import com.custom.app.ui.scan.list.detail.ScanDetailActivity
 import com.custom.app.ui.scan.list.history.*
 import com.custom.app.ui.scan.select.SelectScanFragment
-import com.custom.app.util.Constants.SELECT_SCAN_FRAGMENT
+import com.custom.app.util.Constants.*
 import com.custom.app.util.Utils
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
@@ -51,7 +51,6 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, AdapterView.OnItemSelectedListener {
-
     private var regionPos = 0
     private var commodityPos = 0
     private var insCenterPos = 0
@@ -80,7 +79,6 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
 
     @Inject
     lateinit var customerInteractor: CustomerInteractor
-
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity().application as CustomApp).homeComponent.inject(this)
         super.onCreate(savedInstanceState)
@@ -96,11 +94,13 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
 
     companion object {
         @JvmStatic
-        fun newInstance(deviceId: Int, deviceName: String) =
+        fun newInstance(deviceId: Int, deviceName: String, customerType: String) =
                 ScanHistoryFragment().apply {
                     arguments = Bundle().apply {
                         putInt(KEY_DEVICE_ID, deviceId)
                         putString(KEY_DEVICE_NAME, deviceName)
+                        putString(KEY_CUSTOMER_TYPE, customerType)
+                        KEY_CATEGORY_ID
                     }
                 }
     }
@@ -112,7 +112,6 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
 
     fun initView() {
         fbFilter.setOnClickListener(this)
-
         viewModel = ViewModelProvider(this, ScanHistoryViewModelFactory(interactor, customerInteractor))[ScanHistoryVM::class.java]
         viewModel.scanHistoryState.observe(::getLifecycle, ::setViewState)
         showProgress(true)
@@ -124,19 +123,18 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
             val deviceName = requireArguments().getString(KEY_DEVICE_NAME)
             (toolbar.findViewById<View>(R.id.title) as TextView).text = deviceName
         }
-
         viewModel.getScanHistory(data)
     }
 
     private fun setViewState(state: ScanHistoryState) {
         when (state) {
-
             ScanListSuccess -> {
                 showProgress(false)
                 if (viewModel.scanList.size > 0) {
                     tvNoData.visibility = View.GONE
                     rvScanHistory.visibility = View.VISIBLE
-                    val scanHistoryAdapter = ScanHistoryAdapter(activity as Context, viewModel.scanList, this)
+                    val scanHistoryAdapter = ScanHistoryAdapter(activity as Context, viewModel.scanList, this,
+                            requireArguments().getInt(KEY_CUSTOMER_TYPE).toString())
                     rvScanHistory.adapter = scanHistoryAdapter
                     rvScanHistory.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
                 } else {
@@ -144,13 +142,11 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
                     rvScanHistory.visibility = View.GONE
                 }
             }
-
             ScanListFailure -> {
                 showProgress(false)
                 tvNoData.visibility = View.VISIBLE
                 rvScanHistory.visibility = View.GONE
             }
-
             is CommodityList -> {
                 showProgress(false)
                 commodityName.clear()
@@ -164,11 +160,9 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
                 }
                 Utils.setSpinnerAdapter(requireContext(), commodityName, spCommodity)
             }
-
             is CommodityError -> {
                 showProgress(false)
             }
-
             is InstallationCentersSuccess -> {
                 showProgress(false)
                 instCenterName.clear()
@@ -182,7 +176,6 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
                 }
                 Utils.setSpinnerAdapter(requireContext(), instCenterName, spInsCenter)
             }
-
             is RegionSuccess -> {
                 showProgress(false)
                 regionName.clear()
@@ -214,7 +207,6 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
 
     private fun filterDialog() {
         allFilterApis(91)
-
         val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
         val inflater = this.layoutInflater
         val dialogView: View = inflater.inflate(R.layout.layout_filter, null)
@@ -228,7 +220,6 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
         tvApply = dialogView.findViewById(R.id.tvApply)
         tvCancel = dialogView.findViewById(R.id.tvCancel)
         deviceTypeLayoutFilter = dialogView.findViewById(R.id.deviceTypeLayoutFilter)
-
         deviceTypeLayoutFilter.visibility = View.GONE
         spCommodity.onItemSelectedListener = this
         spInsCenter.onItemSelectedListener = this
@@ -237,11 +228,9 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
         tvEndDate.setOnClickListener(this)
         tvApply.setOnClickListener(this)
         tvCancel.setOnClickListener(this)
-
         alertDialog = dialogBuilder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
-
         val handler = Handler()
         handler.postDelayed({
             setFilterData()
@@ -302,6 +291,14 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
             fragmentTransition(SelectScanFragment
                     .newInstance(viewModel.scanList[pos].scanId, deviceId!!, deviceName), SELECT_SCAN_FRAGMENT)
         }
+    }
+
+    override fun onRejectClick(pos: Int) {
+        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
+    }
+
+    override fun onApproveClick(pos: Int) {
+        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 1)
     }
 
     override fun onClick(view: View?) {

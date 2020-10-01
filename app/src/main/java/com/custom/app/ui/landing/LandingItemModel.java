@@ -36,6 +36,7 @@ public abstract class LandingItemModel extends EpoxyModelWithHolder<LandingItemM
     @EpoxyAttribute String centerName;
     @EpoxyAttribute String centerType;
     @EpoxyAttribute String deviceType;
+    @EpoxyAttribute String deviceSerialNo;
     @EpoxyAttribute String totalQuantity;
     @EpoxyAttribute String quantityUnit;
     @EpoxyAttribute String change;
