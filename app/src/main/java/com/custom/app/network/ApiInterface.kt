@@ -5,6 +5,7 @@ import com.custom.app.data.model.country.CountryRes
 import com.custom.app.data.model.country.StateRes
 import com.custom.app.data.model.payment.PaymentHistoryRes
 import com.custom.app.data.model.role.RoleRes
+import com.custom.app.data.model.scanhistory.ScanData
 import com.custom.app.data.model.scanhistory.ScanHistoryResT
 import com.custom.app.data.model.section.DivisionRes
 import com.custom.app.data.model.section.GardenRes
@@ -482,6 +483,9 @@ interface ApiInterface {
 
     @GET("/api/scan/detail")
     fun getScanDetail(@Header("authorization") authorization: String, @Query("scan_id") scan_id: String): Call<ScanDetailRes>
+
+    @GET("/api/scan/detail")
+    fun getScanDetail2(@Header("authorization") authorization: String, @Query("scan_id") scan_id: String): Call<ScanData>
 
     //Farmer
 

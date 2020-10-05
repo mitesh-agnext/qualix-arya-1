@@ -27,6 +27,7 @@ import com.custom.app.ui.home.HomeActivity
 import com.custom.app.ui.scan.list.detail.ScanDetailActivity
 import com.custom.app.ui.scan.list.history.*
 import com.custom.app.ui.scan.select.SelectScanFragment
+import com.custom.app.util.Constants
 import com.custom.app.util.Constants.*
 import com.custom.app.util.Utils
 import com.google.android.material.datepicker.CalendarConstraints
@@ -281,6 +282,7 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
         val type = object : TypeToken<ScanData>() {}.type
         val json = gson.toJson(viewModel.scanList[pos], type)
         intent.putExtra("selectObject", json)
+        intent.putExtra(Constants.FLOW, Constants.NAV_SCAN_HISTORY_ACTIVITY)
         startActivity(intent)
     }
 

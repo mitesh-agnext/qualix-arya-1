@@ -233,6 +233,8 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
         val gson = Gson()
         val type = object : TypeToken<ScanData>() {}.type
         val json = gson.toJson(viewModel.scanList[pos], type)
+        intent.putExtra(Constants.FLOW, Constants.NAV_SCAN_HISTORY_ACTIVITY)
+        intent.putExtra("selectObject", json)
         intent.putExtra("selectObject", json)
 //        intent.putExtra("customerType", userManager.customerType)
         ActivityUtil.startActivity(this, intent, false)

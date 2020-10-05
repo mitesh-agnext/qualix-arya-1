@@ -32,16 +32,26 @@ import static com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash;
 @EpoxyModelClass(layout = R.layout.item_landing_list)
 public abstract class LandingItemModel extends EpoxyModelWithHolder<LandingItemModel.Holder> {
 
-    @EpoxyAttribute BaseView view;
-    @EpoxyAttribute String centerName;
-    @EpoxyAttribute String centerType;
-    @EpoxyAttribute String deviceType;
-    @EpoxyAttribute String deviceSerialNo;
-    @EpoxyAttribute String totalQuantity;
-    @EpoxyAttribute String quantityUnit;
-    @EpoxyAttribute String change;
-    @EpoxyAttribute Map<String, Float> chartData;
-    @EpoxyAttribute(DoNotHash) View.OnClickListener clickListener;
+    @EpoxyAttribute
+    BaseView view;
+    @EpoxyAttribute
+    String centerName;
+    @EpoxyAttribute
+    String centerType;
+    @EpoxyAttribute
+    String deviceType;
+    @EpoxyAttribute
+    String deviceSerialNo;
+    @EpoxyAttribute
+    String totalQuantity;
+    @EpoxyAttribute
+    String quantityUnit;
+    @EpoxyAttribute
+    String change;
+    @EpoxyAttribute
+    Map<String, Float> chartData;
+    @EpoxyAttribute(DoNotHash)
+    View.OnClickListener clickListener;
 
     @Override
     public void bind(@NonNull Holder holder) {
@@ -82,11 +92,22 @@ public abstract class LandingItemModel extends EpoxyModelWithHolder<LandingItemM
     private void setLineChartData(LineChart chart, Map<String, Float> chartData) {
         ArrayList<Entry> entries = new ArrayList<>();
 
-        int i = 0;
-        for (Map.Entry<String, Float> entry : chartData.entrySet()) {
-            if (entry.getValue() != null) {
-                entries.add(new Entry(i, entry.getValue()));
-                i++;
+        if (chartData.entrySet().size() == 1) {
+            int i = 1;
+            entries.add(new Entry(0, 0));
+            for (Map.Entry<String, Float> entry : chartData.entrySet()) {
+                if (entry.getValue() != null) {
+                    entries.add(new Entry(i, entry.getValue()));
+                    i++;
+                }
+            }
+        } else {
+            int i = 0;
+            for (Map.Entry<String, Float> entry : chartData.entrySet()) {
+                if (entry.getValue() != null) {
+                    entries.add(new Entry(i, entry.getValue()));
+                    i++;
+                }
             }
         }
 
@@ -123,10 +144,14 @@ public abstract class LandingItemModel extends EpoxyModelWithHolder<LandingItemM
 
     static class Holder extends BaseHolder {
 
-        @BindView(R.id.tv_title) TextView title;
-        @BindView(R.id.line_chart) LineChart chart;
-        @BindView(R.id.tv_quantity) TextView quantity;
-        @BindView(R.id.tv_change) TextView change;
+        @BindView(R.id.tv_title)
+        TextView title;
+        @BindView(R.id.line_chart)
+        LineChart chart;
+        @BindView(R.id.tv_quantity)
+        TextView quantity;
+        @BindView(R.id.tv_change)
+        TextView change;
 
     }
 }
