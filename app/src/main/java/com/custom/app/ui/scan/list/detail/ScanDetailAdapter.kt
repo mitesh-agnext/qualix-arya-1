@@ -29,13 +29,13 @@ class ScanDetailAdapter(val context: Context, val resultList: ArrayList<Analysis
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (resultList[position] != null) {
-            if (resultList[position].analysisType != null)
-                holder.tvTitle.text = resultList[position].analysisType!!.toUpperCase()
-            if (resultList[position].analysisResult != null)
-                if (!TextUtils.isEmpty(resultList[position].analysisUnit)) {
-                    holder.tvValue.text = String.format("%s %s", resultList[position].analysisResult, resultList[position].analysisUnit)
+            if (resultList[position].analysisName != null)
+                holder.tvTitle.text = resultList[position].analysisName!!.toUpperCase()
+            if (resultList[position].result != null)
+                if (!TextUtils.isEmpty(resultList[position].result)) {
+                    holder.tvValue.text = String.format("%s %s", resultList[position].result, resultList[position].amountUnit)
                 } else {
-                    holder.tvValue.text = resultList[position].analysisResult
+                    holder.tvValue.text = resultList[position].result
                 }
         }
     }

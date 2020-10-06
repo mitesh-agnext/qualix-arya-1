@@ -1,7 +1,9 @@
 package com.custom.app.ui.scan.list.detail
 
+import com.custom.app.data.model.scanhistory.ScanData
 import com.custom.app.network.ApiClient
 import com.custom.app.network.ApiInterface
+import com.custom.app.ui.sample.ScanDetailRes
 import com.custom.app.util.Constants
 import com.google.gson.JsonObject
 import com.user.app.data.UserManager
@@ -42,10 +44,43 @@ class ScanDetailInteractor(val userManager: UserManager, val apiService: ApiInte
             }
         })
     }
+
+
+    fun fetchScanDetail(scanId: String, listener: ScanDetailListener) {
+        val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
+
+        val call = apiService.getScanDetail2("Bearer ${userManager.token}", scanId)
+        call.enqueue(object : Callback<ScanData> {
+            override fun onResponse(call: Call<ScanData>, response: Response<ScanData>) {
+
+                when {
+                    response.isSuccessful -> {
+                        if (response.code() == 204) {
+                            listener.fetchScanDetailFailure("No record found")
+                        } else {
+                            listener.fetchScanDetailSuccess(response.body()!!)
+                        }
+                    }
+                    else -> {
+                        val jObjError = JSONObject(response.errorBody()!!.string())
+                        when {
+                            else -> listener.fetchScanDetailFailure(jObjError.getString("error-message"))
+                        }
+                    }
+                }
+            }
+            //ScanDetailRes
+            override fun onFailure(call: Call<ScanData>, t: Throwable) {
+                listener.fetchScanDetailFailure(t.message.toString())
+            }
+        })
+    }
 }
 
 interface ScanDetailListener {
     fun approvalSuccess(body: ResponseBody)
     fun approvalFailure(string: String)
+    fun fetchScanDetailSuccess(response:ScanData)
+    fun fetchScanDetailFailure(error: String)
     fun tokenExpire()
 }

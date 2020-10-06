@@ -83,6 +83,17 @@ class Utils {
                 source.finish()
             }
         }
+
+        fun startActivityWithLoadNoBackStack(source: Activity, destination: Class<*>, bundle: Bundle, isFinish: Boolean) {
+            val intent = Intent(source, destination)
+            intent.putExtras(bundle)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            source.startActivity(intent)
+            if (isFinish!!) {
+                source.finish()
+            }
+        }
+
         fun imageDialog(context: Context, imageBitmap: Bitmap) {
 
 

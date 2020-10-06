@@ -45,6 +45,7 @@ import com.custom.app.ui.logout.LogoutDialog
 import com.custom.app.ui.password.change.ChangePasswordFragment
 import com.custom.app.ui.permission.PermissionActivity
 import com.custom.app.ui.sample.SampleFragment
+import com.custom.app.ui.scan.list.detail.ScanDetailActivity
 import com.custom.app.ui.scan.list.history.ScanHistoryActivity
 import com.custom.app.ui.scan.list.scanFrg.ScanHistoryFragment
 import com.custom.app.ui.scan.select.EmptyFragment
@@ -52,6 +53,7 @@ import com.custom.app.ui.scan.select.SelectScanFragment
 import com.custom.app.ui.setting.SettingActivity
 import com.custom.app.ui.user.detail.UserDetailActivity
 import com.custom.app.ui.user.list.UserListActivity
+import com.custom.app.util.Constants
 import com.custom.app.util.Constants.*
 import com.custom.app.util.Permissions
 import com.data.app.db.table.ResultTable
@@ -172,7 +174,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
             }
         }
         binding.drawerLayout.addDrawerListener(drawerToggle!!)
-        drawerToggle!!.setDrawerIndicatorEnabled(true)
+        drawerToggle!!.isDrawerIndicatorEnabled = true
         drawerToggle!!.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         binding.navView.itemIconTintList = null
@@ -239,31 +241,11 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 val settings = drawerMenu.findItem(R.id.title_settings)
                 settings.title = SpannyText(settings.title, StyleSpan(BOLD),
                         ForegroundColorSpan(ContextCompat.getColor(this, R.color.medium_grey)))
-                if (permissions.contains(Permissions.GET_USER)) {
-                    drawerMenu.findItem(R.id.nav_user_list).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_user_list).isVisible = false
-                }
-                if (permissions.contains(Permissions.GET_CUSTOMER)) {
-                    drawerMenu.findItem(R.id.nav_customer_list).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_customer_list).isVisible = false
-                }
-                if (permissions.contains(Permissions.DEVICE_PROVISIONING)) {
-                    drawerMenu.findItem(R.id.nav_device_provisioning).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_device_provisioning).isVisible = false
-                }
-                if (permissions.contains(Permissions.CREATE_DEVICE)) {
-                    drawerMenu.findItem(R.id.nav_add_devices).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_add_devices).isVisible = false
-                }
-                if (permissions.contains(Permissions.CREATE_INSTALLATION)) {
-                    drawerMenu.findItem(R.id.nav_add_center).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_add_center).isVisible = false
-                }
+                drawerMenu.findItem(R.id.nav_user_list).isVisible = permissions.contains(Permissions.GET_USER)
+                drawerMenu.findItem(R.id.nav_customer_list).isVisible = permissions.contains(Permissions.GET_CUSTOMER)
+                drawerMenu.findItem(R.id.nav_device_provisioning).isVisible = permissions.contains(Permissions.DEVICE_PROVISIONING)
+                drawerMenu.findItem(R.id.nav_add_devices).isVisible = permissions.contains(Permissions.CREATE_DEVICE)
+                drawerMenu.findItem(R.id.nav_add_center).isVisible = permissions.contains(Permissions.CREATE_INSTALLATION)
 //                if (permissions.contains(Permissions.CREATE_REGION)) {
 //                    drawerMenu.findItem(R.id.nav_add_region).isVisible = true
 //                } else {
@@ -274,11 +256,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
 //                } else {
 //                    drawerMenu.findItem(R.id.nav_add_site).isVisible = false
 //                }
-                if (permissions.contains(Permissions.VIEW_SCAN_HISTORY)) {
-                    drawerMenu.findItem(R.id.nav_scan_history).isVisible = true
-                } else {
-                    drawerMenu.findItem(R.id.nav_scan_history).isVisible = false
-                }
+                drawerMenu.findItem(R.id.nav_scan_history).isVisible = permissions.contains(Permissions.VIEW_SCAN_HISTORY)
             }
         }
         if (savedInstanceState == null) {
@@ -358,7 +336,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                     device = devices[0]
                     toolbarTitle!!.text = device!!.device_name
                     if (devices.size > 1) {
-                        toolbarTitle!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down_black, 0);
+                        toolbarTitle!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down_black, 0)
                     }
                     navigateScreen(intent.extras)
                 } else {
@@ -494,13 +472,22 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
 
                     if (userManager.customerType == "OPERATOR") {
                         fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
+
                     } else if (userManager.customerType == "CUSTOMER") {
                         if (scanStatus == "0") {
-                            showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+                            //showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+                            val intent = Intent(context(), ScanDetailActivity::class.java)
+                            intent.putExtra(Constants.FLOW, Constants.NAV_NOTIFICATION)
+                            intent.putExtra(Constants.KEY_SCAN_ID, scanId)
+                            startActivity(intent)
                         }
                     } else if (userManager.customerType == "CLIENT") {
                         if (scanStatus == "0") {
-                            showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+                            // showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+                            val intent = Intent(context(), ScanDetailActivity::class.java)
+                            intent.putExtra(Constants.FLOW, Constants.NAV_NOTIFICATION)
+                            intent.putExtra(Constants.KEY_SCAN_ID, scanId)
+                            startActivity(intent)
                         }
                     }
                 }

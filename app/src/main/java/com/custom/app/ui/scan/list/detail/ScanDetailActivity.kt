@@ -2,6 +2,7 @@ package com.custom.app.ui.scan.list.detail
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,14 +14,13 @@ import com.custom.app.data.model.scanhistory.ScanData
 import com.custom.app.ui.home.HomeActivity
 import com.custom.app.util.Constants
 import com.custom.app.util.Utils
+import com.custom.app.util.Utils.Companion.startActivityWithLoadNoBackStack
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.specx.device.util.Constants.KEY_DEVICE_ID
 import com.specx.device.util.Constants.KEY_DEVICE_NAME
 import kotlinx.android.synthetic.main.activity_scan_detail.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class ScanDetailActivity : BaseActivity(), View.OnClickListener {
@@ -45,9 +45,28 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
         fbScan.setOnClickListener(this)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
+        testObject = ScanData()
         viewModel = ViewModelProvider(this, ScanDetailViewModelFactory(interactor))[ScanDetailVM::class.java]
         viewModel.scanDetailState.observe(::getLifecycle, ::setViewState)
-        setData()
+
+        val flow = intent.getStringExtra(Constants.FLOW)
+        if (flow == Constants.NAV_NOTIFICATION) {
+            val scanId = intent.getStringExtra(Constants.KEY_SCAN_ID)
+            tvScanId.text = scanId
+            viewModel.getScanDetail(scanId)
+        } else if (flow == Constants.NAV_SCAN_HISTORY_ACTIVITY) {
+            //getting data from intent
+            val selectObject = intent.getStringExtra("selectObject")
+            val customerType = intent.getStringExtra("customerType")
+            val gson = Gson()
+            if (selectObject != null) {
+                val type = object : TypeToken<ScanData>() {}.type
+                testObject = gson.fromJson(selectObject, type)
+            }
+//            setData(testObject)
+            tvScanId.text = testObject.scanId!!
+            viewModel.getScanDetail(testObject.scanId!!)
+        }
     }
 
     private fun setViewState(state: ScanDetailState) {
@@ -69,6 +88,16 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
                 setProgress(false)
                 onRestart()
             }
+
+            is FetchScanFailure -> {
+                setProgress(false)
+                Log.e("error", "error")
+            }
+            is FetchScanSuccess -> {
+                setProgress(false)
+                testObject = viewModel.scanDetail
+                setData(testObject)
+            }
         }
     }
 
@@ -80,40 +109,37 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        setData()
-    }
+//    override fun onRestart() {
+//        super.onRestart()
+//        setData()
+//    }
 
-    private fun setData() {
-        //getting data from intent
-        val selectObject = intent.getStringExtra("selectObject")
-        val customerType = intent.getStringExtra("customerType")
-        val gson = Gson()
-        if (selectObject != null) {
-            val type = object : TypeToken<ScanData>() {}.type
-            testObject = gson.fromJson(selectObject, type)
-        }
+    private fun setData(testObject: ScanData) {
+
 
         if (testObject != null) {
             tvScore.text = testObject.qualityScore
             if (testObject.commodityId != null)
                 tvCommodity.text = testObject.commodityName
-            tvScanId.text = testObject.scanId
             if (testObject.totalCount != null) {
                 lnTotalCount.visibility = View.VISIBLE
                 tvTotalCount.text = testObject.totalCount
             } else
                 lnTotalCount.visibility = View.GONE
-            if (testObject.dateDone != null) {
-                val itemLong = (testObject.dateDone!!.toLong() / 1000)
-                val d = Date(itemLong * 1000L)
-                val itemDateStr: String = SimpleDateFormat("dd-MMM HH:mm").format(d)
-                tvDoneOn.text = itemDateStr
-            }
+//            if (testObject.dateDone != null) {
+//                val itemLong = (testObject.dateDone!!.toLong() / 1000)
+//                val d = Date(itemLong * 1000L)
+//                val itemDateStr: String = SimpleDateFormat("dd-MMM HH:mm").format(d)
+//                tvDoneOn.text = itemDateStr
+//            }
+            tvDoneOn.text = testObject.weight
             if (testObject.batchId != null)
                 tvDoneBy.text = testObject.batchId
-            scanDetailRV()
+            if (testObject.analysisResults != null) {
+                scanDetailRV()
+            } else {
+
+            }
 
             if (testObject.deviceId == 2 || TextUtils.isEmpty(testObject.deviceName)) {
                 fbScan.visibility = View.GONE
@@ -170,6 +196,16 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
             lnRejectScanSetail -> {
                 viewModel.setApproval(testObject.scanId!!.toInt(), 2)
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val flow = intent.getStringExtra(Constants.FLOW)
+        if (flow == Constants.NAV_NOTIFICATION) {
+            val bundle = Bundle()
+            bundle.putString(Constants.FLOW, Constants.NAV_SPLASH)
+            startActivityWithLoadNoBackStack(this, HomeActivity::class.java, bundle, true)
         }
     }
 }

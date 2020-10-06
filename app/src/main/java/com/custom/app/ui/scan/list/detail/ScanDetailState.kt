@@ -10,4 +10,7 @@ object Delete : ScanDetailState()
 
 object ApprovalSuccess : ScanDetailState()
 object ApprovalFailure : ScanDetailState()
+
+object FetchScanSuccess : ScanDetailState()
+object FetchScanFailure : ScanDetailState()
 object Token : ScanDetailState()
