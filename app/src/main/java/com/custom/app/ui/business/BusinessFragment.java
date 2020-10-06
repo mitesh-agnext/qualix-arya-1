@@ -29,6 +29,7 @@ import com.custom.app.data.model.business.CommodityRateItem;
 import com.custom.app.data.model.business.PerDayAccepted;
 import com.custom.app.data.model.graph.GraphItem;
 import com.custom.app.data.model.quantity.QuantityDetailRes;
+import com.custom.app.ui.dashboard.CenterData;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -39,6 +40,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -47,6 +49,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.custom.app.util.Constants.KEY_CATEGORY_ID;
+import static com.custom.app.util.Constants.KEY_CENTER_DETAIL;
 import static com.custom.app.util.Constants.KEY_CENTER_ID;
 import static com.custom.app.util.Constants.KEY_DEVICE_SERIAL_NO;
 import static com.custom.app.util.Constants.KEY_DEVICE_TYPE;
@@ -99,12 +102,14 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
     EmptyRecyclerView rvRate;
 
     String quantity = "";
+    String centerId;
 
-    public static BusinessFragment newInstance(QuantityDetailRes detail, String categoryId, String startDate, String endDate, String... filter) {
+    public static BusinessFragment newInstance(QuantityDetailRes detail, CenterData centerData, String categoryId, String startDate, String endDate, String... filter) {
 
         BusinessFragment fragment = new BusinessFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_QUANTITY_DETAIL, Parcels.wrap(detail));
+        args.putParcelable(KEY_CENTER_DETAIL, Parcels.wrap(centerData));
         args.putString(KEY_CATEGORY_ID, categoryId);
         args.putString(KEY_START_DATE, startDate);
         args.putString(KEY_END_DATE, endDate);
@@ -128,8 +133,7 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_business, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
@@ -143,20 +147,20 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
 
         if (getArguments() != null) {
             QuantityDetailRes detail = Parcels.unwrap(getArguments().getParcelable(KEY_QUANTITY_DETAIL));
+            CenterData centerData = Parcels.unwrap(getArguments().getParcelable(KEY_CENTER_DETAIL));
             String categoryId = getArguments().getString(KEY_CATEGORY_ID);
             String startDate = getArguments().getString(KEY_START_DATE);
             String endDate = getArguments().getString(KEY_END_DATE);
-            String centerId = getArguments().getString(KEY_CENTER_ID);
+            centerId = getArguments().getString(KEY_CENTER_ID);
             String deviceType = getArguments().getString(KEY_DEVICE_TYPE);
             String deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
             if (centerId != null) {
-                quantity = getArguments().getString(KEY_TOTAL_QUANTITY);
-            }
-            else {
+                quantity = centerData.getTotal_quantity();
+            } else {
                 quantity = detail.getTotalQuantity().toString();
             }
             if (detail != null) {
-                showCollection(detail);
+                showCollection(detail, centerData);
             }
 
             if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)) {
@@ -177,7 +181,7 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
     }
 
     @Override
-    public void showCollection(QuantityDetailRes detail) {
+    public void showCollection(QuantityDetailRes detail, CenterData centerData) {
 
         tvCenters.setText(new SpannyText()
                 .append("Collections")
@@ -202,8 +206,13 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
                 controller.setList(centers);
                 rvCenters.setVisibility(View.VISIBLE);
             }
+            Map<String, Float> data;
+            if (centerId != null) {
+                data = Objects.requireNonNull(centerData.getCollection()).getCumulativedata();
+            } else {
+                data = detail.getCollection().getCommulativeDailyData();
+            }
 
-            Map<String, Float> data = detail.getCollection().getCommulativeDailyData();
             if (data != null && !data.isEmpty()) {
                 List<Float> chartData = new ArrayList<>(data.values());
                 setLineChartData(chartCenters, ContextCompat.getColor(context(), R.color.blue), chartData);
@@ -350,9 +359,7 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
         chart.getAxisRight().setEnabled(false);
         chart.getAxisLeft().setEnabled(false);
         chart.getXAxis().setEnabled(false);
-
         chart.setTouchEnabled(false);
-
         chart.setData(data);
         chart.animateX(1500);
         chart.invalidate();
@@ -365,4 +372,5 @@ public class BusinessFragment extends BaseFragment implements BusinessView {
         presenter.destroy();
         unbinder.unbind();
     }
+
 }

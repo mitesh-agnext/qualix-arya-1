@@ -9,6 +9,7 @@ import com.custom.app.ui.createData.coldstore.di.ColdstoreModule;
 import com.custom.app.ui.createData.instlCenter.di.InstallationCenterModule;
 import com.custom.app.ui.createData.region.di.SiteRegionModule;
 import com.custom.app.ui.customer.list.di.CustomerModule;
+import com.custom.app.ui.dashboard.di.DashboardModule;
 import com.custom.app.ui.device.list.di.DeviceModule;
 import com.custom.app.ui.home.di.HomeComponent;
 import com.custom.app.ui.home.di.HomeModule;
@@ -48,5 +49,6 @@ public interface AppComponent {
                        ColdstoreModule coldstoreModule,
                        AnalyticsModule analyticsModule,
                        SiteRegionModule siteRegionModule,
-                       InstallationCenterModule installationCenterModule);
+                       InstallationCenterModule installationCenterModule,
+                       DashboardModule dashboardModule);
 }

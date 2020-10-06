@@ -11,6 +11,7 @@ import com.custom.app.ui.createData.coldstore.di.ColdstoreModule;
 import com.custom.app.ui.createData.instlCenter.di.InstallationCenterModule;
 import com.custom.app.ui.createData.region.di.SiteRegionModule;
 import com.custom.app.ui.customer.list.di.CustomerModule;
+import com.custom.app.ui.dashboard.di.DashboardModule;
 import com.custom.app.ui.device.list.di.DeviceModule;
 import com.custom.app.ui.home.di.HomeComponent;
 import com.custom.app.ui.home.di.HomeModule;
@@ -81,7 +82,8 @@ public class CustomApp extends BaseApplication implements HasActivityInjector, H
                     new ColdstoreModule(),
                     new AnalyticsModule(),
                     new SiteRegionModule(),
-                    new InstallationCenterModule());
+                    new InstallationCenterModule(),
+                    new DashboardModule());
         }
         return homeComponent;
     }

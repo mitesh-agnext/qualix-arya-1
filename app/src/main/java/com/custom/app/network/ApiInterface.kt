@@ -4,6 +4,7 @@ import com.custom.app.data.model.country.CityRes
 import com.custom.app.data.model.country.CountryRes
 import com.custom.app.data.model.country.StateRes
 import com.custom.app.data.model.payment.PaymentHistoryRes
+import com.custom.app.data.model.quantity.CenterDetailRes
 import com.custom.app.data.model.role.RoleRes
 import com.custom.app.data.model.scanhistory.ScanHistoryResT
 import com.custom.app.data.model.section.DivisionRes
@@ -33,6 +34,7 @@ import com.custom.app.ui.createData.region.site.create.RegionRes
 import com.custom.app.ui.createData.region.site.list.SiteListRes
 import com.custom.app.ui.createData.rules.config.list.RuleConfigRes
 import com.custom.app.ui.customer.list.CustomerRes
+import com.custom.app.ui.dashboard.CenterData
 import com.custom.app.ui.device.add.DeviceGroupRes
 import com.custom.app.ui.device.add.DeviceSubTypeRes
 import com.custom.app.ui.device.add.DeviceTypeRes
@@ -53,6 +55,7 @@ import com.custom.app.ui.qualityAnalysis.ResUserScans
 import com.custom.app.ui.sample.ScanDetailRes
 import com.custom.app.ui.user.list.UserDataRes
 import com.google.gson.JsonObject
+import io.reactivex.Single
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -531,4 +534,8 @@ interface ApiInterface {
 
     @PUT("/api/scan/approve")
     fun approveReject(@Header("authorization") authorization: String, @Body file: JsonObject): Call<ResponseBody>
+
+    @GET("/api/analytics/quantity-details-id")
+    fun centerDetails(@Header("authorization") authorization: String, @QueryMap query: Map<String, String>): Call<CenterData>
+
 }

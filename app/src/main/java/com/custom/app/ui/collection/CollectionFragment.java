@@ -154,6 +154,9 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     @BindView(R.id.chart_time)
     LineChart chartTime;
 
+    @BindView(R.id.chart_quality)
+    LineChart chartQuality;
+
 //    @BindView(R.id.chart_region)
 //    LineChart chartRegion;
 
@@ -169,8 +172,8 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
     @BindView(R.id.chart_change)
     LineChart chartChange;
 
-    public static CollectionFragment newInstance(String categoryId, String startDate,
-                                                 String endDate, String... filter) {
+    public static CollectionFragment newInstance(String categoryId, String startDate, String endDate, String... filter) {
+
         CollectionFragment fragment = new CollectionFragment();
         Bundle args = new Bundle();
         args.putString(KEY_CATEGORY_ID, categoryId);
@@ -376,7 +379,7 @@ public class CollectionFragment extends BaseFragment implements CollectionView {
             }
         }
 
-        setLineChartData(chartTime, R.color.orange, true, chartData);
+        setLineChartData(chartQuality, R.color.orange, true, chartData);
     }
 
     @Override

@@ -38,6 +38,6 @@ public interface QuantityInteractor {
 
     Single<AcceptedAvgRes> acceptedAvg(String categoryId, String from, String to, String... filter);
 
-    Single<List<SupplierItem>> suppliers(String commodityId, String regionId, String from, String to);
+    Single<List<SupplierItem>> suppliers(String commodityId, String regionId, String from, String to, String... filter);
 
 }

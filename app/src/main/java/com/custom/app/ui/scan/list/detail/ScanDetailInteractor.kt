@@ -22,7 +22,7 @@ class ScanDetailInteractor(val userManager: UserManager, val apiService: ApiInte
 
     private fun approveRejectPost(listener: ScanDetailListener, options: JsonObject) {
         val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
-        val call = apiService.approveReject(Constants.TOKEN, options)
+        val call = apiService.approveReject("Bearer ${userManager.token}", options)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
                 listener.approvalFailure(t!!.message.toString())

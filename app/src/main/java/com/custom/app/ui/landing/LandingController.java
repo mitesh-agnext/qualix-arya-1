@@ -34,8 +34,7 @@ public class LandingController extends BaseEpoxy {
                     .totalQuantity(item.getTotalQuantity())
                     .quantityUnit(item.getQuantityUnit())
                     .change(item.getDifferencePercentage())
-                    .chartData(item.getDeviceTypeData().size() > 0 ?
-                            item.getDeviceTypeData().get(0).getDeviceDailyData() : null)
+                    .chartData(item.getDeviceTypeData().size() > 0 ? item.getDeviceTypeData().get(0).getDeviceDailyData() : null)
                     .clickListener(itemView -> view.onCenterClicked(item))
                     .addTo(this);
         }

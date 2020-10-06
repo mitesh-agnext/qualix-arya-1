@@ -7,8 +7,7 @@ import java.util.List;
 @Parcel
 public class QuantityDetailRes {
 
-    public QuantityDetailRes() {
-    }
+    public QuantityDetailRes() {}
 
     Double total_quantity;
     String quantity_unit;

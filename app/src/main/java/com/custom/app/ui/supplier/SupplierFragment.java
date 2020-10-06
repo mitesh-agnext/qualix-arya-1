@@ -45,7 +45,7 @@ public class SupplierFragment extends BaseFragment implements SupplierView {
     private SupplierController controller;
 
     private List<CommodityItem> commodities = new ArrayList<>();
-    private String categoryId, commodityId, startDate, endDate;
+    private String categoryId, commodityId, startDate, endDate,centerId,deviceType,deviceSerialNo;
 
     @Inject
     SupplierPresenter presenter;
@@ -57,8 +57,11 @@ public class SupplierFragment extends BaseFragment implements SupplierView {
     void onCommoditySelected(int selectedCommodityIndex) {
         commodityId = commodities.get(selectedCommodityIndex).getId();
 
-        if (!TextUtils.isEmpty(commodityId) && !TextUtils.isEmpty(startDate) && !TextUtils.isEmpty(endDate)) {
-            presenter.fetchSuppliers(commodityId, "25", startDate, endDate);
+        if (!TextUtils.isEmpty(centerId) && !TextUtils.isEmpty(deviceType)){
+            presenter.fetchSuppliers(commodityId, "", startDate, endDate);
+        }
+        else {
+            presenter.fetchSuppliers(commodityId, "", startDate, endDate);
         }
     }
 
@@ -112,11 +115,12 @@ public class SupplierFragment extends BaseFragment implements SupplierView {
             String regionId = getArguments().getString(KEY_REGION_ID);
             startDate = getArguments().getString(KEY_START_DATE);
             endDate = getArguments().getString(KEY_END_DATE);
-            String centerId = getArguments().getString(KEY_CENTER_ID);
-            String deviceType = getArguments().getString(KEY_DEVICE_TYPE);
-            String deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
+            centerId = getArguments().getString(KEY_CENTER_ID);
+            deviceType = getArguments().getString(KEY_DEVICE_TYPE);
+            deviceSerialNo = getArguments().getString(KEY_DEVICE_SERIAL_NO);
 
             presenter.fetchCommodity(categoryId);
+
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context()));

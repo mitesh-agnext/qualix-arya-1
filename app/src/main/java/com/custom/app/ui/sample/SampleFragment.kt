@@ -118,7 +118,7 @@ class SampleFragment : BaseFragment(), SampleView {
             binding.includeRecyclerview.recyclerView.adapter = controller.adapter
             sample.scanId = scanId
 
-            generateBatchId()
+//            generateBatchId()
 
             binding.swipeLayout.setOnRefreshListener { fetchData() }
 
@@ -206,7 +206,7 @@ class SampleFragment : BaseFragment(), SampleView {
     }
 
     private fun generateBatchId() {
-        if (TextUtils.isEmpty(scanId) || deviceId == 1 || deviceId == 4) {
+        if (TextUtils.isEmpty(scanId)) {
             val batchId: String = String.format("%s_%s", userManager.userId, timestamp)
             updateBatchId(batchId)
         }
@@ -321,7 +321,7 @@ class SampleFragment : BaseFragment(), SampleView {
     }
 
     override fun onSampleIdChanged() {
-        generateBatchId()
+//        generateBatchId()
         presenter.updateAnalyses(batchId)
     }
 

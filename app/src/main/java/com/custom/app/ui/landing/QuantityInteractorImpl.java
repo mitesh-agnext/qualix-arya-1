@@ -42,6 +42,10 @@ public class QuantityInteractorImpl implements QuantityInteractor {
         query.put("date_from", from);
         query.put("date_to", to);
 
+        if (filter.length > 1) {
+            query.put("inst_center_id", filter[0]);
+            query.put("device_type", filter[1]);
+        }
         return restService.quantity(query)
                 .map(QuantityParser::quantity);
     }
@@ -55,6 +59,10 @@ public class QuantityInteractorImpl implements QuantityInteractor {
         query.put("date_from", from);
         query.put("date_to", to);
 
+        if (filter.length > 1) {
+            query.put("inst_center_id", filter[0]);
+            query.put("device_type", filter[1]);
+        }
         return restService.collectionByCenter(query)
                 .map(QuantityParser::center);
     }
@@ -68,6 +76,10 @@ public class QuantityInteractorImpl implements QuantityInteractor {
         query.put("date_from", from);
         query.put("date_to", to);
 
+        if (filter.length > 1) {
+            query.put("inst_center_id", filter[0]);
+            query.put("device_type", filter[1]);
+        }
         return restService.collectionOverTime(query)
                 .map(QuantityParser::time);
     }
@@ -96,6 +108,10 @@ public class QuantityInteractorImpl implements QuantityInteractor {
         query.put("date_from", from);
         query.put("date_to", to);
 
+        if (filter.length > 1) {
+            query.put("inst_center_id", filter[0]);
+            query.put("device_type", filter[1]);
+        }
         return restService.collectionWeekly(query)
                 .map(QuantityParser::weekly);
     }
@@ -164,7 +180,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
     }
 
     @Override
-    public Single<List<SupplierItem>> suppliers(String commodityId, String regionId, String from, String to) {
+    public Single<List<SupplierItem>> suppliers(String commodityId, String regionId, String from, String to, String... filter) {
         Map<String, String> query = new HashMap<>();
         query.put("commodity_id", commodityId);
 //        query.put("region_id", regionId);
@@ -172,6 +188,10 @@ public class QuantityInteractorImpl implements QuantityInteractor {
         query.put("date_from", from);
         query.put("date_to", to);
 
+        if (filter.length > 1) {
+            query.put("inst_center_id", filter[0]);
+            query.put("device_type", filter[1]);
+        }
         return restService.suppliers(query)
                 .map(QuantityParser::supplier);
     }

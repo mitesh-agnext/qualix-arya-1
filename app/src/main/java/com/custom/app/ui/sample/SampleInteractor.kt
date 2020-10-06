@@ -120,8 +120,7 @@ class SampleInteractor(val userManager: UserManager, val database: BriteDatabase
         }
     }
 
-    fun updateResultInDb(batchId: String, farmer: FarmerItem, sample: SampleItem,
-                         scanDetail: ScanDetailRes, listener: DataCallback) {
+    fun updateResultInDb(batchId: String, farmer: FarmerItem, sample: SampleItem, scanDetail: ScanDetailRes, listener: DataCallback) {
         val transaction: Transaction = database.newTransaction()
         try {
             val commodity = CommodityItem(scanDetail.commodity_id, scanDetail.commodity_name)

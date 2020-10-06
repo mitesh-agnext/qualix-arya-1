@@ -412,8 +412,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
     private fun showHomeScreen(deviceId: Int?, deviceName: String?) {
         if (userManager.customerType == "OPERATOR") {
             if (device?.device_id == 2) {
-                fragmentTransition(SelectScanFragment
-                        .newInstance(scanId, deviceId!!, deviceName), SELECT_SCAN_FRAGMENT)
+                fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId!!, deviceName), SELECT_SCAN_FRAGMENT)
             } else {
                 fragmentTransition(ScanHistoryFragment.newInstance(deviceId!!, deviceName!!, userManager.customerType), SCAN_HISTORY_FRAGMENT)
             }
@@ -491,8 +490,9 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                     val deviceName = bundle.getString(KEY_DEVICE_NAME)
                     val scanStatus = bundle.getString(KEY_SCAN_STATUS)
 
+                    showHomeScreen(deviceId, deviceName)
+
                     if (userManager.customerType == "OPERATOR") {
-                        showHomeScreen(deviceId, deviceName)
                         fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
                     } else if (userManager.customerType == "CUSTOMER") {
                         if (scanStatus == "0") {
