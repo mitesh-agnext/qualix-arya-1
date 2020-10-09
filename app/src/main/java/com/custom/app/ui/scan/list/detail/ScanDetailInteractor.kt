@@ -15,10 +15,11 @@ import retrofit2.Response
 
 class ScanDetailInteractor(val userManager: UserManager, val apiService: ApiInterface) {
 
-    fun approveReject(scanId: Int, status: Int, listener: ScanDetailListener) {
+    fun approveReject(scanId: Int, status: Int, message: String, listener: ScanDetailListener) {
         val options = JsonObject()
         options.addProperty("approval", status)
         options.addProperty("scan_id", scanId)
+        options.addProperty("message", message)
         approveRejectPost(listener, options)
     }
 

@@ -56,7 +56,6 @@ class ScanData {
     @SerializedName("weight")
     var weight: String? = null
 
-
 }
 
 class AnalysisResults {

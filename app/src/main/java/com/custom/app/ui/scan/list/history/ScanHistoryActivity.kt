@@ -444,6 +444,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
             alertDialog.dismiss()
         }
         tvNo.setOnClickListener {
+            setProgress(false)
             alertDialog.dismiss()
         }
         alertDialog.show()

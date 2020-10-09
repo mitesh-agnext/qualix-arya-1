@@ -124,8 +124,7 @@ public class QuantityInteractorImpl implements QuantityInteractor {
         query.put("date_from", from);
         query.put("date_to", to);
 
-        return restService.quantityDetail(query)
-                .map(QuantityParser::parse);
+        return restService.quantityDetail(query).map(QuantityParser::parse);
     }
 
     @Override

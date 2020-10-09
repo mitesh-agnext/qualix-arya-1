@@ -452,16 +452,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                 NAV_SPLASH, NAV_LOGIN -> {
                     showHomeScreen(device?.device_id, device?.device_name)
                 }
-//                NAV_NOTIFICATION, NAV_SCAN_HISTORY_ACTIVITY -> {
-//                    scanId = bundle.getString(KEY_SCAN_ID)
-//                    val deviceId = bundle.getString(KEY_DEVICE_ID)!!.toInt()
-//                    val deviceName = bundle.getString(KEY_DEVICE_NAME)
-//
-//                    showHomeScreen(deviceId, deviceName)
-//
-//                    fragmentTransition(SelectScanFragment
-//                            .newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
-//                }
+
                 NAV_NOTIFICATION -> {
                     scanId = bundle.getString(KEY_SCAN_ID)
                     val deviceId = bundle.getString(KEY_DEVICE_ID)!!.toInt()
@@ -473,23 +464,25 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                     if (userManager.customerType == "OPERATOR") {
                         fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
 
-                    } else if (userManager.customerType == "CUSTOMER") {
-                        if (scanStatus == "0") {
-                            //showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
-                            val intent = Intent(context(), ScanDetailActivity::class.java)
-                            intent.putExtra(Constants.FLOW, Constants.NAV_NOTIFICATION)
-                            intent.putExtra(Constants.KEY_SCAN_ID, scanId)
-                            startActivity(intent)
-                        }
-                    } else if (userManager.customerType == "CLIENT") {
-                        if (scanStatus == "0") {
-                            // showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
-                            val intent = Intent(context(), ScanDetailActivity::class.java)
-                            intent.putExtra(Constants.FLOW, Constants.NAV_NOTIFICATION)
-                            intent.putExtra(Constants.KEY_SCAN_ID, scanId)
-                            startActivity(intent)
-                        }
+//                        val intent = Intent(context(), ScanDetailActivity::class.java)
+//                        intent.putExtra(FLOW, NAV_NOTIFICATION)
+//                        intent.putExtra(KEY_SCAN_ID, scanId)
+//                        startActivity(intent)
+
                     }
+//                    else if (userManager.customerType == "CUSTOMER") {
+//                            showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+//                            val intent = Intent(context(), ScanDetailActivity::class.java)
+//                            intent.putExtra(FLOW, NAV_NOTIFICATION)
+//                            intent.putExtra(KEY_SCAN_ID, scanId)
+//                            startActivity(intent)
+//                    } else if (userManager.customerType == "CLIENT") {
+//                             showCustomDialog(scanId!!.toInt(), deviceId, deviceName!!, scanStatus)
+//                            val intent = Intent(context(), ScanDetailActivity::class.java)
+//                            intent.putExtra(FLOW, NAV_NOTIFICATION)
+//                            intent.putExtra(KEY_SCAN_ID, scanId)
+//                            startActivity(intent)
+//                    }
                 }
                 NAV_SCAN_HISTORY_ACTIVITY -> {
                     scanId = bundle.getString(KEY_SCAN_ID)

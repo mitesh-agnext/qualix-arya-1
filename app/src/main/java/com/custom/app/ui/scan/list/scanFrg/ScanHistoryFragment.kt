@@ -123,7 +123,7 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
             val deviceName = requireArguments().getString(KEY_DEVICE_NAME)
             (toolbar.findViewById<View>(R.id.title) as TextView).text = deviceName
         }
-        viewModel.getScanHistory(data)
+//        viewModel.getScanHistory(data)
     }
 
     private fun setViewState(state: ScanHistoryState) {
@@ -189,7 +189,20 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
                 }
                 Utils.setSpinnerAdapter(requireContext(), regionName, spRegion)
             }
+            is ApprovalSuccess -> {
+                showProgress(false)
+                onResume()
+            }
+            is ApprovalFailure -> {
+                showProgress(false)
+                onResume()
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getScanHistory(data)
     }
 
     private fun showProgress(progressStatus: Boolean) {
@@ -296,10 +309,12 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
 
     override fun onRejectClick(pos: Int) {
 //        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
+        showProgress(true)
         showCustomDialog(viewModel.scanList[pos].scanId!!.toInt(), viewModel.scanList[pos].deviceId!!.toInt(), viewModel.scanList[pos].deviceName.toString(), "2")
     }
 
     override fun onApproveClick(pos: Int) {
+        showProgress(true)
         showCustomDialog(viewModel.scanList[pos].scanId!!.toInt(), viewModel.scanList[pos].deviceId!!.toInt(), viewModel.scanList[pos].deviceName.toString(), "1")
 //        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 1)
     }
@@ -382,6 +397,7 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
             alertDialog.dismiss()
         }
         tvNo.setOnClickListener {
+            showProgress(false)
             alertDialog.dismiss()
         }
         alertDialog.show()

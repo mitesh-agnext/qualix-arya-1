@@ -1,5 +1,7 @@
 package com.custom.app.ui.landing;
 
+import java.util.Observable;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,15 +47,24 @@ public class QuantityPresenterImpl extends QuantityPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(detail -> {
-                    hideProgressBar();
+                            hideProgressBar();
 
-                    if (isViewAttached()) {
-                        view.showDetails(detail);
-                    }
-                }, error -> {
-                    hideProgressBar();
-                    showMessage("No record found");
-//                    showMessage(error.getMessage());
-                });
+                            if (isViewAttached()) {
+                                view.showDetails(detail);
+                            }
+                        },
+                        error -> {
+                            hideProgressBar();
+
+                            if (error.getMessage().equals("Network connection error!")) {
+                                interactor.qualityDetail(categoryId, from, to).repeat(3);
+                                showMessage(error.getMessage());
+                            } else if (error.getMessage().equals("Unknown error occurred!")) {
+                                showMessage("No record found");
+                                view.showEmptyView();
+                            } else {
+                                showMessage(error.getMessage());
+                            }
+                        });
     }
 }

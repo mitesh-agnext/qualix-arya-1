@@ -3,7 +3,11 @@ package com.custom.app.ui.scan.list.detail
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.app.ui.base.BaseActivity
@@ -30,6 +34,13 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
 
     lateinit var testObject: ScanData
     private lateinit var viewModel: ScanDetailVM
+    var scanId: String? = null
+    var deviceId: String? = null
+    var deviceName: String? = null
+    var scanStatus: String? = null
+    var notificationdeviceId: Int? = null
+    var notificationdeviceName: String? = null
+    var flow: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as CustomApp).homeComponent.inject(this)
@@ -39,21 +50,27 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun initView() {
-        toolbar.title = getString(R.string.scan_history)
+        toolbar.title = "Scan Detail"
         setSupportActionBar(toolbar)
 
         fbScan.setOnClickListener(this)
+        lnApproveScanDetail.setOnClickListener(this)
+        lnRejectScanDetail.setOnClickListener(this)
+
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         testObject = ScanData()
         viewModel = ViewModelProvider(this, ScanDetailViewModelFactory(interactor))[ScanDetailVM::class.java]
         viewModel.scanDetailState.observe(::getLifecycle, ::setViewState)
 
-        val flow = intent.getStringExtra(Constants.FLOW)
+        flow = intent.getStringExtra(Constants.FLOW)
         if (flow == Constants.NAV_NOTIFICATION) {
-            val scanId = intent.getStringExtra(Constants.KEY_SCAN_ID)
+            scanId = intent.getStringExtra(Constants.KEY_SCAN_ID)
+            deviceId = intent.getStringExtra(KEY_DEVICE_ID)
+            deviceName = intent.getStringExtra(KEY_DEVICE_NAME)
+            scanStatus = intent.getStringExtra(Constants.KEY_SCAN_STATUS)
             tvScanId.text = scanId
-            viewModel.getScanDetail(scanId)
+            viewModel.getScanDetail(scanId!!)
         } else if (flow == Constants.NAV_SCAN_HISTORY_ACTIVITY) {
             //getting data from intent
             val selectObject = intent.getStringExtra("selectObject")
@@ -64,7 +81,11 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
                 testObject = gson.fromJson(selectObject, type)
             }
 //            setData(testObject)
-            tvScanId.text = testObject.scanId!!
+            scanId = testObject.scanId!!
+            scanStatus = testObject.approval.toString()
+            deviceName = testObject.deviceName
+            deviceId = testObject.deviceId.toString()
+            tvScanId.text = scanId
             viewModel.getScanDetail(testObject.scanId!!)
         }
     }
@@ -82,13 +103,11 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
             }
             is ApprovalSuccess -> {
                 setProgress(false)
-                onRestart()
+                setForward()
             }
             is ApprovalFailure -> {
                 setProgress(false)
-                onRestart()
             }
-
             is FetchScanFailure -> {
                 setProgress(false)
                 Log.e("error", "error")
@@ -101,6 +120,19 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    fun setForward() {
+        val bundle = Bundle()
+        if (flow == Constants.NAV_NOTIFICATION) {
+            bundle.putString(Constants.FLOW, Constants.NAV_NOTIFICATION)
+        } else {
+            bundle.putString(Constants.FLOW, Constants.NAV_SCAN_HISTORY_ACTIVITY)
+        }
+        bundle.putString(Constants.KEY_SCAN_ID, scanId)
+        bundle.putString(KEY_DEVICE_ID, deviceId.toString())
+        bundle.putString(KEY_DEVICE_NAME, deviceName)
+        Utils.startActivityWithLoad(this, HomeActivity::class.java, bundle, true)
+    }
+
     private fun setProgress(isLoading: Boolean) {
         if (isLoading) {
             progress.visibility = View.VISIBLE
@@ -109,13 +141,7 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-//    override fun onRestart() {
-//        super.onRestart()
-//        setData()
-//    }
-
     private fun setData(testObject: ScanData) {
-
 
         if (testObject != null) {
             tvScore.text = testObject.qualityScore
@@ -145,32 +171,31 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
                 fbScan.visibility = View.GONE
             }
 
-            lnRejectScanSetail.visibility = View.VISIBLE
+            lnRejectScanDetail.visibility = View.VISIBLE
             view.visibility = View.VISIBLE
-            lnApproveScanSetail.isClickable = true
-            lnRejectScanSetail.isClickable = true
+            lnApproveScanDetail.isClickable = true
+            lnRejectScanDetail.isClickable = true
 
             if (testObject.approval == 0 || testObject.approval == null) {
-                lnApproveScanSetail.isClickable = true
-                lnRejectScanSetail.isClickable = true
-                tv_approveScanSetail.setTextColor(resources.getColor(R.color.dark_green))
-                tv_rejectScanSetail.setTextColor(resources.getColor(R.color.red))
+                lnApproveScanDetail.isClickable = true
+                lnRejectScanDetail.isClickable = true
+                tv_approveScanDetail.setTextColor(resources.getColor(R.color.dark_green))
+                tv_rejectScanDetail.setTextColor(resources.getColor(R.color.red))
 
             } else if (testObject.approval == 1) {
-                lnApproveScanSetail.isClickable = false
-                lnRejectScanSetail.isClickable = true
-                tv_approveScanSetail.text = "Approved"
-                tv_approveScanSetail.setTextColor(resources.getColor(R.color.dark_text_color))
-                tv_rejectScanSetail.setTextColor(resources.getColor(R.color.red))
+                lnApproveScanDetail.isClickable = false
+                lnRejectScanDetail.isClickable = true
+                tv_approveScanDetail.text = "Approved"
+                tv_approveScanDetail.setTextColor(resources.getColor(R.color.dark_text_color))
+                tv_rejectScanDetail.setTextColor(resources.getColor(R.color.red))
 
             } else if (testObject.approval == 2) {
-                lnApproveScanSetail.isClickable = true
-                lnRejectScanSetail.isClickable = false
-                tv_approveScanSetail.setTextColor(resources.getColor(R.color.dark_green))
-                tv_rejectScanSetail.setTextColor(resources.getColor(R.color.dark_text_color))
-                tv_rejectScanSetail.text = "Rejected"
+                lnApproveScanDetail.isClickable = true
+                lnRejectScanDetail.isClickable = false
+                tv_approveScanDetail.setTextColor(resources.getColor(R.color.dark_green))
+                tv_rejectScanDetail.setTextColor(resources.getColor(R.color.dark_text_color))
+                tv_rejectScanDetail.text = "Rejected"
             }
-
         }
     }
 
@@ -184,28 +209,65 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
             fbScan -> {
                 val bundle = Bundle()
                 bundle.putString(Constants.FLOW, Constants.NAV_SCAN_HISTORY_ACTIVITY)
-                bundle.putString(Constants.KEY_SCAN_ID, testObject.scanId)
-                bundle.putString(KEY_DEVICE_ID, testObject.deviceId.toString())
-                bundle.putString(KEY_DEVICE_NAME, testObject.deviceName)
+                bundle.putString(Constants.KEY_SCAN_ID, scanId)
+                bundle.putString(KEY_DEVICE_ID, deviceId.toString())
+                bundle.putString(KEY_DEVICE_NAME, deviceName)
                 Utils.startActivityWithLoad(this, HomeActivity::class.java, bundle, true)
             }
-            lnApproveScanSetail -> {
+            lnApproveScanDetail -> {
                 setProgress(true)
-                viewModel.setApproval(testObject.scanId!!.toInt(), 1)
+                showCustomDialog(scanId!!.toInt(), deviceId!!, deviceName.toString(), "1")
             }
-            lnRejectScanSetail -> {
-                viewModel.setApproval(testObject.scanId!!.toInt(), 2)
+            lnRejectScanDetail -> {
+                setProgress(true)
+                showCustomDialog(scanId!!.toInt(), deviceId!!, deviceName.toString(), "2")
             }
         }
     }
 
+    private fun showCustomDialog(scanId: Int, deviceId: String, deviceName: String, scanStatus: String) {
+        val viewGroup: ViewGroup = findViewById(android.R.id.content)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.approve_rejectdialog, viewGroup, false)
+        notificationdeviceName = deviceName
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
+        val tvYes = dialogView.findViewById<TextView>(R.id.btn_yes)
+        val tvNo = dialogView.findViewById<TextView>(R.id.btn_no)
+        val tvScanStatus = dialogView.findViewById<TextView>(R.id.tvScanStatus)
+        val tvScanId = dialogView.findViewById<TextView>(R.id.tvScanId)
+        val et_message = dialogView.findViewById<EditText>(R.id.et_message)
+        tvScanId.text = "Scan Id: " + scanId.toString()
+        if (scanStatus.equals("1")) {
+            tvScanStatus.text = "Are you sure, you want to approve the scan?"
+        } else if (scanStatus.equals("2")) {
+            tvScanStatus.text = "Are you sure, you want to reject the scan?"
+        }
+
+        tvYes.setOnClickListener {
+            viewModel.setApproval(scanId, scanStatus.toInt(), et_message.text.toString())
+            alertDialog.dismiss()
+        }
+
+        tvNo.setOnClickListener {
+            setProgress(false)
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        val flow = intent.getStringExtra(Constants.FLOW)
+
+        setProgress(false)
         if (flow == Constants.NAV_NOTIFICATION) {
             val bundle = Bundle()
             bundle.putString(Constants.FLOW, Constants.NAV_SPLASH)
             startActivityWithLoadNoBackStack(this, HomeActivity::class.java, bundle, true)
+        } else {
+            setProgress(false)
+            finish()
         }
     }
 }
