@@ -10,6 +10,7 @@ public class Constants {
 
     public static final String KEY_CUSTOMER_TYPE = "customerType";
     public static final String KEY_SCAN_STATUS = "scanStatus";
+    public static final String KEY_COMMODITY_NAME = "commodityName";
 
     public static final String KEY_QUANTITY_DETAIL = "quantityDetail";
     public static final String KEY_CENTER_DETAIL = "centerDetail";

@@ -489,8 +489,7 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
                     val deviceId = bundle.getString(KEY_DEVICE_ID)!!.toInt()
                     val deviceName = bundle.getString(KEY_DEVICE_NAME)
                     showHomeScreen(deviceId, deviceName)
-                    fragmentTransition(SelectScanFragment
-                            .newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
+//                    fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId, deviceName), SELECT_SCAN_FRAGMENT)
                 }
             }
     }

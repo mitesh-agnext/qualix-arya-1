@@ -16,6 +16,7 @@ import com.custom.app.CustomApp
 import com.custom.app.R
 import com.custom.app.data.model.scanhistory.ScanData
 import com.custom.app.ui.home.HomeActivity
+import com.custom.app.ui.scan.list.history.ScanHistoryActivity
 import com.custom.app.util.Constants
 import com.custom.app.util.Utils
 import com.custom.app.util.Utils.Companion.startActivityWithLoadNoBackStack
@@ -35,6 +36,7 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
     lateinit var testObject: ScanData
     private lateinit var viewModel: ScanDetailVM
     var scanId: String? = null
+    var commodityName: String? = null
     var deviceId: String? = null
     var deviceName: String? = null
     var scanStatus: String? = null
@@ -69,6 +71,7 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
             deviceId = intent.getStringExtra(KEY_DEVICE_ID)
             deviceName = intent.getStringExtra(KEY_DEVICE_NAME)
             scanStatus = intent.getStringExtra(Constants.KEY_SCAN_STATUS)
+
             tvScanId.text = scanId
             viewModel.getScanDetail(scanId!!)
         } else if (flow == Constants.NAV_SCAN_HISTORY_ACTIVITY) {
@@ -85,6 +88,7 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
             scanStatus = testObject.approval.toString()
             deviceName = testObject.deviceName
             deviceId = testObject.deviceId.toString()
+            commodityName = testObject.commodityName.toString()
             tvScanId.text = scanId
             viewModel.getScanDetail(testObject.scanId!!)
         }
@@ -124,13 +128,18 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
         val bundle = Bundle()
         if (flow == Constants.NAV_NOTIFICATION) {
             bundle.putString(Constants.FLOW, Constants.NAV_NOTIFICATION)
+            bundle.putString(Constants.KEY_SCAN_ID, scanId)
+            bundle.putString(KEY_DEVICE_ID, deviceId.toString())
+            bundle.putString(KEY_DEVICE_NAME, deviceName)
+            Utils.startActivityWithLoad(this, HomeActivity::class.java, bundle, true)
         } else {
             bundle.putString(Constants.FLOW, Constants.NAV_SCAN_HISTORY_ACTIVITY)
+            bundle.putString(Constants.KEY_SCAN_ID, scanId)
+            bundle.putString(KEY_DEVICE_ID, deviceId.toString())
+            bundle.putString(KEY_DEVICE_NAME, deviceName)
+            Utils.startActivityWithLoad(this, ScanDetailActivity::class.java, bundle, true)
         }
-        bundle.putString(Constants.KEY_SCAN_ID, scanId)
-        bundle.putString(KEY_DEVICE_ID, deviceId.toString())
-        bundle.putString(KEY_DEVICE_NAME, deviceName)
-        Utils.startActivityWithLoad(this, HomeActivity::class.java, bundle, true)
+
     }
 
     private fun setProgress(isLoading: Boolean) {
@@ -196,12 +205,21 @@ class ScanDetailActivity : BaseActivity(), View.OnClickListener {
                 tv_rejectScanDetail.setTextColor(resources.getColor(R.color.dark_text_color))
                 tv_rejectScanDetail.text = "Rejected"
             }
+
+            if (testObject.commodityName.equals("Peanut")){
+                tvRange.visibility= View.VISIBLE
+                tvCount.visibility= View.VISIBLE
+            }
+            else {
+                tvRange.visibility= View.GONE
+                tvCount.visibility= View.GONE
+            }
         }
     }
 
     private fun scanDetailRV() {
         rvScanInfo.layoutManager = LinearLayoutManager(this)
-        rvScanInfo.adapter = ScanDetailAdapter(this, testObject.analysisResults!!)
+        rvScanInfo.adapter = ScanDetailAdapter(this, testObject.analysisResults!!, testObject)
     }
 
     override fun onClick(view: View?) {

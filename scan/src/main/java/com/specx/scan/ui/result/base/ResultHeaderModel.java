@@ -30,8 +30,7 @@ public abstract class ResultHeaderModel extends EpoxyModelWithHolder<ResultHeade
         if (!TextUtils.isEmpty(title)) {
             SpannyText spanny = new SpannyText(title,
                     new ForegroundColorSpan(ContextCompat.getColor(view.context(), R.color.medium_grey)))
-                    .append(" ")
-                    .append(subtitle);
+                    .append(" ");
             holder.title.setText(spanny);
         }
     }

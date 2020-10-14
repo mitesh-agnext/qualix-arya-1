@@ -105,4 +105,5 @@ public class AnalysisItem {
     public List<Double> getMeans() {
         return meanMatrix;
     }
+
 }

@@ -219,7 +219,7 @@
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1"
+                                    android:layout_weight="1.5"
                                     android:background="@drawable/bg_rectangle_noedge"
                                     android:gravity="center"
                                     android:padding="8dp"
@@ -227,13 +227,35 @@
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/tvCount"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.75"
+                                    android:background="@drawable/bg_rectangle_noedge"
+                                    android:gravity="center"
+                                    android:text="Count(Gram)"
+                                    android:textSize="12dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
                                     android:id="@+id/tvAspect"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.75"
                                     android:background="@drawable/bg_rectangle_noedge"
                                     android:gravity="center"
-                                    android:text="Result"
+                                    android:text="Weight(%)"
+                                    android:textSize="12dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvRange"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.75"
+                                    android:background="@drawable/bg_rectangle_noedge"
+                                    android:gravity="center"
+                                    android:text="Range"
                                     android:textSize="12dp"
                                     android:textStyle="bold" />
 
@@ -312,5 +334,6 @@
         android:layout_margin="16dp"
         android:layout_marginHorizontal="16dp"
         app:backgroundTint="?colorAccent"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_edit_white_24dp" />
 </RelativeLayout>

@@ -119,7 +119,7 @@ public class LandingFragment extends BaseFragment implements LandingView {
 
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             if (toolbar != null) {
-                ((TextView) toolbar.findViewById(R.id.title)).setText("Qualix-Arya");
+                ((TextView) toolbar.findViewById(R.id.title)).setText("Qualix");
             }
         }
 

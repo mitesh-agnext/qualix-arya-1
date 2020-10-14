@@ -69,7 +69,10 @@ class AnalysisResults {
     @SerializedName("amountUnit")
     var amountUnit: String? = null
 
-    @SerializedName("analysis_result")
-    var analysisResult: String? = null
+    @SerializedName("totalAmount")
+    var totalAmount: String? = null
+
+    @SerializedName("byDensityResult")
+    var byDensityResult: String? = null
 
 }

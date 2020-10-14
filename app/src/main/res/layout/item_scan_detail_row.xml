@@ -2,25 +2,49 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:minHeight="40dp">
+    android:layout_height="50dp"
+    android:minHeight="40dp"
+    android:id="@+id/lnRow">
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:padding="8dp"
+        android:layout_weight="1.5"
         android:text=""
+        android:padding="2dp"
         android:background="@drawable/bg_rectangle_noedge" />
 
     <TextView
-        android:id="@+id/tvValue"
+        android:id="@+id/tvCount"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:textSize="12dp"
-        android:layout_weight="1"
+        android:layout_weight="0.75"
         android:gravity="center"
         android:text=""
+        android:padding="2dp"
+        android:background="@drawable/bg_rectangle_noedge"/>
+
+    <TextView
+        android:id="@+id/tvWeight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textSize="12dp"
+        android:layout_weight="0.75"
+        android:gravity="center"
+        android:text=""
+        android:padding="2dp"
+        android:background="@drawable/bg_rectangle_noedge"/>
+
+    <TextView
+        android:id="@+id/tvRange"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textSize="12dp"
+        android:layout_weight="0.75"
+        android:gravity="center"
+        android:text=""
+        android:padding="2dp"
         android:background="@drawable/bg_rectangle_noedge"/>
 
 </LinearLayout>

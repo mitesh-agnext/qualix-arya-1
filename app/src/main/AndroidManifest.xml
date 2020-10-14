@@ -6,7 +6,7 @@
     <application
         android:name=".CustomApp"
         android:allowBackup="false"
-        android:icon="@drawable/arya_logo"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/title_app"
         android:largeHeap="true"
         android:theme="@style/CustomAppTheme"

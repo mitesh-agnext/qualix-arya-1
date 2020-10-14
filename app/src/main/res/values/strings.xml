@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_app">Arya-Qualix</string>
+    <string name="title_app">Qualix</string>
     <string name="desc_app">Artificial intelligence based food quality solutions</string>
 
     <string name="title_login">Login</string>

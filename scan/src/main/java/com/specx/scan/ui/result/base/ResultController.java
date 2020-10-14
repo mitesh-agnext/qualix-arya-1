@@ -35,8 +35,7 @@ public class ResultController extends BaseEpoxy {
     protected void buildModels() {
         headerModel
                 .view(view)
-                .title("Result")
-                .subtitle("Parameters")
+                .title("Result Parameters")
                 .addIf(analyses != null, this);
 
         showAnalyses(analyses);
