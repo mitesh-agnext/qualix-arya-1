@@ -102,7 +102,7 @@ class ScanHistoryAdapter(val context: Context, val scanListRes: ArrayList<ScanDa
         } else
             holder.lnDevice.visibility = View.GONE
 
-        if (customerType=="CUSTOMER" || customerType=="OPERATOR" ) {
+//        if (customerType=="CUSTOMER" || customerType=="OPERATOR" ) {
             holder.lnReject.visibility = View.VISIBLE
             holder.view.visibility = View.VISIBLE
             holder.lnApprove.isClickable = true
@@ -129,26 +129,26 @@ class ScanHistoryAdapter(val context: Context, val scanListRes: ArrayList<ScanDa
                 holder.tv_reject.setTextColor(context.resources.getColor(R.color.dark_text_color))
                 holder.tv_reject.text = "Rejected"
             }
-        }
-        else {
-            holder.lnApprove.isClickable = false
-            holder.lnReject.isClickable = false
-            holder.tv_approve.visibility = View.VISIBLE
-            holder.lnReject.visibility = View.GONE
-            holder.view.visibility = View.GONE
-//            holder.lnEdit.visibility = View.GONE
-
-            if (scanListRes[position].approval == 0  || scanListRes[position].approval == null) {
-                holder.tv_approve.text = "Pending"
-                holder.tv_approve.setTextColor(context.resources.getColor(R.color.dark_text_color))
-            } else if (scanListRes[position].approval == 1) {
-                holder.tv_approve.text = "Approved"
-                holder.tv_approve.setTextColor(context.resources.getColor(R.color.dark_green))
-            } else if (scanListRes[position].approval == 2) {
-                holder.tv_approve.setTextColor(context.resources.getColor(R.color.red))
-                holder.tv_approve.text = "Rejected"
-            }
-        }
+//        }
+//        else {
+//            holder.lnApprove.isClickable = false
+//            holder.lnReject.isClickable = false
+//            holder.tv_approve.visibility = View.VISIBLE
+//            holder.lnReject.visibility = View.GONE
+//            holder.view.visibility = View.GONE
+////            holder.lnEdit.visibility = View.GONE
+//
+//            if (scanListRes[position].approval == 0  || scanListRes[position].approval == null) {
+//                holder.tv_approve.text = "Pending"
+//                holder.tv_approve.setTextColor(context.resources.getColor(R.color.dark_text_color))
+//            } else if (scanListRes[position].approval == 1) {
+//                holder.tv_approve.text = "Approved"
+//                holder.tv_approve.setTextColor(context.resources.getColor(R.color.dark_green))
+//            } else if (scanListRes[position].approval == 2) {
+//                holder.tv_approve.setTextColor(context.resources.getColor(R.color.red))
+//                holder.tv_approve.text = "Rejected"
+//            }
+//        }
 
         holder.lnEdit.setOnClickListener {
             mCallback.editItem(position)

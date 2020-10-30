@@ -56,7 +56,6 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
-            android:text="temprobin331@gmail.com"
             android:nextFocusDown="@+id/et_password"
             android:background="@drawable/shape_rect_solid_round_grey"
             android:paddingStart="30dp"

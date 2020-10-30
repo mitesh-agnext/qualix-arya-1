@@ -72,6 +72,9 @@ public class LandingFragment extends BaseFragment implements LandingView {
     @BindView(R.id.sp_category)
     Spinner spCategory;
 
+    @BindView(R.id.selected_date_range)
+    TextView tv_selected_date_range;
+
     @OnItemSelected(R.id.sp_category)
     void onCategorySelected(int selectedIndex) {
         categoryId = categories.get(selectedIndex).getCommodityCategoryId();
@@ -116,7 +119,7 @@ public class LandingFragment extends BaseFragment implements LandingView {
 
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             if (toolbar != null) {
-                ((TextView) toolbar.findViewById(R.id.title)).setText("Qualix");
+                ((TextView) toolbar.findViewById(R.id.title)).setText("Qualix-Arya");
             }
         }
 
@@ -163,6 +166,7 @@ public class LandingFragment extends BaseFragment implements LandingView {
                 presenter.fetchQuantityDetail(categoryId, startDate, endDate);
 //                showMessage("Please select date range");
             }
+            tv_selected_date_range.setText(""+Utils.Companion.getTimeFromEpoch(Long.parseLong(startDate))+ " to " +Utils.Companion.getTimeFromEpoch(Long.parseLong(endDate)));
         } else {
             showMessage("Please select commodity category");
         }

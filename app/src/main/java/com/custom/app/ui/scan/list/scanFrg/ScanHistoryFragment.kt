@@ -9,10 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.Pair
 import androidx.lifecycle.ViewModelProvider
@@ -74,6 +71,8 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
     private lateinit var tvApply: TextView
     private lateinit var tvCancel: TextView
     private lateinit var deviceTypeLayoutFilter: LinearLayout
+    var notificationdeviceId: Int? = null
+    var notificationdeviceName: String? = null
 
     @Inject
     lateinit var interactor: ScanHistoryInteractor
@@ -124,7 +123,7 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
             val deviceName = requireArguments().getString(KEY_DEVICE_NAME)
             (toolbar.findViewById<View>(R.id.title) as TextView).text = deviceName
         }
-        viewModel.getScanHistory(data)
+//        viewModel.getScanHistory(data)
     }
 
     private fun setViewState(state: ScanHistoryState) {
@@ -190,7 +189,20 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
                 }
                 Utils.setSpinnerAdapter(requireContext(), regionName, spRegion)
             }
+            is ApprovalSuccess -> {
+                showProgress(false)
+                onResume()
+            }
+            is ApprovalFailure -> {
+                showProgress(false)
+                onResume()
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getScanHistory(data)
     }
 
     private fun showProgress(progressStatus: Boolean) {
@@ -296,11 +308,15 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
     }
 
     override fun onRejectClick(pos: Int) {
-        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
+//        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
+        showProgress(true)
+        showCustomDialog(viewModel.scanList[pos].scanId!!.toInt(), viewModel.scanList[pos].deviceId!!.toInt(), viewModel.scanList[pos].deviceName.toString(), "2")
     }
 
     override fun onApproveClick(pos: Int) {
-        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 1)
+        showProgress(true)
+        showCustomDialog(viewModel.scanList[pos].scanId!!.toInt(), viewModel.scanList[pos].deviceId!!.toInt(), viewModel.scanList[pos].deviceName.toString(), "1")
+//        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 1)
     }
 
     override fun onClick(view: View?) {
@@ -354,5 +370,36 @@ class ScanHistoryFragment : BaseFragment(), ListCallBack, View.OnClickListener, 
                 }
             }
         }
+    }
+
+    private fun showCustomDialog(scanId: Int, deviceId: Int, deviceName: String, scanStatus: String) {
+        val viewGroup: ViewGroup = requireActivity().findViewById(android.R.id.content)
+        val dialogView: View = LayoutInflater.from(requireActivity()).inflate(R.layout.approve_rejectdialog, viewGroup, false)
+        notificationdeviceId = deviceId
+        notificationdeviceName = deviceName
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireActivity())
+        builder.setView(dialogView)
+        val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
+        val tvYes = dialogView.findViewById<TextView>(R.id.btn_yes)
+        val tvNo = dialogView.findViewById<TextView>(R.id.btn_no)
+        val tvScanStatus = dialogView.findViewById<TextView>(R.id.tvScanStatus)
+        val tvScanId = dialogView.findViewById<TextView>(R.id.tvScanId)
+        val et_message = dialogView.findViewById<EditText>(R.id.et_message)
+        tvScanId.text = "Scan Id: " + scanId.toString()
+        if (scanStatus.equals("1")) {
+            tvScanStatus.text = "Are you sure, you want to approve the scan?"
+        } else if (scanStatus.equals("2")) {
+            tvScanStatus.text = "Are you sure, you want to reject the scan?"
+        }
+
+        tvYes.setOnClickListener {
+            viewModel.setApproval(scanId, scanStatus.toInt(), et_message.text.toString())
+            alertDialog.dismiss()
+        }
+        tvNo.setOnClickListener {
+            showProgress(false)
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
     }
 }

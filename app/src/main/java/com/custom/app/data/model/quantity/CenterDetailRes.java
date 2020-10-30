@@ -5,9 +5,10 @@ import org.parceler.Parcel;
 import java.util.List;
 
 @Parcel
-public class QuantityDetailRes {
+public class CenterDetailRes {
 
-    public QuantityDetailRes() {}
+    public CenterDetailRes() {
+    }
 
     Double total_quantity;
     String quantity_unit;
@@ -22,9 +23,9 @@ public class QuantityDetailRes {
         return quantity_unit;
     }
 
-    public List<CenterDetailItem> getInstCenterDetails() {
-        return inst_center_details;
-    }
+//    public List<CenterDetailItem> getInstCenterDetails() {
+//        return inst_center_details;
+//    }
 
     public CollectionAvgRes getCollection() {
         return collection;

@@ -6,6 +6,6 @@ public abstract class SupplierPresenter extends BasePresenter<SupplierView> {
 
     abstract void fetchCommodity(String... categoryId);
 
-    abstract void fetchSuppliers(String commodityId, String regionId, String from, String to);
+    abstract void fetchSuppliers(String commodityId, String regionId, String from, String to, String... filter);
 
 }

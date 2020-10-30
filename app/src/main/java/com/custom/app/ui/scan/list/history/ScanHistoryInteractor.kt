@@ -202,16 +202,17 @@ class ScanHistoryInteractor(val userManager: UserManager, val apiService: ApiInt
         }
     }
 
-    fun approveReject(scanId: Int, status: Int, listener: ScanHistoryListener) {
+    fun approveReject(scanId: Int, status: Int, note: String, listener: ScanHistoryListener) {
         val options = JsonObject()
         options.addProperty("approval", status)
         options.addProperty("scan_id", scanId)
+        options.addProperty("message", note)
         approveRejectPost(listener, options)
     }
 
     private fun approveRejectPost(listener: ScanHistoryListener, options: JsonObject) {
         val apiService = ApiClient.getScmClient().create(ApiInterface::class.java)
-        val call = apiService.approveReject(Constants.TOKEN, options)
+        val call = apiService.approveReject("Bearer ${userManager.token}", options)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
                 listener.approvalFailure(t!!.message.toString())
@@ -231,7 +232,6 @@ class ScanHistoryInteractor(val userManager: UserManager, val apiService: ApiInt
             }
         })
     }
-
 }
 
 interface ScanHistoryListener {

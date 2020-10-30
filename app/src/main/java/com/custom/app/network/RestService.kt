@@ -15,6 +15,7 @@ import com.custom.app.data.model.password.change.ChangePasswordResponse
 import com.custom.app.data.model.password.forgot.ForgotPasswordRequest
 import com.custom.app.data.model.password.forgot.ForgotPasswordResponse
 import com.custom.app.data.model.quality.QualityMapItem
+import com.custom.app.data.model.quantity.CenterDetailRes
 import com.custom.app.data.model.quantity.QuantityDetailRes
 import com.custom.app.data.model.supplier.SupplierItem
 import com.custom.app.ui.createData.analytics.analysis.quality.QualityOverTimeRes

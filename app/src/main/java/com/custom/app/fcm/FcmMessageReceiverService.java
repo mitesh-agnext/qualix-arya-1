@@ -17,6 +17,7 @@ import androidx.core.app.TaskStackBuilder;
 import com.custom.app.CustomApp;
 import com.custom.app.R;
 import com.custom.app.ui.home.HomeActivity;
+import com.custom.app.ui.scan.list.detail.ScanDetailActivity;
 import com.custom.app.ui.splash.SplashScreen;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -77,7 +78,8 @@ public class FcmMessageReceiverService extends FirebaseMessagingService {
         PendingIntent pendingIntent;
 
         if (userManager.isLoggedIn()) {
-            intent = new Intent(this, HomeActivity.class);
+
+            intent = new Intent(this, ScanDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(FLOW, NAV_NOTIFICATION);
             bundle.putString(KEY_SCAN_ID, scanId);

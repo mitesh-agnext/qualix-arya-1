@@ -56,9 +56,9 @@ class ScanHistoryVM(val scanHistoryInteractor: ScanHistoryInteractor, val custom
         scanHistoryInteractor.getScanHistoryIn(option, this)
     }
 
-    fun setApproval(scanId: Int, status: Int) {
+    fun setApproval(scanId: Int, status: Int, note: String) {
         _scanHistoryState.value = Loading
-        scanHistoryInteractor.approveReject(scanId, status, this)
+        scanHistoryInteractor.approveReject(scanId, status, note, this)
     }
 
     override fun scanHistorySuccess(body: ArrayList<ScanData>?) {

@@ -46,6 +46,8 @@ import com.custom.app.ui.customer.add.AddCustomerActivity;
 import com.custom.app.ui.customer.edit.EditCustomerActivity;
 import com.custom.app.ui.customer.list.CustomerListActivity;
 import com.custom.app.ui.customer.list.di.CustomerModule;
+import com.custom.app.ui.dashboard.DashboardFragment;
+import com.custom.app.ui.dashboard.di.DashboardModule;
 import com.custom.app.ui.device.add.AddDeviceActivity;
 import com.custom.app.ui.device.assign.DeviceProvisionActivity;
 import com.custom.app.ui.device.list.DeviceListActivity;
@@ -87,7 +89,7 @@ import dagger.Subcomponent;
         QuantityModule.class, CustomerModule.class, AddressModule.class, SectionModule.class,
         PaymentModule.class, SNDeviceModule.class, SampleModule.class, DeviceModule.class,
         ColdstoreModule.class, AnalyticsModule.class, SiteRegionModule.class,
-        InstallationCenterModule.class})
+        InstallationCenterModule.class, DashboardModule.class})
 
 public interface HomeComponent {
 
@@ -96,6 +98,8 @@ public interface HomeComponent {
     void inject(HomeFragment fragment);
 
     void inject(LandingFragment fragment);
+
+    void inject(DashboardFragment fragment);
 
     void inject(BusinessFragment fragment);
 

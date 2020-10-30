@@ -27,15 +27,12 @@ public class LandingController extends BaseEpoxy {
                     .view(view)
                     .centerName(item.getInstCenterName())
                     .centerType(item.getInstCenterTypeName())
-                    .deviceType(item.getDeviceTypeData().size() > 0 ?
-                            item.getDeviceTypeData().get(0).getDeviceTypeName() : null)
-                    .deviceType(item.getDeviceTypeData().size() > 0 ?
-                            item.getDeviceTypeData().get(0).getDeviceSerialNo() : null)
+                    .deviceType(item.getDeviceTypeData().size() > 0 ? item.getDeviceTypeData().get(0).getDeviceTypeName() : null)
+                    .deviceType(item.getDeviceTypeData().size() > 0 ? item.getDeviceTypeData().get(0).getDeviceSerialNo() : null)
                     .totalQuantity(item.getTotalQuantity())
                     .quantityUnit(item.getQuantityUnit())
                     .change(item.getDifferencePercentage())
-                    .chartData(item.getDeviceTypeData().size() > 0 ?
-                            item.getDeviceTypeData().get(0).getDeviceDailyData() : null)
+                    .chartData(item.getDeviceTypeData().size() > 0 ? item.getDeviceTypeData().get(0).getDeviceDailyData() : null)
                     .clickListener(itemView -> view.onCenterClicked(item))
                     .addTo(this);
         }

@@ -257,13 +257,13 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
                     <LinearLayout
-                        android:id="@+id/lnApproveScanSetail"
+                        android:id="@+id/lnApproveScanDetail"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center">
                         <TextView
-                            android:id="@+id/tv_approveScanSetail"
+                            android:id="@+id/tv_approveScanDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"
@@ -277,13 +277,13 @@
                         android:layout_height="30dp"
                         android:background="@color/cardview_dark_background"/>
                     <LinearLayout
-                        android:id="@+id/lnRejectScanSetail"
+                        android:id="@+id/lnRejectScanDetail"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center">
                         <TextView
-                            android:id="@+id/tv_rejectScanSetail"
+                            android:id="@+id/tv_rejectScanDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"

@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.Intent.ACTION_EDIT
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.util.Pair
@@ -62,7 +65,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
     private lateinit var tvEndDate: TextView
     lateinit var spCommodity: Spinner
     lateinit var spInsCenter: Spinner
-    lateinit var spRegion: Spinner
+//    lateinit var spRegion: Spinner
     lateinit var spDeviceType: Spinner
     lateinit var alertDialog: AlertDialog
     lateinit var tvApply: TextView
@@ -77,6 +80,8 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
     private var isLastPage = false
     private val TOTAL_PAGES = 3
     private var currentPage: Int = PAGE_START
+    var notificationdeviceId: Int? = null
+    var notificationdeviceName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as CustomApp).homeComponent.inject(this)
@@ -181,7 +186,7 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                 } else {
                     regionName.add("No Data")
                 }
-                Utils.setSpinnerAdapter(this, regionName, spRegion)
+//                Utils.setSpinnerAdapter(this, regionName, spRegion)
             }
             is DeviceTypeSuccess -> {
                 setProgress(false)
@@ -252,12 +257,14 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
 
     override fun onRejectClick(pos: Int) {
         setProgress(true)
-        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
+        showCustomDialog(viewModel.scanList[pos].scanId!!.toInt(),viewModel.scanList[pos].deviceId!!.toInt(), viewModel.scanList[pos].deviceName.toString(), "2")
+//        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 2)
     }
 
     override fun onApproveClick(pos: Int) {
         setProgress(true)
-        viewModel.setApproval(viewModel.scanList[pos].scanId!!.toInt(), 1)
+        showCustomDialog(viewModel.scanList[pos].scanId!!.toInt(),viewModel.scanList[pos].deviceId!!.toInt(), viewModel.scanList[pos].deviceName.toString(), "1")
+//        viewModel.setApproval()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -289,14 +296,14 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
                     filterData.remove("inst_center_id")
                 }
             }
-            spRegion -> {
-                if (pos > 0) {
-                    filterData["region_id"] = viewModel.regionList[pos - 1].region_id.toString()
-                    regionPos = pos
-                } else if (pos == 0) {
-                    filterData.remove("region_id")
-                }
-            }
+//            spRegion -> {
+//                if (pos > 0) {
+//                    filterData["region_id"] = viewModel.regionList[pos - 1].region_id.toString()
+//                    regionPos = pos
+//                } else if (pos == 0) {
+//                    filterData.remove("region_id")
+//                }
+//            }
             spDeviceType -> {
                 if (pos > 0) {
                     filterData["device_type_id"] = viewModel.deviceTypeList[pos - 1].device_type_id.toString()
@@ -333,13 +340,13 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
     private fun allFilterApis(customerId: Int) {
         viewModel.getCommodityListVm(customerId)
         viewModel.getInstallationCentersVM(customerId)
-        viewModel.getRegionVM(customerId)
+//        viewModel.getRegionVM(customerId)
         viewModel.getDeviceTypeVM()
     }
 
     private fun filterDialog() {
         //Api hit for filter data
-        allFilterApis(91)
+        allFilterApis(userManager.customerId.toInt())
         //Create Filter Dialog
         val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
@@ -349,13 +356,13 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
         tvEndDate = dialogView.findViewById(R.id.tvEndDate)
         spCommodity = dialogView.findViewById(R.id.spCommodity)
         spInsCenter = dialogView.findViewById(R.id.spInsCenter)
-        spRegion = dialogView.findViewById(R.id.spRegion)
+//        spRegion = dialogView.findViewById(R.id.spRegion)
         spDeviceType = dialogView.findViewById(R.id.spDeviceType)
         tvApply = dialogView.findViewById(R.id.tvApply)
         tvCancel = dialogView.findViewById(R.id.tvCancel)
         spCommodity.onItemSelectedListener = this
         spInsCenter.onItemSelectedListener = this
-        spRegion.onItemSelectedListener = this
+//        spRegion.onItemSelectedListener = this
         spDeviceType.onItemSelectedListener = this
         tvStartDate.setOnClickListener(this)
         tvEndDate.setOnClickListener(this)
@@ -380,8 +387,8 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
             spCommodity.setSelection(commodityPos)
         if (insCenterPos != 0 && instCenterName.size >= insCenterPos)
             spInsCenter.setSelection(insCenterPos)
-        if (regionPos != 0 && regionName.size >= regionPos)
-            spRegion.setSelection(regionPos)
+//        if (regionPos != 0 && regionName.size >= regionPos)
+//            spRegion.setSelection(regionPos)
         if (deviceTypePos != 0 && deviceTypeName.size >= deviceTypePos)
             spDeviceType.setSelection(deviceTypePos)
     }
@@ -409,6 +416,38 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
             filterData["date_to"] = toMillis.toString()
         }
         datePicker.show(supportFragmentManager, datePicker.toString())
+    }
+
+    private fun showCustomDialog(scanId: Int, deviceId: Int, deviceName: String, scanStatus: String) {
+        val viewGroup: ViewGroup = findViewById(android.R.id.content)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.approve_rejectdialog, viewGroup, false)
+        notificationdeviceId = deviceId
+        notificationdeviceName = deviceName
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
+        val tvYes = dialogView.findViewById<TextView>(R.id.btn_yes)
+        val tvNo = dialogView.findViewById<TextView>(R.id.btn_no)
+        val tvScanStatus = dialogView.findViewById<TextView>(R.id.tvScanStatus)
+        val tvScanId = dialogView.findViewById<TextView>(R.id.tvScanId)
+        val et_message = dialogView.findViewById<EditText>(R.id.et_message)
+        tvScanId.text = "Scan Id: "+scanId.toString()
+        if (scanStatus.equals("1")){
+            tvScanStatus.text = "Are you sure, you want to approve the scan?"
+        }
+        else if (scanStatus.equals("2")){
+            tvScanStatus.text = "Are you sure, you want to reject the scan?"
+        }
+
+        tvYes.setOnClickListener {
+            viewModel.setApproval(scanId, scanStatus.toInt(),et_message.text.toString())
+            alertDialog.dismiss()
+        }
+        tvNo.setOnClickListener {
+            setProgress(false)
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
     }
 }
 

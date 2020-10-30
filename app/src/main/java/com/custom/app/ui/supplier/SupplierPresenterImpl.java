@@ -45,10 +45,10 @@ public class SupplierPresenterImpl extends SupplierPresenter {
     }
 
     @Override
-    void fetchSuppliers(String commodityId, String regionId, String from, String to) {
+    void fetchSuppliers(String commodityId, String regionId, String from, String to, String... filter) {
         showProgressBar();
 
-        disposable = quantityInteractor.suppliers(commodityId, regionId, from, to)
+        disposable = quantityInteractor.suppliers(commodityId, regionId, from, to, filter)
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(suppliers -> {

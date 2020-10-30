@@ -15,9 +15,9 @@ class ScanDetailVM(val scanDetailInteractor: ScanDetailInteractor) : ViewModel()
         get() = _scanDetailState
     var scanDetail = ScanData()
 
-    fun setApproval(scanId: Int, status: Int) {
+    fun setApproval(scanId: Int, status: Int, message: String) {
         _scanDetailState.value = Loading
-        scanDetailInteractor.approveReject(scanId, status, this)
+        scanDetailInteractor.approveReject(scanId, status, message,this)
     }
 
     fun getScanDetail(scanId: String) {
