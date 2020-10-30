@@ -45,6 +45,7 @@
     <string name="hint_activation_key">XX-XX-XX-XX-XX-XX-XX-XX-XX-XX-XX-XX</string>
 
     <string name="batch_copied_msg">Batch ID copied to clipboard!</string>
+    <string name="btn_addResults">Add Results</string>
 
     <plurals name="results_found_msg">
         <item quantity="one">%d result found!</item>

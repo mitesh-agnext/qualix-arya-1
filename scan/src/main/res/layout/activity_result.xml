@@ -242,6 +242,23 @@
                 android:visibility="gone"
                 app:backgroundTint="@color/green"
                 tools:visibility="visible" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_addResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="20dp"
+                android:text="@string/btn_addResults"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:backgroundTint="@color/green"
+                tools:visibility="visible" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

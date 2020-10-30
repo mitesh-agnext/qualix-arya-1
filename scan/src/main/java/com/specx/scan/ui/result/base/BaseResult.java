@@ -244,6 +244,9 @@ public abstract class BaseResult extends BaseActivity implements ResultView, Sel
     @BindView(R2.id.btn_done)
     protected Button btnDone;
 
+    @BindView(R2.id.btn_addResults)
+    protected Button btn_addResults;
+
     @OnClick(R2.id.btn_done)
     public void done() {
         Intent intent = null;
@@ -254,6 +257,21 @@ public abstract class BaseResult extends BaseActivity implements ResultView, Sel
             intent.putExtras(bundle);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finish();
+    }
+
+
+    @OnClick(R2.id.btn_addResults)
+    public void addResults() {
+        Intent intent = null;
+        typetoken tp = new typetoken();
+        try {
+            intent = new Intent(this, Class.forName("com.custom.app.ui.sample.addResults.AddScanResult"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            tp.moveData(this, result, intent);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -423,8 +441,12 @@ public abstract class BaseResult extends BaseActivity implements ResultView, Sel
         Timber.d("Showing analyses!");
         hideTitleDescImage();
         this.analyses = analyses;
-        if (deviceId != 1 && deviceId != 4) {
+        if (deviceId != 1) {
             btnDone.setVisibility(View.VISIBLE);
+            btn_addResults.setVisibility(View.VISIBLE);
+        } else if (deviceId != 4) {
+            btnDone.setVisibility(View.VISIBLE);
+
         } else {
             btnUpload.setVisibility(View.VISIBLE);
         }

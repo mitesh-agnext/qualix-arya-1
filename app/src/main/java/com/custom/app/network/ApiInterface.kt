@@ -5,6 +5,7 @@ import com.custom.app.data.model.country.CountryRes
 import com.custom.app.data.model.country.StateRes
 import com.custom.app.data.model.payment.PaymentHistoryRes
 import com.custom.app.data.model.role.RoleRes
+import com.custom.app.data.model.scan.UpdateScanRes
 import com.custom.app.data.model.scanhistory.ScanData
 import com.custom.app.data.model.scanhistory.ScanHistoryResT
 import com.custom.app.data.model.section.DivisionRes
@@ -535,4 +536,9 @@ interface ApiInterface {
 
     @PUT("/api/scan/approve")
     fun approveReject(@Header("authorization") authorization: String, @Body file: JsonObject): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @PUT("/api/scan/lab/{scan_id}")
+    fun updateScan(@Header("authorization") authorization: String, @Path("scan_id") scan_id: String, @Field("analytics") analytics: String): Call<UpdateScanRes>
+
 }

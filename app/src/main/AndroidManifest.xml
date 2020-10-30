@@ -14,6 +14,10 @@
         tools:replace="android:name, android:allowBackup, android:label, android:theme">
 <!--        <activity android:name=".ui.splash.SplashScreen"/>-->
         <activity android:name=".ui.newapp.MainActivity" />
+        <activity android:name=".ui.sample.addResults.AddScanResult"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
         <activity
             android:name=".ui.splash.SplashScreen"
             android:screenOrientation="portrait"
