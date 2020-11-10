@@ -1,2 +1,4 @@
+include ':BluetoothLowEnergyLibrary'
+include ':BluetoothClassicLibrary'
 include ':ble', ':device', ':scan', ':printer', ':app'
 include ':core', ':base', ':network', ':firebase', ':location', ':media', ':data', ':user'
