@@ -35,7 +35,8 @@ public final class ApiInterceptor implements Interceptor {
 
         if (url.contains("/api/vendor")) {
             HttpUrl newUrl = originalRequest.url().newBuilder()
-                    .port(9075)
+                  //  .port(9075)
+                    .port(9991)
                     .build();
 
             originalRequest = originalRequest.newBuilder()
@@ -46,7 +47,8 @@ public final class ApiInterceptor implements Interceptor {
         if (TextUtils.isEmpty(token) || originalRequest.header("Authorization") != null) {
             if (url.contains("/api/user/device/token")) {
                 HttpUrl newUrl = originalRequest.url().newBuilder()
-                        .port(9075)
+//                        .port(9075)
+                        .port(9991)
                         .build();
 
                 originalRequest = originalRequest.newBuilder()
@@ -64,7 +66,8 @@ public final class ApiInterceptor implements Interceptor {
             if (url.contains("/api/commodity") ||
                     url.contains("/api/user/device/token") || url.contains("/api/device/")) {
                 HttpUrl newUrl = originalRequest.url().newBuilder()
-                        .port(9075)
+                      //  .port(9075)
+                        .port(9991)
                         .build();
 
                 authorisedRequest = authorisedRequest.newBuilder()
@@ -88,7 +91,8 @@ public final class ApiInterceptor implements Interceptor {
 
             if (url.contains("/api/scan") || url.contains("/api/analytics")) {
                 HttpUrl newUrl = originalRequest.url().newBuilder()
-                        .port(9075)
+                       // .port(9075)
+                        .port(9991)
                         .build();
 
                 authorisedRequest = authorisedRequest.newBuilder()

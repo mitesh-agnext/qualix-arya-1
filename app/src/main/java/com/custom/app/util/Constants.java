@@ -1,5 +1,7 @@
 package com.custom.app.util;
 
+import org.jetbrains.annotations.Nullable;
+
 public class Constants {
 
     public static final String KEY_CODE = "code";
@@ -81,4 +83,5 @@ public class Constants {
     public static int secId = 0;
     public static String TOKEN = "";
 
+    public static final String SAMPLE_BLE_RESULT="SAMPLE_BLE_RESULT";
 }

@@ -331,7 +331,15 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
         binding.progressBar.visibility = View.GONE
         when (renderState) {
             HomeDeviceState.SubscribeDeviceSuccess -> {
-                devices = viewModel.homeList.value!!.devices!!
+                //TODO Adding Dummy item for BLE
+                if (userManager.customerType == "OPERATOR") {
+                    val bleItem= DeviceItem()
+                    bleItem.device_id=7
+                    bleItem.device_name="BLE"
+                    bleItem.device_count="1"
+                    devices.add(bleItem)
+                }
+                devices.addAll(viewModel.homeList.value!!.devices!!)
                 if (devices.size > 0) {
                     device = devices[0]
                     toolbarTitle!!.text = device!!.device_name
@@ -389,7 +397,9 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
 
     private fun showHomeScreen(deviceId: Int?, deviceName: String?) {
         if (userManager.customerType == "OPERATOR") {
-            if (device?.device_id == 2) {
+            //TODO Flow check for BLE
+
+            if (device?.device_id == 2 || device?.device_id == 7) {
                 fragmentTransition(SelectScanFragment.newInstance(scanId, deviceId!!, deviceName), SELECT_SCAN_FRAGMENT)
             } else {
                 fragmentTransition(ScanHistoryFragment.newInstance(deviceId!!, deviceName!!, userManager.customerType), SCAN_HISTORY_FRAGMENT)

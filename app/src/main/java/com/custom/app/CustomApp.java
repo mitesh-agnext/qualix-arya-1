@@ -19,6 +19,7 @@ import com.custom.app.ui.landing.di.QuantityModule;
 import com.custom.app.ui.payment.di.PaymentModule;
 import com.custom.app.ui.quality.di.QualityModule;
 import com.custom.app.ui.sample.di.SampleModule;
+import com.custom.app.ui.sampleBLE.SimpleBleModule;
 import com.custom.app.ui.scan.di.ScanModule;
 import com.custom.app.ui.section.SectionModule;
 import com.custom.app.ui.senseNext.di.SNDeviceModule;
@@ -83,7 +84,8 @@ public class CustomApp extends BaseApplication implements HasActivityInjector, H
                     new AnalyticsModule(),
                     new SiteRegionModule(),
                     new InstallationCenterModule(),
-                    new DashboardModule());
+                    new DashboardModule(),
+                    new SimpleBleModule());
         }
         return homeComponent;
     }

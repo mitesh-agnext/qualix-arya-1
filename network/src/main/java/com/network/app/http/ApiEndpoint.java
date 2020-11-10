@@ -5,8 +5,8 @@ public enum ApiEndpoint {
     MOCK("https://private-409127-qualixapi.apiary-mock.com"),
 
 //    RELEASE("http://23.98.216.140:8071"),
-RELEASE("http://70.37.95.226:9075"),
-
+//RELEASE("http://70.37.95.226:9075"),
+RELEASE("http://13.71.36.247:9991"),
     CUSTOM();
 
     public String url;

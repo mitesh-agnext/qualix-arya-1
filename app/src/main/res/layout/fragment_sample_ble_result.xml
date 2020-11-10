@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result Parameter"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="60" />
+    <TextView
+        android:id="@+id/tvToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/dark_text_color"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        />
+
+    <Button
+        android:id="@+id/bnShare"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="10"
+        android:backgroundTint="@color/violet"
+        android:drawableLeft="@drawable/ic_share_white_24dp"
+        android:text="Share"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/bnDone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="10"
+        android:text="@string/done"
+        android:textStyle="bold"
+        />
+</LinearLayout>

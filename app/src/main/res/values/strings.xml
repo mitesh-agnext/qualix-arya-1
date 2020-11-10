@@ -134,6 +134,10 @@
     <string name="logout">Logout</string>
     <string name="scan_detail">Scan detail</string>
     <string name="date">Date</string>
+    <string name="sample_detail">Sample detail</string>
+    <string name="sample_id">Sample id</string>
+    <string name="proceed">Proceed</string>
+    <string name="done">Done</string>
     <string-array name="array_filter">
         <item>Weekly</item>
         <item>Monthly</item>

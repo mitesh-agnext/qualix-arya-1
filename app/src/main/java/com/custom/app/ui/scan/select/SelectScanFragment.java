@@ -16,6 +16,7 @@ import com.custom.app.R;
 import com.custom.app.data.model.farmer.upload.FarmerItem;
 import com.custom.app.ui.farmer.scan.FarmerScanFragment;
 import com.custom.app.ui.sample.SampleFragment;
+import com.custom.app.ui.sampleBLE.SampleBleFragment;
 
 import java.util.Arrays;
 
@@ -83,7 +84,14 @@ public class SelectScanFragment extends BaseFragment implements SelectScanView {
                 if (deviceId == 1 || deviceId == 2 || deviceId == 4) {
                     replaceFragment(R.id.layout_content,
                             FarmerScanFragment.newInstance(scanId, deviceId, deviceName), FARMER_SCAN_FRAGMENT);
-                } else {
+                }
+                //TODO Move the fragment to BLE Input screen and skip the Qr screen
+                else if(deviceId == 7)
+                {
+                    replaceFragment(R.id.layout_content,
+                            SampleBleFragment.newInstance(scanId, deviceId, deviceName, new FarmerItem("X")), FARMER_SCAN_FRAGMENT);
+                }
+                else {
                     replaceFragment(R.id.layout_content,
                             SampleFragment.newInstance(scanId, deviceId, deviceName,
                                     new FarmerItem("X")), SAMPLE_FRAGMENT);

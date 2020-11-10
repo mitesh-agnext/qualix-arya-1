@@ -1,5 +1,8 @@
 package com.custom.app.network
 
+import com.custom.app.data.model.bleScan.BleScanResponse
+import com.custom.app.data.model.bleScan.CommodityResponse
+import com.custom.app.data.model.bleScan.LocationResponse
 import com.custom.app.data.model.country.CityRes
 import com.custom.app.data.model.country.CountryRes
 import com.custom.app.data.model.country.StateRes
@@ -542,4 +545,15 @@ interface ApiInterface {
     @GET("/api/analytics/quantity-details-id")
     fun centerDetails(@Header("authorization") authorization: String, @QueryMap query: Map<String, String>): Call<CenterData>
 
+    @POST("/api/scan/moisture-meter")
+    fun postBleScan(@Header("authorization") authorization: String, @Body data: HashMap<String, Any>):Call<BleScanResponse>
+
+    @GET("/api/location?p=0&l=10")
+    fun locationList(@Header("authorization") authorization: String):Call<ArrayList<LocationResponse>>
+
+    @GET("/api/location/{locationId}")
+    fun particularLocation(@Header("authorization") authorization: String,  @Path("locationId") locationId: String) :Call<LocationResponse>
+
+    @GET("/api/commodity?commodityCategoryId=3&customer_id=183")
+    fun getCommodity(@Header("authorization") authorization: String):Call<ArrayList<CommodityResponse>>
 }

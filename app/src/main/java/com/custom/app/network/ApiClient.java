@@ -9,8 +9,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
+//TODO  Qualix to DEV
+//    private static final String BASE_URL = "http://70.37.95.226";
 
-    private static final String BASE_URL = "http://70.37.95.226";
+private static final String BASE_URL = "http://13.71.36.247";
 //    private static final String BASE_URL = "http://23.98.216.140";
     private static final String TEA_BASE_URL = "http://203.193.132.228:9000/";
 //    private static final String FARMER_URl="http://23.98.216.140";
@@ -45,7 +47,8 @@ public class ApiClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(String.format("%s:9075", BASE_URL)) //8071
+                   // .baseUrl(String.format("%s:9075", BASE_URL)) //8071
+                    .baseUrl(String.format("%s:9991", BASE_URL))
                     .addConverterFactory(getGsonFactory())
                     .client(getOkhttpClient())
                     .build();
@@ -57,7 +60,8 @@ public class ApiClient {
     public static Retrofit getDcmClient() {
         if (dcmRetrofit == null) {
             dcmRetrofit = new Retrofit.Builder()
-                    .baseUrl(String.format("%s:9075", BASE_URL))
+//                    .baseUrl(String.format("%s:9075", BASE_URL))
+                    .baseUrl(String.format("%s:9991", BASE_URL))
                     .addConverterFactory(getGsonFactory())
                     .client(getOkhttpClient())
                     .build();
@@ -69,7 +73,8 @@ public class ApiClient {
     public static Retrofit getScmClient() {
         if (scmRetrofit == null) {
             scmRetrofit = new Retrofit.Builder()
-                    .baseUrl(String.format("%s:9075", BASE_URL))
+//                    .baseUrl(String.format("%s:9075", BASE_URL))
+                    .baseUrl(String.format("%s:9991", BASE_URL))
                     .addConverterFactory(getGsonFactory())
                     .client(getOkhttpClient())
                     .build();
@@ -93,7 +98,8 @@ public class ApiClient {
     public static Retrofit getVmsClient() {
         if (vmsRetrofit == null) {
             vmsRetrofit = new Retrofit.Builder()
-                    .baseUrl(String.format("%s:9075", BASE_URL))
+                 //   .baseUrl(String.format("%s:9075", BASE_URL))
+                    .baseUrl(String.format("%s:9991", BASE_URL))
                     .addConverterFactory(getGsonFactory())
                     .client(getOkhttpClient())
                     .build();
