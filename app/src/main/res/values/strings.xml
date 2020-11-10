@@ -138,6 +138,7 @@
     <string name="sample_id">Sample id</string>
     <string name="proceed">Proceed</string>
     <string name="done">Done</string>
+    <string name="lot_id">Lot Id</string>
     <string-array name="array_filter">
         <item>Weekly</item>
         <item>Monthly</item>

@@ -18,6 +18,7 @@ import com.custom.app.ui.payment.di.PaymentModule;
 import com.custom.app.ui.quality.di.QualityModule;
 import com.custom.app.ui.sample.di.SampleModule;
 import com.custom.app.ui.sampleBLE.SimpleBleModule;
+import com.custom.app.ui.sampleBleResult.SampleBleResultModule;
 import com.custom.app.ui.scan.di.ScanModule;
 import com.custom.app.ui.section.SectionModule;
 import com.custom.app.ui.senseNext.di.SNDeviceModule;
@@ -52,5 +53,6 @@ public interface AppComponent {
                        SiteRegionModule siteRegionModule,
                        InstallationCenterModule installationCenterModule,
                        DashboardModule dashboardModule,
-                       SimpleBleModule simpleBleModule);
+                       SimpleBleModule simpleBleModule,
+                       SampleBleResultModule sampleBleResultModule );
 }

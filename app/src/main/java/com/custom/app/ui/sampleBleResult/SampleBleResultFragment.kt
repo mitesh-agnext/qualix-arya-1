@@ -1,5 +1,6 @@
 package com.custom.app.ui.sampleBleResult
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.app.ui.base.BaseFragment
+import com.custom.app.CustomApp
 import com.custom.app.R
+import com.custom.app.ui.base.ScreenState
+import com.custom.app.ui.sampleBLE.SampleBleState
 import com.custom.app.ui.scan.select.SelectScanFragment
 import com.custom.app.util.Constants
+import kotlinx.android.synthetic.main.fragment_sample_ble.*
 import kotlinx.android.synthetic.main.fragment_sample_ble_result.*
 import org.parceler.Parcels
 import javax.inject.Inject
@@ -39,15 +44,23 @@ class SampleBleResultFragment : BaseFragment(), View.OnClickListener {
             return fragment
         }
     }
-
+    override fun onAttach(context: Context) {
+        (requireActivity().application as CustomApp).homeComponent.inject(this)
+        super.onAttach(context)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_sample_ble_result, container, false)
         viewModel = ViewModelProvider(this,
                 SampleBleResultVM.SampleBleResultVMFactory(interactor))[SampleBleResultVM::class.java]
-        viewModel.sampleBleResultState.observe(::getLifecycle, ::setViewState)
+        viewModel.sampleBleResultState.observe(::getLifecycle, ::updateUI)
         return view
     }
-
+    private fun updateUI(screenState: ScreenState<SampleBleResultState>?) {
+        when (screenState) {
+            ScreenState.Loading -> progress.visibility = View.VISIBLE
+            is ScreenState.Render -> setViewState(screenState.renderState)
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {

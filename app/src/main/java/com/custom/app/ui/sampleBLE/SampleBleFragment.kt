@@ -1,6 +1,7 @@
 package com.custom.app.ui.sampleBLE
 
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
@@ -15,13 +16,18 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.base.app.ui.base.BaseFragment
+import com.custom.app.CustomApp
 import com.custom.app.R
 import com.custom.app.data.model.farmer.upload.FarmerItem
+import com.custom.app.ui.base.ScreenState
+import com.custom.app.ui.customer.list.CustomerState
 import com.custom.app.ui.sampleBleResult.BleResult
 import com.custom.app.ui.sampleBleResult.SampleBleResultFragment
 import com.custom.app.ui.scan.select.SelectScanFragment
 import com.custom.app.util.Constants
 import kotlinx.android.synthetic.main.fragment_sample_ble.*
+import kotlinx.android.synthetic.main.fragment_sample_ble.progress
+import kotlinx.android.synthetic.main.layout_progress.*
 import org.parceler.Parcels
 import javax.inject.Inject
 
@@ -48,6 +54,10 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             return fragment
         }
     }
+    override fun onAttach(context: Context) {
+        (requireActivity().application as CustomApp).homeComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -57,7 +67,8 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
 
         viewModel = ViewModelProvider(this,
                 SampleBleViewModel.SampleBleViewModelFactory(interactor))[SampleBleViewModel::class.java]
-        viewModel.sampleBleStateState.observe(::getLifecycle, ::setViewState)
+       // viewModel.sampleBleStateState.observe(::getLifecycle, ::setViewState)
+        viewModel.sampleBleStateState.observe(::getLifecycle, ::updateUI)
         return view
     }
 
@@ -77,12 +88,21 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
         permissionCheck()
     }
 
-    private fun setViewState(state: SampleBleState) {
+    private fun updateUI(screenState: ScreenState<SampleBleState>?) {
+        when (screenState) {
+            ScreenState.Loading -> progress.visibility = View.VISIBLE
+            is ScreenState.Render -> processLoginState(screenState.renderState)
+        }
+    }
+    private fun processLoginState(state: SampleBleState) {
         when (state) {
             SampleBleState.loading -> progress.visibility = View.VISIBLE
             SampleBleState.locationSuccess -> {
                 progress.visibility = View.GONE
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, viewModel.locationArray)
+                val listArray=ArrayList<String>()
+                for (i in 0 until viewModel.locationArray.size)
+                    listArray.add(viewModel.locationArray[i].stateName.toString())
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listArray)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spLocation.adapter = adapter
             }
@@ -92,7 +112,10 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             }
             SampleBleState.commoditySuccess->{
                 progress.visibility = View.GONE
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, viewModel.commodityArray)
+                val listArray=ArrayList<String>()
+                for (i in 0 until viewModel.commodityArray.size)
+                    listArray.add(viewModel.commodityArray[i].commodityName.toString())
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listArray)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spCommodity.adapter = adapter
             }
@@ -174,7 +197,7 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, spinner: View?, pos: Int, p3: Long) {
-        when(spinner)
+        when(p0)
         {
             spLocation->{
                 tvLocId.text=viewModel.locationArray[pos].code
