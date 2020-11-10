@@ -143,5 +143,13 @@
         <item>Monthly</item>
         <item>All</item>
     </string-array>
-
+    <string name="action_scan">SCAN</string>
+    <string name="action_stop">STOP</string>
+    <string name="activity_device">Device</string>
+    <string name="paired">paired</string>
+    <string name="popup_title">Quit nRF UART</string>
+    <string name="popup_message">Do you want to quit this Application?</string>
+    <string name="popup_yes">YES</string>
+    <string name="popup_no">NO</string>
+    <string name="device">Device:</string>
 </resources>
