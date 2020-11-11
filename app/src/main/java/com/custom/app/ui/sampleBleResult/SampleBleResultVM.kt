@@ -11,24 +11,24 @@ class SampleBleResultVM (val sampleBleResultInteractor: SampleBleResultInteracto
 
     /**Observable Data*/
 
-    private val _sampleBleResultState: MutableLiveData<SampleBleResultState> = MutableLiveData()
-    val sampleBleResultState: LiveData<SampleBleResultState>
+    private val _sampleBleResultState: MutableLiveData<ScreenState<SampleBleResultState>> = MutableLiveData()
+    val sampleBleResultState: LiveData<ScreenState<SampleBleResultState>>
         get() = _sampleBleResultState
 
     /**Forward Flow*/
     fun postBleScan(request: HashMap<String, Any>)
     {
-        _sampleBleResultState.value =SampleBleResultState.loading
+        _sampleBleResultState.value =ScreenState.Render(SampleBleResultState.loading)
         sampleBleResultInteractor.postBleScan(request,this)
     }
 
     /**Backward flow*/
     override fun onPostScanSuccess() {
-        _sampleBleResultState.value =SampleBleResultState.postScanSuccess
+        _sampleBleResultState.value =ScreenState.Render(SampleBleResultState.postScanSuccess)
     }
 
     override fun onPostScanFailure() {
-        _sampleBleResultState.value =SampleBleResultState.postScanFailure
+        _sampleBleResultState.value =ScreenState.Render(SampleBleResultState.postScanFailure)
     }
 
     class SampleBleResultVMFactory(private val sampleBleResultInteractor: SampleBleResultInteractor) :

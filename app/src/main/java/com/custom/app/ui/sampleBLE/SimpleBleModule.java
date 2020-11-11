@@ -1,8 +1,6 @@
 package com.custom.app.ui.sampleBLE;
 
-import com.custom.app.network.ApiInterface;
-import com.custom.app.network.RestService;
-import com.custom.app.ui.user.list.UserInteractor;
+
 import com.user.app.data.UserManager;
 
 import dagger.Module;

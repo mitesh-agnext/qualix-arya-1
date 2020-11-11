@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.custom.app.data.model.bleScan.CommodityResponse
 import com.custom.app.data.model.bleScan.LocationResponse
 import com.custom.app.ui.base.ScreenState
+import com.custom.app.ui.sampleBLE.SampleBleState.locationSuccess
 
 class SampleBleViewModel(val sampleBleInteractor: SampleBleInteractor) : ViewModel(),
         SampleBleInteractor.OnSampleBleInteractorListener
 {
-    private val _sampleBleStateState: MutableLiveData<SampleBleState> = MutableLiveData()
-    val sampleBleStateState: LiveData<SampleBleState>
+    private val _sampleBleStateState: MutableLiveData<ScreenState<SampleBleState>> = MutableLiveData()
+    val sampleBleStateState: LiveData<ScreenState<SampleBleState>>
         get() = _sampleBleStateState
 
     val locationArray= ArrayList<LocationResponse>()
@@ -21,36 +22,36 @@ class SampleBleViewModel(val sampleBleInteractor: SampleBleInteractor) : ViewMod
     //Forward
     fun getLocation()
     {
-        _sampleBleStateState.value =SampleBleState.loading
+        _sampleBleStateState.value =ScreenState.Render(SampleBleState.loading)
         sampleBleInteractor.getLocation(this)
     }
 
     fun getCommodity()
     {
-        _sampleBleStateState.value =SampleBleState.loading
+        _sampleBleStateState.value =ScreenState.Render(SampleBleState.loading)
         sampleBleInteractor.getCommodity(this)
     }
-    override fun onLocationSuccess(locationList: ArrayList<LocationResponse>) {
-        locationList.clear()
-        locationList.addAll(locationList!!)
-        _sampleBleStateState.value = SampleBleState.locationSuccess
+    override fun onLocationSuccess(list: ArrayList<LocationResponse>) {
+        locationArray.clear()
+        locationArray.addAll(list!!)
+        _sampleBleStateState.value = ScreenState.Render(locationSuccess)
     }
 
     //Backward
     override fun onLocationFailure() {
-        _sampleBleStateState.value = SampleBleState.locationFailure
+        _sampleBleStateState.value = ScreenState.Render(SampleBleState.locationFailure)
 
     }
 
     override fun onCommoditySuccess(commodityList: ArrayList<CommodityResponse>) {
-        commodityList.clear()
+        commodityArray.clear()
         commodityArray.addAll(commodityList)
-        _sampleBleStateState.value = SampleBleState.commoditySuccess
+        _sampleBleStateState.value = ScreenState.Render(SampleBleState.commoditySuccess)
 
     }
 
     override fun onCommodityFailure() {
-        _sampleBleStateState.value = SampleBleState.commodityFailure
+        _sampleBleStateState.value = ScreenState.Render(SampleBleState.commodityFailure)
 
     }
 

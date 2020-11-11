@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lot ID"
+                android:text="@string/lot_id"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -75,7 +75,7 @@
                 android:id="@+id/etLotID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Lot ID"
+                android:hint="@string/lot_id"
                 android:inputType="textCapSentences"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -112,11 +112,11 @@
                 android:id="@+id/etSampleID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Sample ID"
+                android:hint="@string/sample_id"
                 android:inputType="number"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
-                android:maxLength="10"/>
+                android:maxLength="4"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

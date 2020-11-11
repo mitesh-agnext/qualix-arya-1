@@ -65,6 +65,8 @@ import com.custom.app.ui.sample.SampleFragment;
 import com.custom.app.ui.sample.di.SampleModule;
 import com.custom.app.ui.sampleBLE.SampleBleFragment;
 import com.custom.app.ui.sampleBLE.SimpleBleModule;
+import com.custom.app.ui.sampleBleResult.SampleBleResultFragment;
+import com.custom.app.ui.sampleBleResult.SampleBleResultModule;
 import com.custom.app.ui.scan.di.ScanModule;
 import com.custom.app.ui.scan.list.detail.ScanDetailActivity;
 import com.custom.app.ui.scan.list.history.ScanHistoryActivity;
@@ -91,7 +93,7 @@ import dagger.Subcomponent;
         QuantityModule.class, CustomerModule.class, AddressModule.class, SectionModule.class,
         PaymentModule.class, SNDeviceModule.class, SampleModule.class, DeviceModule.class,
         ColdstoreModule.class, AnalyticsModule.class, SiteRegionModule.class,
-        InstallationCenterModule.class, DashboardModule.class, SimpleBleModule.class})
+        InstallationCenterModule.class, DashboardModule.class, SimpleBleModule.class, SampleBleResultModule.class})
 
 public interface HomeComponent {
 
@@ -226,5 +228,7 @@ public interface HomeComponent {
     void inject(Quantity fragment);
 
     void inject(SampleBleFragment fragment);
+
+    void inject(SampleBleResultFragment fragment);
 
 }
