@@ -2,14 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:gravity="center_horizontal">
+
+    <com.base.app.ui.custom.StepProgressView
+        android:id="@+id/stepsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        app:arcColor="@color/green"
+        app:arcPadding="0dp"
+        app:colorInactive="@color/lighter_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:nodeColor="@color/green"
+        app:nodeHeight="30dp"
+        app:stepsCount="3"
+        app:textNodeColor="@color/green"
+        app:textNodeTitleColor="@color/black"
+        app:textNodeTitleSize="18sp"
+        app:textTitlePadding="10dp"
+        app:titlesEnabled="true"
+        tools:visibility="visible" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Result Parameter"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginTop="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvResult"
@@ -17,6 +43,13 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_weight="60" />
+    <include
+        layout="@layout/layout_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tvToken"
         android:layout_width="match_parent"
@@ -24,8 +57,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/dark_text_color"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <Button
         android:id="@+id/bnShare"

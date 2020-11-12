@@ -24,9 +24,6 @@ class SampleBleAdapter(var context: Context, val scanResultList: ArrayList<BleRe
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvParameter.text = scanResultList[position].Parameter
         holder.tvValue.text = scanResultList[position].Value
-
-
-
     }
 
     override fun getItemCount(): Int {

@@ -272,14 +272,14 @@ class ScanHistoryActivity : BaseActivity(), ListCallBack, AdapterView.OnItemSele
 
     override fun onItemSelected(spinner: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
         when (spinner) {
-/*
-            spCustomer -> {
-                allFilterApis(viewModel.customerList[pos].customer_id!!)
-                data["customer_id"] = viewModel.customerList[pos].customer_id.toString()
-                filterData["customer_id"] = viewModel.customerList[pos].customer_id.toString()
-                viewModel.getScanHistory(data)
-            }
-*/
+
+//            spCustomer -> {
+//                allFilterApis(viewModel.customerList[pos].customer_id!!)
+//                data["customer_id"] = viewModel.customerList[pos].customer_id.toString()
+//                filterData["customer_id"] = viewModel.customerList[pos].customer_id.toString()
+//                viewModel.getScanHistory(data)
+//            }
+
             spCommodity -> {
                 if (pos > 0) {
                     filterData["commodity_id"] = viewModel.commodityList[pos - 1].commodity_id.toString()

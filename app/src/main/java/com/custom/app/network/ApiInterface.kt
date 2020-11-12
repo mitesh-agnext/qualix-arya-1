@@ -129,7 +129,7 @@ interface ApiInterface {
     fun deleteSection(@Header("authorization") authorization: String,
                       @Path("sectionId") sectionId: String): Call<SectionRes>
 
-    @GET("api/scan/history?p=0&l=100")
+    @GET("api/scan/history?p=0&l=100000000")
     fun scanHistory(@Header("authorization") authorization: String, @QueryMap options: Map<String, String>): Call<ScanHistoryResT>
 
     @GET("api/scan/payment-history")
@@ -546,14 +546,14 @@ interface ApiInterface {
     fun centerDetails(@Header("authorization") authorization: String, @QueryMap query: Map<String, String>): Call<CenterData>
 
     @POST("/api/scan/moisture-meter")
-    fun postBleScan(@Header("authorization") authorization: String, @Body data: HashMap<String, Any>):Call<BleScanResponse>
+    fun postBleScan(@Header("authorization") authorization: String, @Body data: HashMap<String, String>):Call<ResponseBody>
 
-    @GET("/api/location?p=0&l=10")
+    @GET("/api/location?p=0&l=1000")
     fun locationList(@Header("authorization") authorization: String):Call<ArrayList<LocationResponse>>
 
     @GET("/api/location/{locationId}")
     fun particularLocation(@Header("authorization") authorization: String,  @Path("locationId") locationId: String) :Call<LocationResponse>
 
-    @GET("/api/commodity?commodityCategoryId=3&customer_id=183")
-    fun getCommodity(@Header("authorization") authorization: String):Call<ArrayList<CommodityResponse>>
+    @GET("/api/commodity?commodityCategoryId=3")
+    fun getCommodityByCategory(@Header("authorization") authorization: String, @Query("customer_id") customerId: String):Call<ArrayList<CommodityResponse>>
 }

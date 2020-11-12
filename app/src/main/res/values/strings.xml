@@ -34,9 +34,9 @@
     <string name="hint_query">Enter farmer code or phone</string>
     <string name="hint_lot_id">Lot ID</string>
     <string name="hint_sample_id">Sample ID</string>
-    <string name="hint_truck_no">Truck number</string>
+    <string name="hint_truck_no">Truck number*</string>
     <string name="hint_area_covered">Area covered</string>
-    <string name="hint_quantity">Quantity</string>
+    <string name="hint_quantity">Quantity*</string>
 
     <string name="hint_user_id">User ID</string>
     <string name="hint_device_imei">IMEI number</string>
@@ -135,7 +135,7 @@
     <string name="scan_detail">Scan detail</string>
     <string name="date">Date</string>
     <string name="sample_detail">Sample detail</string>
-    <string name="sample_id">Sample id</string>
+    <string name="sample_id">Sample id*</string>
     <string name="proceed">Proceed</string>
     <string name="done">Done</string>
     <string name="lot_id">Lot Id</string>

@@ -74,7 +74,6 @@ public class BluetoothClassicService extends BluetoothService {
         mStatus = BluetoothStatus.NONE;
     }
 
-
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
      *

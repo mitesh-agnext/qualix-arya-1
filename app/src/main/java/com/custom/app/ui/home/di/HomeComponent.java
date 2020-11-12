@@ -65,6 +65,7 @@ import com.custom.app.ui.sample.SampleFragment;
 import com.custom.app.ui.sample.di.SampleModule;
 import com.custom.app.ui.sampleBLE.SampleBleFragment;
 import com.custom.app.ui.sampleBLE.SimpleBleModule;
+import com.custom.app.ui.sampleBleResult.SampleBleActivity;
 import com.custom.app.ui.sampleBleResult.SampleBleResultFragment;
 import com.custom.app.ui.sampleBleResult.SampleBleResultModule;
 import com.custom.app.ui.scan.di.ScanModule;
@@ -116,6 +117,8 @@ public interface HomeComponent {
     void inject(SampleFragment fragment);
 
     void inject(AnalysisFragment fragment);
+
+    void inject(SampleBleActivity activity);
 
     void inject(UserListActivity activity);
 

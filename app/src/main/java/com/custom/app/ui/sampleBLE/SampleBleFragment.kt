@@ -6,13 +6,11 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.content.*
-import android.os.*
-import android.util.Log
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.IBinder
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,17 +22,15 @@ import com.custom.app.CustomApp
 import com.custom.app.R
 import com.custom.app.data.model.farmer.upload.FarmerItem
 import com.custom.app.ui.base.ScreenState
-import com.custom.app.ui.customer.list.CustomerState
 import com.custom.app.ui.sampleBleResult.BleResult
 import com.custom.app.ui.sampleBleResult.SampleBleResultFragment
 import com.custom.app.ui.scan.select.SelectScanFragment
 import com.custom.app.util.*
+import com.custom.app.util.Constants.KEY_SCAN_ID
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothClassicService
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothConfiguration
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService
 import kotlinx.android.synthetic.main.fragment_sample_ble.*
-import kotlinx.android.synthetic.main.fragment_sample_ble.progress
-import kotlinx.android.synthetic.main.layout_progress.*
 import org.parceler.Parcels
 import java.text.DateFormat
 import java.util.*
@@ -58,13 +54,13 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
     private var mService: UartService? = null
     private var mDevice: BluetoothDevice? = null
     private var mBtAdapter: BluetoothAdapter? = null
-//    private var messageListView: ListView? = null
-//    private var listAdapter: ArrayAdapter<String>? = null
-//    private var btnSend: Button? = null
-//    private var edtMessage: EditText? = null
     private val UUID_DEVICE = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")
     var bytedata = java.util.ArrayList<ByteArray>()
     var encodedData = java.util.ArrayList<String>()
+    lateinit var tvLocId: TextView
+    lateinit var etxtSampleID: EditText
+    lateinit var etxtTruckNo: EditText
+    lateinit var etxtQuantity: EditText
 
     @Inject
     lateinit var interactor: SampleBleInteractor
@@ -82,6 +78,7 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             return fragment
         }
     }
+
     override fun onAttach(context: Context) {
         (requireActivity().application as CustomApp).homeComponent.inject(this)
         super.onAttach(context)
@@ -91,66 +88,35 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
         val config = BluetoothConfiguration()
         config.bluetoothServiceClass = BluetoothClassicService::class.java //  BluetoothClassicService.class or BluetoothLeService.class
 
-
         config.context = requireActivity()
         config.bufferSize = 1024
         config.characterDelimiter = '\n'
         config.deviceName = "Bluetooth Sample"
         config.callListenersInMainThread = true
-
-        //config.uuid = null; // When using BluetoothLeService.class set null to show all devices on scan.
-
-        //config.uuid = null; // When using BluetoothLeService.class set null to show all devices on scan.
         config.uuid = UUID_DEVICE // For Classic
-
-
         config.uuidService = null // For BLE
-
         config.uuidCharacteristic = null // For BLE
-
-//        config.transport = BluetoothDevice.TRANSPORT_LE // Only for dual-mode devices
-
-        // For BLE
-        //        config.transport = BluetoothDevice.TRANSPORT_LE // Only for dual-mode devices
-
-        // For BLE
         config.connectionPriority = BluetoothGatt.CONNECTION_PRIORITY_HIGH // Automatically request connection priority just after connection is through.
 
-        //or request connection priority manually, mService.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_HIGH);
-
-        //or request connection priority manually, mService.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_HIGH);
         BluetoothService.init(config)
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_sample_ble, container, false)
+        tvLocId = view.findViewById(R.id.tvLocId)
+        etxtSampleID = view.findViewById(R.id.etSampleID)
+        etxtTruckNo = view.findViewById(R.id.etTruckNo)
+        etxtQuantity = view.findViewById(R.id.etQuantity)
         setStep(1)
 
-        viewModel = ViewModelProvider(this,
-                SampleBleViewModel.SampleBleViewModelFactory(interactor))[SampleBleViewModel::class.java]
-       // viewModel.sampleBleStateState.observe(::getLifecycle, ::setViewState)
+        viewModel = ViewModelProvider(this, SampleBleViewModel.SampleBleViewModelFactory(interactor))[SampleBleViewModel::class.java]
         viewModel.sampleBleStateState.observe(::getLifecycle, ::updateUI)
+        bleCode()
         return view
-    }
-
-    fun bleCode() {
-        mBtAdapter = BluetoothAdapter.getDefaultAdapter()
-        if (mBtAdapter == null) {
-            Toast.makeText(requireContext(), "Bluetooth is not available", Toast.LENGTH_LONG).show()
-//            finish()
-            return
-        }
-//        messageListView = findViewById<View>(R.id.listMessage) as ListView
-//        listAdapter = ArrayAdapter(this, R.layout.message_detail)
-//        messageListView.setAdapter(listAdapter)
-//        messageListView.setDivider(null)
-//        btnConnectDisconnect = findViewById<View>(R.id.btn_select) as Button
-//        btnSend = findViewById<View>(R.id.sendButton) as Button
-//        edtMessage = findViewById<View>(R.id.sendText) as EditText
-        service_init()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -166,7 +132,6 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
         spCommodity.onItemSelectedListener = this
         viewModel.getLocation()
         viewModel.getCommodity()
-        bleCode()
 
     }
 
@@ -176,12 +141,13 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             is ScreenState.Render -> processLoginState(screenState.renderState)
         }
     }
+
     private fun processLoginState(state: SampleBleState) {
         when (state) {
             SampleBleState.loading -> progress.visibility = View.VISIBLE
             SampleBleState.locationSuccess -> {
                 progress.visibility = View.GONE
-                val listArray=ArrayList<String>()
+                val listArray = ArrayList<String>()
                 for (i in 0 until viewModel.locationArray.size)
                     listArray.add(viewModel.locationArray[i].stateName.toString())
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listArray)
@@ -194,7 +160,7 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             }
             SampleBleState.commoditySuccess -> {
                 progress.visibility = View.GONE
-                val listArray=ArrayList<String>()
+                val listArray = ArrayList<String>()
                 for (i in 0 until viewModel.commodityArray.size)
                     listArray.add(viewModel.commodityArray[i].commodityName.toString())
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listArray)
@@ -227,58 +193,10 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
         progress.visibility = View.VISIBLE
     }
 
-    override fun onClick(view: View?) {
-        when (view) {
-            bnProceed -> {
-                if (!mBtAdapter!!.isEnabled()) {
-                    val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                    startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
-                } else {
-                    if (bnProceed!!.getText() == "Connect") {
-
-                        //Connect button pressed, open DeviceListActivity class, with popup windows that scan for devices
-                        val newIntent = Intent(requireActivity(), Devices::class.java)
-                        startActivityForResult(newIntent, REQUEST_SELECT_DEVICE)
-                    } else {
-                        //Disconnect button pressed
-                        if (mDevice != null) {
-                            mService!!.disconnect()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fun getResults(bleInfo: BLEInfo) {
-        showProgressBar()
-        showMessage("Connecting to BLE device")
-        val bleResult1 = BleResult("Commodity", bleInfo.commodity)
-        val bleResult2 = BleResult("Weight", etQuantity.text.toString())
-        val bleResult3 = BleResult("Mositure", bleInfo.moisture)
-        val bleResult4 = BleResult("Temperature", bleInfo.temperature)
-        val resultList = ArrayList<BleResult>()
-        resultList.add(bleResult1)
-        resultList.add(bleResult2)
-        resultList.add(bleResult3)
-        resultList.add(bleResult4)
-        Handler(Looper.getMainLooper()).postDelayed({
-
-            fragmentTransition(R.id.layout_content,
-                    SampleBleResultFragment.newInstance("ScanID", deviceId, resultList), Constants.SAMPLE_BLE_RESULT)
-        }, 3000)
-
-    }
-
     override fun onItemSelected(p0: AdapterView<*>?, spinner: View?, pos: Int, p3: Long) {
-        when(p0)
-        {
-            spLocation->{
-                tvLocId.text=viewModel.locationArray[pos].code
-//                when (pos) {
-//                    0 -> {
-//                    }
-//                }
+        when (p0) {
+            spLocation -> {
+                tvLocId.text = viewModel.locationArray[pos].code
             }
             spCommodity -> {
                 when (pos) {
@@ -292,14 +210,87 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
-    //UART service connected/disconnected
+    fun bleCode() {
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter()
+        if (mBtAdapter == null) {
+            Toast.makeText(requireContext(), "Bluetooth is not available", Toast.LENGTH_LONG).show()
+            return
+        }
+        service_init()
+    }
+
+    override fun onClick(view: View?) {
+        when (view) {
+            bnProceed -> {
+                if (!mBtAdapter!!.isEnabled()) {
+                    val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                    startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
+                } else {
+                    if (bnProceed!!.getText() == "Connect") {
+                        if (etxtSampleID.text.toString().length > 0){
+                            if (etxtTruckNo.text.toString().length > 0){
+//                                if (etxtQuantity.text.toString().length > 0){
+                                    val newIntent = Intent(requireActivity(), Devices::class.java)
+                                    newIntent.putExtra(KEY_SCAN_ID, scanId)
+                                    newIntent.putExtra(com.specx.device.util.Constants.KEY_DEVICE_ID, deviceId)
+                                    newIntent.putExtra("SampleId", tvLocId.text.toString() + etxtSampleID.text.toString())
+                                    newIntent.putExtra("TruckNumber", etxtTruckNo.text.toString())
+                                    newIntent.putExtra("Quantity", etxtQuantity.text.toString())
+
+                                    startActivity(newIntent)
+//                                }
+//                                else {
+//                                    showMessage("Please enter Quantity")
+//                                }
+                            }else{
+                                showMessage("Please enter truck number")
+                            }
+                        }else {
+                            showMessage("Please enter sample id")
+                        }
+
+
+                    } else {
+                        if (mDevice != null) {
+                            mService!!.disconnect()
+                        }
+                    }
+                }
+
+//                val newIntent = Intent(requireActivity(), UartMainActivity::class.java)
+//                newIntent.putExtra("ScanId", scanId)
+//                newIntent.putExtra("deviceId", deviceId)
+//                startActivity(newIntent)
+            }
+        }
+    }
+
+    fun getResults(bleInfo: BLEInfo) {
+        showProgressBar()
+        showMessage("Connecting to BLE device")
+        val bleResult1 = BleResult("Commodity", bleInfo.commodity)
+//        val bleResult2 = BleResult("Weight", etQuantity.text.toString())
+        val bleResult2 = BleResult("Mositure", bleInfo.moisture)
+//        val bleResult3 = BleResult("Temperature", bleInfo.temperature)
+        val resultList = ArrayList<BleResult>()
+        resultList.add(bleResult1)
+        resultList.add(bleResult2)
+//        resultList.add(bleResult3)
+//        resultList.add(bleResult4)
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            fragmentTransition(R.id.layout_content,
+                    SampleBleResultFragment.newInstance("ScanID", deviceId, resultList), Constants.SAMPLE_BLE_RESULT)
+        }, 3000)
+
+    }
+
     private val mServiceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, rawBinder: IBinder) {
             mService = (rawBinder as UartService.LocalBinder).getService()
             Log.d(TAG, "onServiceConnected mService= $mService")
             if (!mService!!.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth")
-//                finish()
             }
         }
 
@@ -319,11 +310,6 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
                     val currentDateTimeString = DateFormat.getTimeInstance().format(Date())
                     Log.d(TAG, "UART_CONNECT_MSG")
                     bnProceed!!.text = "Disconnect"
-//                    edtMessage!!.isEnabled = true
-//                    btnSend!!.isEnabled = true
-//                    (findViewById<View>(R.id.deviceName) as TextView).text = mDevice!!.name + " - ready"
-//                    listAdapter!!.add("[" + currentDateTimeString + "] Connected to: " + mDevice!!.name)
-//                    messageListView!!.smoothScrollToPosition(listAdapter!!.count - 1)
                     mState = UART_PROFILE_CONNECTED
                 })
             }
@@ -334,17 +320,11 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
                     val currentDateTimeString = DateFormat.getTimeInstance().format(Date())
                     Log.d(TAG, "UART_DISCONNECT_MSG")
                     bnProceed!!.text = "Connect"
-//                    edtMessage!!.isEnabled = false
-//                    btnSend!!.isEnabled = false
-//                    (findViewById<View>(R.id.deviceName) as TextView).text = "Not Connected"
-//                    listAdapter!!.add("[" + currentDateTimeString + "] Disconnected to: " + mDevice!!.name)
                     mState = UART_PROFILE_DISCONNECTED
-                    mService!!.close()
                     mService!!.close()
                     //setUiState();
                 })
             }
-
 
             //*********************//
             if (action == UartService.ACTION_GATT_SERVICES_DISCOVERED) {
@@ -368,12 +348,7 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
                 val bleReader = BLEInfoReader()
                 val bleInfo = bleReader.readBLEInfo(encodedData)
 
-                getResults(bleInfo)
-//                tvDevice!!.text = "Device " + bleInfo.machineId
-//                tvCommodity!!.text = "Commodity " + bleInfo.commodity
-//                tvHum!!.text = "Humidity " + bleInfo.moisture.toString() + " %"
-//                tvTemp!!.text = "Temperature " + bleInfo.temperature.toString() + " °C"
-//                tvWeight!!.text = "Weight " + bleInfo.weight.toString() + " Gram"
+//                getResults(bleInfo)
             }
             //*********************//
             if (action == UartService.DEVICE_DOES_NOT_SUPPORT_UART) {

@@ -32,7 +32,7 @@ class SampleBleInteractor(val userManager: UserManager) {
     }
 
     fun getCommodity(listener: OnSampleBleInteractorListener) {
-        val call = apiService.getCommodity("Bearer ${userManager.token}")
+        val call = apiService.getCommodityByCategory("Bearer ${userManager.token}", userManager.customerId)
         call.enqueue(object : Callback<ArrayList<CommodityResponse>> {
             override fun onResponse(call: Call<ArrayList<CommodityResponse>>, response: Response<ArrayList<CommodityResponse>>) {
                 when (response.code()) {

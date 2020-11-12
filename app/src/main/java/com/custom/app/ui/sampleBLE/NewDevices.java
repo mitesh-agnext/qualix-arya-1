@@ -1,12 +1,13 @@
-package com.custom.app.util;
+package com.custom.app.ui.sampleBLE;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,18 +21,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.custom.app.R;
+import com.custom.app.util.BitmapActivity;
+import com.custom.app.util.DeviceItemAdapter;
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothClassicService;
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothConfiguration;
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothDeviceDecorator;
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService;
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothStatus;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.BreakIterator;
+import java.util.Arrays;
 import java.util.UUID;
 
-public class Devices extends AppCompatActivity implements BluetoothService.OnBluetoothScanCallback, BluetoothService.OnBluetoothEventCallback, DeviceItemAdapter.OnAdapterItemClickListener {
+public class NewDevices extends AppCompatActivity implements BluetoothService.OnBluetoothScanCallback, BluetoothService.OnBluetoothEventCallback, DeviceItemAdapter.OnAdapterItemClickListener {
 
     private ProgressBar pgBar;
     private Menu mMenu;
@@ -41,15 +42,6 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
     private BluetoothAdapter mBluetoothAdapter;
     private Boolean mScanning = false;
 
-    Boolean stopWorker;
-    int readBufferPosition = 0;
-    Byte[] readBuffer;
-    Thread workerThread;
-    InputStream mmInputStream;
-    OutputStream mmOutputStream;
-    BluetoothDevice mmDevice;
-    BreakIterator mTime;
-    BluetoothSocket mmSocket;
     private UUID UUID_DEVICE = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
     @Override
@@ -122,11 +114,12 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
 
     @Override
     public void onDataRead(byte[] buffer, int length) {
+        Log.d(UartMainActivity.TAG, "onDataRead");
     }
 
     @Override
     public void onStatusChange(BluetoothStatus status) {
-
+        Log.d(UartMainActivity.TAG, "onStatusChange: $status");
         Toast.makeText(this, status.toString(), Toast.LENGTH_SHORT).show();
         if (status == BluetoothStatus.CONNECTED) {
             CharSequence colors[] = new CharSequence[]{"Try text", "Try picture"};
@@ -136,9 +129,9 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0) {
-//                                startActivity(new Intent(Devices.this, UartMainActivity.class));
+                                startActivity(new Intent(NewDevices.this, UartMainActivity.class));
                             } else {
-                                startActivity(new Intent(Devices.this, BitmapActivity.class));
+                                startActivity(new Intent(NewDevices.this, BitmapActivity.class));
                             }
                         }
                     }
@@ -150,19 +143,23 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
 
     @Override
     public void onDeviceName(String deviceName) {
+        Log.d(UartMainActivity.TAG, "onDeviceName: $deviceName");
     }
 
     @Override
     public void onToast(String message) {
+        Log.d(UartMainActivity.TAG, "onToast");
     }
 
     @Override
     public void onDataWrite(byte[] buffer) {
+        Log.d(UartMainActivity.TAG, "onDataWrite");
     }
 
     @Override
     public void onDeviceDiscovered(BluetoothDevice device, int rssi) {
 
+        Log.d(UartMainActivity.TAG, "onDeviceDiscovered: " + device.getName() + " - " + device.getAddress() + " - " + Arrays.toString(device.getUuids()));
         BluetoothDeviceDecorator dv = new BluetoothDeviceDecorator(device, rssi);
         int index = mAdapter.getDevices().indexOf(dv);
         if (index < 0) {
@@ -177,6 +174,7 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
 
     @Override
     public void onStartScan() {
+        Log.d(UartMainActivity.TAG, "onStartScan");
         mScanning = true;
         pgBar.setVisibility(View.VISIBLE);
         mMenu.findItem(R.id.action_scan).setTitle(R.string.action_stop);
@@ -184,6 +182,7 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
 
     @Override
     public void onStopScan() {
+        Log.d(UartMainActivity.TAG, "onStopScan");
         mScanning = false;
         pgBar.setVisibility(View.GONE);
         mMenu.findItem(R.id.action_scan).setTitle(R.string.action_scan);
@@ -202,5 +201,10 @@ public class Devices extends AppCompatActivity implements BluetoothService.OnBlu
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

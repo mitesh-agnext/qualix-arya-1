@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation files('libs\\print_lib_0.13.jar')
+    implementation project(path: ':BluetoothClassicLibrary')
 
     annotationProcessor "org.parceler:parceler:${parcelerVer}"
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVer}"

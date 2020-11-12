@@ -88,8 +88,7 @@ public class SelectScanFragment extends BaseFragment implements SelectScanView {
                 //TODO Move the fragment to BLE Input screen and skip the Qr screen
                 else if(deviceId == 7)
                 {
-                    replaceFragment(R.id.layout_content,
-                            SampleBleFragment.newInstance(scanId, deviceId, deviceName, new FarmerItem("X")), FARMER_SCAN_FRAGMENT);
+                    replaceFragment(R.id.layout_content, SampleBleFragment.newInstance(scanId, deviceId, deviceName, new FarmerItem("X")), FARMER_SCAN_FRAGMENT);
                 }
                 else {
                     replaceFragment(R.id.layout_content,

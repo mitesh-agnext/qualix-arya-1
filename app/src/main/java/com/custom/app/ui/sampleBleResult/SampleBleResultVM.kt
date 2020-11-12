@@ -16,7 +16,7 @@ class SampleBleResultVM (val sampleBleResultInteractor: SampleBleResultInteracto
         get() = _sampleBleResultState
 
     /**Forward Flow*/
-    fun postBleScan(request: HashMap<String, Any>)
+    fun postBleScan(request: HashMap<String, String>)
     {
         _sampleBleResultState.value =ScreenState.Render(SampleBleResultState.loading)
         sampleBleResultInteractor.postBleScan(request,this)
@@ -27,7 +27,9 @@ class SampleBleResultVM (val sampleBleResultInteractor: SampleBleResultInteracto
         _sampleBleResultState.value =ScreenState.Render(SampleBleResultState.postScanSuccess)
     }
 
-    override fun onPostScanFailure() {
+    var message =  "error"
+    override fun onPostScanFailure(msg: String) {
+        message = msg
         _sampleBleResultState.value =ScreenState.Render(SampleBleResultState.postScanFailure)
     }
 

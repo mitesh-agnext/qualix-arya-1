@@ -1,5 +1,6 @@
 package com.custom.app.ui.home
 
+import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
@@ -45,7 +46,6 @@ import com.custom.app.ui.logout.LogoutDialog
 import com.custom.app.ui.password.change.ChangePasswordFragment
 import com.custom.app.ui.permission.PermissionActivity
 import com.custom.app.ui.sample.SampleFragment
-import com.custom.app.ui.scan.list.detail.ScanDetailActivity
 import com.custom.app.ui.scan.list.history.ScanHistoryActivity
 import com.custom.app.ui.scan.list.scanFrg.ScanHistoryFragment
 import com.custom.app.ui.scan.select.EmptyFragment
@@ -53,7 +53,6 @@ import com.custom.app.ui.scan.select.SelectScanFragment
 import com.custom.app.ui.setting.SettingActivity
 import com.custom.app.ui.user.detail.UserDetailActivity
 import com.custom.app.ui.user.list.UserListActivity
-import com.custom.app.util.Constants
 import com.custom.app.util.Constants.*
 import com.custom.app.util.Permissions
 import com.data.app.db.table.ResultTable
@@ -98,10 +97,20 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
     var notificationdeviceId: Int? = null
     var notificationdeviceName: String? = null
     var toolbarTitle: TextView? = null
-
+    var ACTION_REQUEST_MULTIPLE_PERMISSION = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as CustomApp).homeComponent.inject(this)
         super.onCreate(savedInstanceState)
+
+        var pCheck = checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION")
+        pCheck += checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION")
+        pCheck += checkSelfPermission("Manifest.permission.BLUETOOTH_ADMIN")
+        pCheck += checkSelfPermission("Manifest.permission.BLUETOOTH")
+        if (pCheck != 0) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH), ACTION_REQUEST_MULTIPLE_PERMISSION)
+        }
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.includeAppbar.includeToolbar.toolbar)
@@ -333,10 +342,10 @@ class HomeActivity : BaseHome(), NavigationView.OnNavigationItemSelectedListener
             HomeDeviceState.SubscribeDeviceSuccess -> {
                 //TODO Adding Dummy item for BLE
                 if (userManager.customerType == "OPERATOR") {
-                    val bleItem= DeviceItem()
-                    bleItem.device_id=7
-                    bleItem.device_name="BLE"
-                    bleItem.device_count="1"
+                    val bleItem = DeviceItem()
+                    bleItem.device_id = 7
+                    bleItem.device_name = "BLE"
+                    bleItem.device_count = "1"
                     devices.add(bleItem)
                 }
                 devices.addAll(viewModel.homeList.value!!.devices!!)

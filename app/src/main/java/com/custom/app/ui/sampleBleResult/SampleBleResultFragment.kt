@@ -11,7 +11,6 @@ import com.base.app.ui.base.BaseFragment
 import com.custom.app.CustomApp
 import com.custom.app.R
 import com.custom.app.ui.base.ScreenState
-import com.custom.app.ui.sampleBLE.SampleBleState
 import com.custom.app.ui.scan.select.SelectScanFragment
 import com.custom.app.util.Constants
 import kotlinx.android.synthetic.main.fragment_sample_ble.*
@@ -24,9 +23,9 @@ class SampleBleResultFragment : BaseFragment(), View.OnClickListener {
     private var scanId: String? = null
     private var resultList: ArrayList<BleResult>? = null
     private lateinit var viewModel: SampleBleResultVM
+
     @Inject
     lateinit var interactor: SampleBleResultInteractor
-
 
     companion object {
         val KEY_SCAN_ID: String = "KEY_SCAN_ID"
@@ -44,23 +43,26 @@ class SampleBleResultFragment : BaseFragment(), View.OnClickListener {
             return fragment
         }
     }
+
     override fun onAttach(context: Context) {
         (requireActivity().application as CustomApp).homeComponent.inject(this)
         super.onAttach(context)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_sample_ble_result, container, false)
-        viewModel = ViewModelProvider(this,
-                SampleBleResultVM.SampleBleResultVMFactory(interactor))[SampleBleResultVM::class.java]
+        viewModel = ViewModelProvider(this, SampleBleResultVM.SampleBleResultVMFactory(interactor))[SampleBleResultVM::class.java]
         viewModel.sampleBleResultState.observe(::getLifecycle, ::updateUI)
         return view
     }
+
     private fun updateUI(screenState: ScreenState<SampleBleResultState>?) {
         when (screenState) {
             ScreenState.Loading -> progress.visibility = View.VISIBLE
             is ScreenState.Render -> setViewState(screenState.renderState)
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
@@ -77,16 +79,21 @@ class SampleBleResultFragment : BaseFragment(), View.OnClickListener {
     fun setData() {
         rvResult.adapter = SampleBleAdapter(requireContext(), resultList!!)
         rvResult.layoutManager = LinearLayoutManager(requireContext())
-        tvToken.text="Token: ${generateToken()}"
+        tvToken.text = "Token: ${generateToken()}"
     }
 
     private fun setViewState(state: SampleBleResultState) {
         when (state) {
-            SampleBleResultState.loading -> {}
-            SampleBleResultState.postScanSuccess->{}
-            SampleBleResultState.postScanFailure->{}
-        }}
-            private fun setStep(step: Int) {
+            SampleBleResultState.loading -> {
+            }
+            SampleBleResultState.postScanSuccess -> {
+            }
+            SampleBleResultState.postScanFailure -> {
+            }
+        }
+    }
+
+    private fun setStep(step: Int) {
         val fragment = parentFragmentManager.findFragmentByTag(Constants.SELECT_SCAN_FRAGMENT)
         if (fragment != null) {
             (fragment as SelectScanFragment).setStep(step)
@@ -101,7 +108,7 @@ class SampleBleResultFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view) {
             bnDone -> {
-                val request= HashMap<String, Any>()
+                val request = HashMap<String, String>()
                 request["sample_id"] = "12"
                 request["client_id"] = "12"
                 request["commodity_name"] = "12"

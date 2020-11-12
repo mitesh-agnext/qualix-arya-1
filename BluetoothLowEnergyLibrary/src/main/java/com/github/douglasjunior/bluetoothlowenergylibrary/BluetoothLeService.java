@@ -385,7 +385,6 @@ public class BluetoothLeService extends BluetoothService {
             });
 
         btAdapter.stopLeScan(mLeScanCallback);
-
         btAdapter.startLeScan(mLeScanCallback);
 
         runOnMainThread(mStopScanRunnable, SCAN_PERIOD);

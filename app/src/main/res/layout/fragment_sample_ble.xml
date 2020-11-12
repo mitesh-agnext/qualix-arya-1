@@ -60,7 +60,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,7 +113,6 @@
                 android:id="@+id/etSampleID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sample_id"
                 android:inputType="number"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -143,7 +143,6 @@
                 android:id="@+id/etTruckNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_truck_no"
                 android:inputType="textCapSentences"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -154,7 +153,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginLeft="8dp">
+            android:layout_marginLeft="8dp"
+            android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,7 +169,6 @@
                 android:id="@+id/etQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_quantity"
                 android:inputType="number"
                 android:imeOptions="actionDone"
                 android:singleLine="true"
@@ -189,7 +188,7 @@
         android:id="@+id/bnProceed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/proceed"
+        android:text="Connect"
         android:textStyle="bold"
         android:padding="10dp"
         />
