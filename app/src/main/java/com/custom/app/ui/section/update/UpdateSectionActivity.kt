@@ -246,11 +246,11 @@ class UpdateSectionActivity : BaseActivity(), OnMapReadyCallback, AdapterView.On
         if (data != null)
             when (requestCode) {
                 Constants.REQUEST_BOUNDARY_GEO_PLOTING -> {
-                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)
+                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)!!
                     addFieldOnMap(points)
                 }
                 Constants.REQUEST_BOUNDARY_GEO_FENCING -> {
-                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)
+                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)!!
                     addFieldOnMap(points)
                 }
             }

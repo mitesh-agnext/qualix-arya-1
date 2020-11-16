@@ -242,12 +242,12 @@ class AddSectionActivity : BaseActivity(), OnMapReadyCallback, AdapterView.OnIte
             when (requestCode) {
                 Constants.REQUEST_BOUNDARY_GEO_PLOTING -> {
                     points.clear()
-                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)
+                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)!!
                     addFieldOnMap(points)
                 }
                 Constants.REQUEST_BOUNDARY_GEO_FENCING -> {
                     points.clear()
-                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)
+                    points = data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)!!
                     addFieldOnMap(points)
                 }
             }

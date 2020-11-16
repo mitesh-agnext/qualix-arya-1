@@ -237,10 +237,10 @@ class Devices : BaseActivity(), OnBluetoothScanCallback, OnBluetoothEventCallbac
             //*********************//
             if (action == UartService.ACTION_DATA_AVAILABLE) {
                 val txValue = intent.getByteArrayExtra(UartService.EXTRA_DATA)
-                bytedata.add(txValue)
+                bytedata.add(txValue!!)
                 runOnUiThread {
                     try {
-                        val text = String(txValue, charset("UTF-8"))
+                        val text = String(txValue!!, charset("UTF-8"))
                         val currentDateTimeString = DateFormat.getTimeInstance().format(Date())
                         encodedData.add(encodeHexString(txValue))
                     } catch (e: Exception) {

@@ -186,10 +186,10 @@ class CustomerListActivity : AppCompatActivity(), View.OnClickListener, Customer
         val etFeedback = dialog.findViewById(R.id.etFeedback) as EditText
         val btSubmit = dialog.findViewById(R.id.btSubmit) as TextView
         val btCancel = dialog.findViewById(R.id.btCancel) as TextView
-        val params: ViewGroup.LayoutParams = dialog.window.attributes
+        val params: ViewGroup.LayoutParams = dialog.window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
-        dialog.window.attributes = params as WindowManager.LayoutParams?
+        dialog.window!!.attributes = params as WindowManager.LayoutParams?
         btSubmit.setOnClickListener {
 
             viewModel.approveCustomer(pos, etFeedback.text.toString())

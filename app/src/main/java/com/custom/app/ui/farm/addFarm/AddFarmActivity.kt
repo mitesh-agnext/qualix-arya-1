@@ -274,7 +274,7 @@ class AddFarmActivity : BaseActivity(), View.OnClickListener, AdapterView.OnItem
             REQUEST_BOUNDARY_GEO_PLOTING -> {
                 if (data != null) {
                     points =
-                            data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)
+                            data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)!!
                     Log.e("point", "$points")
                     addFieldOnMap(points)
                 }
@@ -282,7 +282,7 @@ class AddFarmActivity : BaseActivity(), View.OnClickListener, AdapterView.OnItem
             REQUEST_BOUNDARY_GEO_FENCING -> {
                 if (data != null) {
                     points =
-                            data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)
+                            data!!.getParcelableArrayListExtra(Constants.KEY_POINTS)!!
                     addFieldOnMap(points)
 
                 }

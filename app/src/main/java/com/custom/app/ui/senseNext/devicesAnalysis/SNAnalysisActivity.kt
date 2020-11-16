@@ -47,7 +47,7 @@ class SNAnalysisActivity : BaseActivity(), OnChartValueSelectedListener {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
-        deviceId = intent.getStringExtra("deviceId")
+        deviceId = intent.getStringExtra("deviceId")!!
         viewModel = ViewModelProvider(this,
                 SNAnalysisVMFactory(interactor))[SNAnalysisVM::class.java]
         viewModel.analysisState.observe(::getLifecycle, ::setViewState)

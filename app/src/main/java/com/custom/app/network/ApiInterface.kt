@@ -1,13 +1,11 @@
 package com.custom.app.network
 
-import com.custom.app.data.model.bleScan.BleScanResponse
-import com.custom.app.data.model.bleScan.CommodityResponse
 import com.custom.app.data.model.bleScan.LocationResponse
+import com.custom.app.data.model.bleScan.response.CommodityVarietyResponse
 import com.custom.app.data.model.country.CityRes
 import com.custom.app.data.model.country.CountryRes
 import com.custom.app.data.model.country.StateRes
 import com.custom.app.data.model.payment.PaymentHistoryRes
-import com.custom.app.data.model.quantity.CenterDetailRes
 import com.custom.app.data.model.role.RoleRes
 import com.custom.app.data.model.scanhistory.ScanData
 import com.custom.app.data.model.scanhistory.ScanHistoryResT
@@ -55,11 +53,9 @@ import com.custom.app.ui.farm.farmList.ResAllFarms
 import com.custom.app.ui.farm.farmList.ResBasic
 import com.custom.app.ui.home.SubscribedDeviceRes
 import com.custom.app.ui.qualityAnalysis.ResAvgScanData
-import com.custom.app.ui.qualityAnalysis.ResUserScans
 import com.custom.app.ui.sample.ScanDetailRes
 import com.custom.app.ui.user.list.UserDataRes
 import com.google.gson.JsonObject
-import io.reactivex.Single
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -554,6 +550,7 @@ interface ApiInterface {
     @GET("/api/location/{locationId}")
     fun particularLocation(@Header("authorization") authorization: String,  @Path("locationId") locationId: String) :Call<LocationResponse>
 
-    @GET("/api/commodity?commodityCategoryId=3")
-    fun getCommodityByCategory(@Header("authorization") authorization: String, @Query("customer_id") customerId: String):Call<ArrayList<CommodityResponse>>
+//    @GET("/api/commodity?commodityCategoryId=3")
+    @GET("/api/commodity/by-device?device_id=4")
+    fun getCommodityByCategory(@Header("authorization") authorization: String, @Query("customer_id") customerId: String):Call<CommodityVarietyResponse>
 }

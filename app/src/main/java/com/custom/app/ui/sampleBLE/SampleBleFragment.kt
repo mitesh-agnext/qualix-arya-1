@@ -20,6 +20,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.base.app.ui.base.BaseFragment
 import com.custom.app.CustomApp
 import com.custom.app.R
+import com.custom.app.data.model.bleScan.response.SensorData
+import com.custom.app.data.model.bleScan.response.SensorDataRepository
 import com.custom.app.data.model.farmer.upload.FarmerItem
 import com.custom.app.ui.base.ScreenState
 import com.custom.app.ui.sampleBleResult.BleResult
@@ -130,6 +132,7 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
         bnProceed.setOnClickListener(this)
         spLocation.onItemSelectedListener = this
         spCommodity.onItemSelectedListener = this
+        spVariety.onItemSelectedListener = this
         viewModel.getLocation()
         viewModel.getCommodity()
 
@@ -161,11 +164,19 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             SampleBleState.commoditySuccess -> {
                 progress.visibility = View.GONE
                 val listArray = ArrayList<String>()
+                val varietyArray = ArrayList<String>()
                 for (i in 0 until viewModel.commodityArray.size)
                     listArray.add(viewModel.commodityArray[i].commodityName.toString())
+                for (i in 0 until viewModel.varietyArray.size)
+                    varietyArray.add(viewModel.varietyArray[i].varietyName.toString())
+
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listArray)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spCommodity.adapter = adapter
+
+                val varietyAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, varietyArray)
+                varietyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spVariety.adapter = varietyAdapter
             }
             SampleBleState.commodityFailure -> {
                 progress.visibility = View.GONE
@@ -227,25 +238,25 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
                     startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
                 } else {
                     if (bnProceed!!.getText() == "Connect") {
-                        if (etxtSampleID.text.toString().length > 0){
-                            if (etxtTruckNo.text.toString().length > 0){
+                        if (etxtSampleID.text.toString().length > 0) {
+                            if (etxtTruckNo.text.toString().length > 0) {
 //                                if (etxtQuantity.text.toString().length > 0){
-                                    val newIntent = Intent(requireActivity(), Devices::class.java)
-                                    newIntent.putExtra(KEY_SCAN_ID, scanId)
-                                    newIntent.putExtra(com.specx.device.util.Constants.KEY_DEVICE_ID, deviceId)
-                                    newIntent.putExtra("SampleId", tvLocId.text.toString() + etxtSampleID.text.toString())
-                                    newIntent.putExtra("TruckNumber", etxtTruckNo.text.toString())
-                                    newIntent.putExtra("Quantity", etxtQuantity.text.toString())
+                                val newIntent = Intent(requireActivity(), Devices::class.java)
+                                newIntent.putExtra(KEY_SCAN_ID, scanId)
+                                newIntent.putExtra(com.specx.device.util.Constants.KEY_DEVICE_ID, deviceId)
+                                newIntent.putExtra("SampleId", tvLocId.text.toString() + etxtSampleID.text.toString())
+                                newIntent.putExtra("TruckNumber", etxtTruckNo.text.toString())
+                                newIntent.putExtra("Quantity", etxtQuantity.text.toString())
 
-                                    startActivity(newIntent)
+                                startActivity(newIntent)
 //                                }
 //                                else {
 //                                    showMessage("Please enter Quantity")
 //                                }
-                            }else{
+                            } else {
                                 showMessage("Please enter truck number")
                             }
-                        }else {
+                        } else {
                             showMessage("Please enter sample id")
                         }
 
@@ -333,10 +344,10 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             //*********************//
             if (action == UartService.ACTION_DATA_AVAILABLE) {
                 val txValue = intent.getByteArrayExtra(UartService.EXTRA_DATA)
-                bytedata.add(txValue)
+                bytedata.add(txValue!!)
                 activity!!.runOnUiThread(Runnable {
                     try {
-                        val text = String(txValue, charset("UTF-8"))
+                        val text = String(txValue!!, charset("UTF-8"))
                         val currentDateTimeString = DateFormat.getTimeInstance().format(Date())
 //                        listAdapter!!.add("[$currentDateTimeString] RX: $text")
 //                        messageListView!!.smoothScrollToPosition(listAdapter!!.count - 1)
@@ -391,6 +402,34 @@ class SampleBleFragment : BaseFragment(), View.OnClickListener, AdapterView.OnIt
             val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
         }
+
+
+        Thread {
+            //Do your database´s operations here
+            var repository: SensorDataRepository = SensorDataRepository(context)
+//            var data1: SensorData = SensorData("NF320002", 183, "Groundnuts", "20", "30", "DL-2S-0210");
+//            var data2: SensorData = SensorData("NF320003", 183, "Groundnuts", "20", "30", "DL-2S-0210");
+//            var data3: SensorData = SensorData("NF320004", 183, "Groundnuts", "20", "30", "DL-2S-0210");
+//            var data4: SensorData = SensorData("NF320005", 183, "Groundnuts", "20", "30", "DL-2S-0210");
+//            var data5: SensorData = SensorData("NF320006", 183, "Groundnuts", "20", "30", "DL-2S-0210");
+//            var data6: SensorData = SensorData("NF320007", 183, "Groundnuts", "20", "30", "DL-2S-0210");
+//            repository.insert(data1)
+//            repository.insert(data2)
+//            repository.insert(data3)
+//            repository.insert(data4)
+//            repository.insert(data5)
+//            repository.insert(data6)
+            val list = repository.allSensorData
+            Log.d("TestApp", list.size.toString())
+            if (list.size > 0) {
+                var d:SensorData=list[0]
+                viewModel.insertSensorDataToServer(d,repository)
+//                d.isSynchronized=1
+//                repository.updateData(d)
+            }
+
+//            System.out.println(list)
+        }.start()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

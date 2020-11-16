@@ -208,7 +208,7 @@ class FlcFragmnet : Fragment(), View.OnClickListener, AdapterHorizontalPick.Hori
             }
         }
         etImageNumber!!.isClickable = true
-        myDialog = Dialog(activity);
+        myDialog = Dialog(requireContext());
 
         return view
 
@@ -652,7 +652,7 @@ class FlcFragmnet : Fragment(), View.OnClickListener, AdapterHorizontalPick.Hori
                 if (requestCode === PICK_IMAGE) {
                     var selectedImageUri = data!!.data
                     // Get the path from the Uri
-                    val path = getPathFromURI(selectedImageUri)
+                    val path = getPathFromURI(selectedImageUri!!)
 
                     if (path != null) {
                         val f = File(path)
@@ -829,7 +829,7 @@ class FlcFragmnet : Fragment(), View.OnClickListener, AdapterHorizontalPick.Hori
     fun createImageFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir: File = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir: File = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
         val image = File.createTempFile(imageFileName, ".jpg", storageDir)
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.absolutePath

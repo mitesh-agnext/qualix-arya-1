@@ -198,11 +198,11 @@ class FarmDetailActivity : BaseActivity(), View.OnClickListener, OnMapReadyCallb
         if (data != null)
             when (requestCode) {
                 REQUEST_BOUNDARY_GEO_PLOTING -> {
-                    val points: ArrayList<LatLng> = data.getParcelableArrayListExtra(KEY_POINTS)
+                    val points: ArrayList<LatLng> = data.getParcelableArrayListExtra(KEY_POINTS)!!
                     Log.e("points", "${points.toString()}")
                 }
                 REQUEST_BOUNDARY_GEO_FENCING -> {
-                    val points: ArrayList<LatLng> = data.getParcelableArrayListExtra(KEY_POINTS)
+                    val points: ArrayList<LatLng> = data.getParcelableArrayListExtra(KEY_POINTS)!!
                     Log.e("points", "${points.toString()}")
 
                 }

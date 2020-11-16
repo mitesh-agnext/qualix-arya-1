@@ -18,4 +18,5 @@
     <string name="payment_history">Payment History</string>
     <string name="payment">Payment</string>
     <string name="commodity">Commodity</string>
+<!--    <string name="variety">Variety</string>-->
 </resources>
